@@ -1,0 +1,40 @@
+.background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.background__container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #FFF;
+}
+
+.background__image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  display: block;
+  background-repeat: no-repeat;
+  transition: opacity 1.5s ease-in-out;
+  -moz-transition: opacity 1.5s ease-in-out;
+  -webkit-transition: opacity 1.5s ease-in-out;
+  opacity: 0;
+}
+
+.background__image--visible {
+  z-index: 2;
+  opacity: 1;
+}
+
+.background__image--hidden {
+  z-index: 3;
+  opacity: 0;
+}
