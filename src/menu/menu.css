@@ -1,0 +1,93 @@
+.menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 0 5%;
+  z-index: 6;
+}
+
+.menu--footer {
+  text-align: right;
+}
+
+.menu--hgroup {
+  background-color: rgba(255,255,255,0.7);
+  overflow: hidden;
+  position: relative;
+}
+
+.menu h1 {
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  position: relative;
+  z-index: 5;
+}
+
+.menu--logo {
+  background-color: #770B62;
+  font-family: 'Oranienbaum', serif;
+  text-align: center;
+  line-height: 40px;
+  color: #FFF;
+  display: inline-block;
+  width: 120px;
+  font-weight: 500;
+  letter-spacing: 5px;
+}
+
+.menu--logo image {
+  width: 100%;
+  margin-top: 5px;
+  display: inline-block;
+}
+
+.menu--tabs {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: center;
+  border: none;
+}
+
+.menu--tabs li {
+  float: none;
+  display: inline-block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 400;
+  margin: 0 18.5px;
+}
+
+.menu--tabs li a {
+  border-radius: 0;
+  border: none;
+  padding: 0;
+  line-height: 52px;
+  display: block;
+  color: #353535;
+}
+
+.menu--tabs li.active {
+  background-color: inherit;
+  border: none;
+  color: #770B62;
+}
+
+.menu--nav {
+  float: none;
+  clear: both;
+  text-align: center;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.menu--button { 
+  display: none;
+}

@@ -34,7 +34,7 @@ export default class BackgroundSlider extends Component {
     const imagesList = [image1, image2, image3, image4, image5, image6].map((img, index) => {
       let imageClass = 'background__image background__image';
       imageClass += activeIndex === index ? '--visible' : '--hidden';
-      return (<div className={imageClass} style={{backgroundImage: `url(${img})`}}></div>);
+      return (<div className={imageClass} style={{backgroundImage: `url(${img})`}} key={index}></div>);
     })
 
     return (
