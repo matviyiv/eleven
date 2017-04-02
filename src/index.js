@@ -9,9 +9,8 @@ import { Route, Router, Switch } from 'react-router'
 
 import {appReducer} from './reducers' // Or wherever you keep your reducers
 
+import './index.css';
 import App from './App';
-import './css/bootstrap.min.css';
-import './css/index.css';
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory()
