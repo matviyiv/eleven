@@ -8,15 +8,15 @@ export default class Menu extends Component {
     return (
 <header role="header">
   <hgroup> 
-    <h1> <a href="#" title="eleven">
-      <Link to="/home" className="menu--logo"><image src={logo}/></Link>
-    </a> </h1>
+    <h1>
+      <Link to="/" className="menu--logo"><img src={logo}/></Link>
+     </h1>
     <nav role="nav" id="header-nav" className="nav navy">
       <ul className="nav nav-tabs">
-        <li className="active"><a data-toggle="tab" href="#home" title="Головна">Головна</a></li>
+        <li className="active"><Link to="/" title="Головна">Головна</Link></li>
         <li><a data-toggle="tab" href="#menu1" title="Про нас">Про нас</a></li>
         <li><a data-toggle="tab" href="#menu2" title="Підписатись">Підписатись</a></li>
-        <li><a data-toggle="tab" href="#menu3" title="Контакти">Контакти</a></li>
+        <li><Link to="/contacts"  title="Контакти">Контакти</Link></li>
       </ul>
       <div role="socil-icons" className="mobile-social">
         <li><a href="#" target="_blank" title="twitter"><i className="fa fa-twitter" aria-hidden="true"></i></a></li>

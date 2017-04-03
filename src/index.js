@@ -5,12 +5,21 @@ import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 
 import createHistory from 'history/createBrowserHistory'
-import { Route, Router, Switch } from 'react-router'
+// import {  } from 'react-router';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom'
 
 import {appReducer} from './reducers' // Or wherever you keep your reducers
 
 import './index.css';
 import App from './App';
+
+import Main from './containers/main/Main';
+import Contacts from './containers/contacts/Contacts';
+
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory()
@@ -29,8 +38,10 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Switch>
-        <Route path="/home" component={App}/>
-        <Route path="/app" component={()=>{return <div>yooooooo</div>}}/>
+        <App>
+          <Route exact={true} path="/" component={Main}/>
+          <Route path="/contacts" component={Contacts}/>
+        </App>
       </Switch>
     </Router>
   </Provider>,

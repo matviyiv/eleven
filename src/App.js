@@ -12,6 +12,7 @@ class App extends Component {
       <div className="app">
         <BackgroundSlider/>
         <div className="app-mask"></div>
+        {this.props.children}
         <Menu/>
       </div>
     );
