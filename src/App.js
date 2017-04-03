@@ -12,7 +12,11 @@ class App extends Component {
       <div className="app">
         <BackgroundSlider/>
         <div className="app-mask"></div>
-        {this.props.children}
+         <div className="container"> 
+            <div className="tab-content text-center"> 
+             {this.props.children}
+            </div>
+         </div>
         <Menu/>
       </div>
     );

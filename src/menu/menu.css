@@ -70,7 +70,7 @@ body, img {
 
 }
 
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video, input, main {
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, summary, time, mark, audio, video, input, main {
 
   -webkit-box-sizing: border-box;
 
@@ -90,7 +90,7 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 
 }
 
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, img, main {
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, img, main {
 
   display: block
 
@@ -253,26 +253,6 @@ article[role="countdown"].countdown-pan > p{ text-transform:uppercase; font-weig
 article header.page-title h2{ text-align:center;font-family: 'Oranienbaum', serif; text-transform:uppercase; font-size:24px; line-height:26px; color:#353535; font-weight:400; letter-spacing:3px; position:relative; margin-bottom:36px; padding:0; margin-top:0}
 
 article header.page-title h2:after{ content:""; display:block; width:98px; height:3px; position:absolute; left:0; right:0; bottom:-12px; margin:0 auto; background-color:#770B62}
-
-/*===== Introduction ===*/
-
-article[role="introduction"].introduction-pan{ padding-top:17.6%}
-
-article[role="introduction"].introduction-pan p{ letter-spacing:1px; line-height:18px; font-weight:300}
-
-article[role="introduction"].introduction-pan ul{ margin:0; padding:0; text-align:center; padding-top:50px;}
-
-article[role="introduction"].introduction-pan ul > li{ display:inline-block; margin:0 25px}
-
-article[role="introduction"].introduction-pan ul > li,article[role="introduction"].introduction-pan ul > li > i,article[role="introduction"].introduction-pan ul > li > h6,article[role="subscribe"].subscribe-pan form label,article[role="subscribe"].subscribe-pan form label i{transition-delay: 0s;transition-duration: 0.6s;transition-property: all;transition-timing-function: ease;}
-
-article[role="introduction"].introduction-pan ul > li > i{ font-size:26px; padding-bottom:18px}
-
-article[role="introduction"].introduction-pan ul > li > h6{ font-weight:700; font-size:12px; line-height:13px; text-transform:uppercase; letter-spacing:2px}
-
-article[role="introduction"].introduction-pan ul > li > p{ font-size:12px; line-height:18px; letter-spacing:inherit; padding-top:5px}
-
-article[role="introduction"].introduction-pan ul > li:hover i{ color:#770B62}
 
 /*===== Subscribe ===*/
 

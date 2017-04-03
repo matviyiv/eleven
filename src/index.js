@@ -18,6 +18,7 @@ import './index.css';
 import App from './App';
 
 import Main from './containers/main/Main';
+import Whywe from './containers/whywe/Whywe';
 import Contacts from './containers/contacts/Contacts';
 
 
@@ -40,6 +41,7 @@ ReactDOM.render(
       <Switch>
         <App>
           <Route exact={true} path="/" component={Main}/>
+          <Route path="/whywe" component={Whywe}/>
           <Route path="/contacts" component={Contacts}/>
         </App>
       </Switch>
