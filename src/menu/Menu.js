@@ -14,8 +14,8 @@ export default class Menu extends Component {
     <nav role="nav" id="header-nav" className="nav navy">
       <ul className="nav nav-tabs">
         <li className="active"><Link to="/" title="Головна">Головна</Link></li>
-        <li><Link to="/whywe"title="Про нас">Чому ми</Link></li>
-        <li><a data-toggle="tab" href="#menu2" title="Підписатись">Послуги</a></li>
+        <li><Link to="/whywe"title="Чому ми">Чому ми</Link></li>
+        <li><Link to="/services" title="Послуги">Послуги</Link></li>
         <li><Link to="/contacts"  title="Контакти">Контакти</Link></li>
       </ul>
       <div role="socil-icons" className="mobile-social">

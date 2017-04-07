@@ -19,6 +19,7 @@ import App from './App';
 
 import Main from './containers/main/Main';
 import Whywe from './containers/whywe/Whywe';
+import Services from './containers/services/Services';
 import Contacts from './containers/contacts/Contacts';
 
 
@@ -43,6 +44,7 @@ ReactDOM.render(
           <Route exact={true} path="/" component={Main}/>
           <Route path="/whywe" component={Whywe}/>
           <Route path="/contacts" component={Contacts}/>
+          <Route path="/services" component={Services}/>
         </App>
       </Switch>
     </Router>
