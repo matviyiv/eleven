@@ -243,55 +243,6 @@ article header.page-title h2{ text-align:center;font-family: 'Oranienbaum', seri
 
 article header.page-title h2:after{ content:""; display:block; width:98px; height:3px; position:absolute; left:0; right:0; bottom:-12px; margin:0 auto; background-color:#770B62}
 
-/*===== Subscribe ===*/
-
-article[role="subscribe"].subscribe-pan{ padding-top:22.6%}
-
-article[role="subscribe"].subscribe-pan form{width:429px; margin:0 auto; display:block; overflow:hidden; padding-top:5px; padding-bottom:10px}
-
-article[role="subscribe"].subscribe-pan form input[type="email"]{ display:block; width:369px; height:50px; outline:none; padding:0 10px; border:1px solid #353535; background-color: inherit; font-size:15px; line-height:16px; color:#353535; font-weight:300; float:left}
-
-article[role="subscribe"].subscribe-pan form label{ float:right; width:60px; height:50px; position:relative}
-
-article[role="subscribe"].subscribe-pan form label input{ font-size:0; display:block; border:none; outline:none; cursor:pointer;width:60px; height:50px; background-color:#35373e}
-
-article[role="subscribe"].subscribe-pan form label i { position:absolute; left:0; right:0; top:0; bottom:0; margin:auto; font-size:24px; color:#babbbd; cursor:pointer; line-height:50px}
-
-article[role="subscribe"].subscribe-pan form label:hover input{ background-color:#770B62}
-
-article[role="subscribe"].subscribe-pan form label:hover i{ color:#FFF}
-
-article[role="subscribe"].subscribe-pan form ::-webkit-input-placeholder { color:#353535; }
-
-article[role="subscribe"].subscribe-pan form ::-moz-placeholder { color:#353535; } /* firefox 19+ */
-
-article[role="subscribe"].subscribe-pan form :-ms-input-placeholder { color:#353535; } /* ie */
-
-article[role="subscribe"].subscribe-pan form input:-moz-placeholder { color:#353535; }
-
-article[role="subscribe"].subscribe-pan > p{ font-size:13px; letter-spacing:1px; font-weight:300}
-
-.error_message{ color:#770B62}
-
-#success_page h3,#success_page p{color:#60ca6f }
-
-/*===== Contact ===*/
-
-article[role="contact"].contact-pan{ padding-top:22.6%}
-
-article[role="contact"].contact-pan h3{ font-size:30px; line-height:32px; font-weight:700}
-
-article[role="contact"].contact-pan h3 > a{ color:#353535; text-decoration:none}
-
-article[role="contact"].contact-pan ul{ text-align:center; list-style:none; padding:0; margin:0; padding-top:8px}
-
-article[role="contact"].contact-pan ul > li{ display:inline-block; font-size:19px; line-height:20px; margin:0 4px}
-
-article[role="contact"].contact-pan ul > li i{ padding-right:3px}
-
-article[role="contact"].contact-pan ul > li > a{ color:#353535;text-decoration:none}
-
-article[role="contact"].contact-pan a:hover{ color:#770B62}
 
 
 

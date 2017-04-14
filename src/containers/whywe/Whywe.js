@@ -17,7 +17,7 @@ export default class Whywe extends Component {
 		            </li>
 		            <li> <i className="fa fa-coffee" aria-hidden="true"></i>
 		              <h6>Затишок</h6>
-		              <p>Відчуйте легкість та комфорт<br/>
+		              <p>Відчуй легкість та комфорт<br/>
 		                під час свого візиту <br/> до нас.</p>
 		            </li>
 		            <li> <i className="fa fa-heart" aria-hidden="true"></i>
