@@ -9,16 +9,18 @@
     <link async="" rel="stylesheet" href="%PUBLIC_URL%/css/bootstrap.min.css">
     <link async="" rel="stylesheet" href="%PUBLIC_URL%/css/responsive.css">
     <link async="" rel="stylesheet" href="%PUBLIC_URL%/css/font-awesome.min.css">
-    <!--
-      Notice the use of %PUBLIC_URL% in the tag above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
     <title>Eleven.lviv.ua</title>
+    <script src="https://www.gstatic.com/firebasejs/3.7.8/firebase.js"></script>
+    <script>
+      firebase.initializeApp({
+        apiKey: "AIzaSyB_UMGTtBFm5peIvZr-67dbNBCoUs4tRbg",
+        authDomain: "eleven-6f723.firebaseapp.com",
+        databaseURL: "https://eleven-6f723.firebaseio.com",
+        projectId: "eleven-6f723",
+        storageBucket: "eleven-6f723.appspot.com",
+        messagingSenderId: "772347263433"
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>

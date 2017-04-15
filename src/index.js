@@ -1,18 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
+import thunkMiddleware from 'redux-thunk'
 
 import createHistory from 'history/createBrowserHistory'
-// import {  } from 'react-router';
 import {
   BrowserRouter as Router,
   Route,
   Switch
 } from 'react-router-dom'
 
-import {appReducer} from './reducers' // Or wherever you keep your reducers
+import {appReducer} from './flux/reducers'
 
 import './index.css';
 import App from './App';
@@ -22,16 +22,17 @@ import Whywe from './containers/whywe/Whywe';
 import Services from './containers/services/Services';
 import Contacts from './containers/contacts/Contacts';
 
+// Booking
+import Step1 from './containers/booking/Step1';
 
-// Create a history of your choosing (we're using a browser history in this case)
+
 const history = createHistory()
 
-// Add the reducer to your store on the `router` key
-// Also apply our middleware for navigating
-const store = createStore(
-  combineReducers({
-    appReducer
-  }))
+const reducer = combineReducers({ app: appReducer });
+const createStoreWithMiddleware = applyMiddleware(
+    thunkMiddleware // lets us dispatch() functions
+  )(createStore);
+const store = createStoreWithMiddleware(reducer);
 
 // Now you can dispatch navigation actions from anywhere!
 // store.dispatch(push('/foo'))
@@ -45,6 +46,7 @@ ReactDOM.render(
           <Route path="/whywe" component={Whywe}/>
           <Route path="/contacts" component={Contacts}/>
           <Route path="/services" component={Services}/>
+          <Route path="/booking/step1" component={Step1}/>
         </App>
       </Switch>
     </Router>

@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import BackgroundSlider from './background-slider/BackgroundSlider';
 import Menu from './menu/Menu';
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
       <div className="app">
@@ -29,13 +27,3 @@ class App extends Component {
         </p>
         <Link to="/app">App</Link>
         */
-
-function mapStateToProps(state) {
-  return { app: state.reducers };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);

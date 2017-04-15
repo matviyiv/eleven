@@ -9,7 +9,7 @@ export default class Menu extends Component {
 <header role="header">
   <hgroup> 
     <h1>
-      <Link to="/" className="menu--logo"><img src={logo}/></Link>
+      <Link to="/booking/step1" className="menu--logo"><img src={logo}/></Link>
      </h1>
     <nav role="nav" id="header-nav" className="nav navy">
       <ul className="nav nav-tabs">
