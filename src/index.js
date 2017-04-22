@@ -24,7 +24,8 @@ import Contacts from './containers/contacts/Contacts';
 
 // Booking
 import Step1 from './containers/booking/Step1';
-
+import Step2 from './containers/booking/Step2';
+import Step3 from './containers/booking/Step3';
 
 const history = createHistory()
 
@@ -47,6 +48,8 @@ ReactDOM.render(
           <Route path="/contacts" component={Contacts}/>
           <Route path="/services" component={Services}/>
           <Route path="/booking/step1" component={Step1}/>
+          <Route path="/booking/step2/:serviceId" component={Step2}/>
+          <Route path="/booking/step3/:subServiceId" component={Step3}/>
         </App>
       </Switch>
     </Router>

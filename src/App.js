@@ -9,7 +9,6 @@ export default class App extends Component {
     return (
       <div className="app">
         <BackgroundSlider/>
-        <div className="app-mask"></div>
          <div className="container"> 
             <div className="tab-content text-center"> 
              {this.props.children}
@@ -22,6 +21,8 @@ export default class App extends Component {
 }
 
 /*
+        <div className="app-mask"></div>
+
 <p>
           1To get started, edit <div onClick={() => {this.props.push('/app')}}>src/App.js</div> and save to reload.
         </p>

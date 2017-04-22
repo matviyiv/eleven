@@ -18,15 +18,18 @@ export default class BackgroundSlider extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({activeIndex: randomImageIndex()});
-    }, this.props.changeTime);
+    this.setTimer();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    setTimeout(() => {
+    this.setTimer();
+  }
+
+  setTimer = () => {
+    clearTimeout(this.timer)
+    this.timer = setTimeout(() => {
       this.setState({activeIndex: randomImageIndex()});
-    }, prevProps.changeTime);
+    }, this.props.changeTime);
   }
 
   render() {

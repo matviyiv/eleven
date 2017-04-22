@@ -17,11 +17,17 @@ export class Step1 extends Component {
     </div>)
   }
 
+  selectService = (serviceId) => {
+    return () => {
+      this.props.history.push('/booking/step2/' + serviceId);
+    }
+  }
+
   renderServices(list) {
     const items = list.map((service) => {
-      return <li key={service.id}>{service.name}</li>
+      return <li key={service.id} onClick={this.selectService(service.id)}>{service.name}</li>
     });
-    return (<ul>
+    return (<ul className="booking--service-list">
       {items}
     </ul>)
   }
