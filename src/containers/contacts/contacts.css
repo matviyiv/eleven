@@ -12,7 +12,7 @@ article[role="contact"].contact-pan form label input{ font-size:0; display:block
 
 article[role="contact"].contact-pan form label i { position:absolute; left:0; right:0; top:0; bottom:0; margin:auto; font-size:24px; color:#babbbd; cursor:pointer; line-height:50px}
 
-article[role="contact"].contact-pan form label:hover input{ background-color:#770B62}
+article[role="contact"].contact-pan form label:hover input{ background-color:#efe51d}
 
 article[role="contact"].contact-pan form label:hover i{ color:#FFF}
 
@@ -28,7 +28,7 @@ article[role="contact"].contact-pan > p{ font-size:13px; letter-spacing:1px; fon
 
 article[role="contact"].contact-pan .box { margin: 0 auto; letter-spacing: 1px; width: 80%; line-height: 18px; font-weight: 300; padding-top: 20px; color: #000; background-color: rgba(255,255,255,0.7); padding: 30px;}
 
-.error_message{ color:#770B62}
+.error_message{ color:#efe51d}
 
 #success_page h3,#success_page p{color:#60ca6f }
 
@@ -48,4 +48,4 @@ article[role="contact"].contact-pan ul > li i{ padding-right:3px}
 
 article[role="contact"].contact-pan ul > li > a{ color:#353535;text-decoration:none}
 
-article[role="contact"].contact-pan a:hover{ color:#770B62}
+article[role="contact"].contact-pan a:hover{ color:#efe51d}

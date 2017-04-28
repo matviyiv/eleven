@@ -32,13 +32,13 @@ article[role="services"].services-pan ul > li{ display: inline-block; margin: 10
 
 article[role="services"].services-pan ul > li,article[role="services"].services-pan ul > li > i,article[role="services"].services-pan ul > li > h6,article[role="subscribe"].subscribe-pan form label,article[role="subscribe"].subscribe-pan form label i{transition-delay: 0s;transition-duration: 0.6s;transition-property: all;transition-timing-function: ease;}
 
-article[role="services"].services-pan ul > li > i{ font-size:26px; padding-bottom:18px;color:#770b62;}
+article[role="services"].services-pan ul > li > i{ font-size:26px; padding-bottom:18px;color:#b7ab15;}
 
 article[role="services"].services-pan ul > li > h6{ font-weight:700; font-size:12px; line-height:13px; text-transform:uppercase; letter-spacing:2px}
 
 article[role="services"].services-pan ul > li > p{ font-size:12px; line-height:18px; letter-spacing:inherit; padding-top:5px}
 
-article[role="services"].services-pan ul > li:hover i{ color:#770B62}
+article[role="services"].services-pan ul > li:hover i{ color:#efe51d}
 
 
 

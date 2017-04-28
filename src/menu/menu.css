@@ -152,7 +152,7 @@ a:focus, img:focus, button:focus, .btn:focus {
 
 ::-moz-selection {
 
- background-color:#770B62;
+ background-color:#c9bc17;
 
  color:#fff;
 
@@ -162,7 +162,7 @@ a:focus, img:focus, button:focus, .btn:focus {
 
 ::selection {
 
-  background-color: #770B62;
+  background-color: #c9bc17;
 
   color: #fff;
 
@@ -208,9 +208,9 @@ header[role="header"] > hgroup nav ul > li{ float:none; display:inline-block; fo
 
 header[role="header"] > hgroup nav ul > li > a{border-radius:0;border:none; padding:0; line-height:52px; display:block;color:#353535}
 
-header[role="header"] > hgroup nav ul > li.active a,header[role="header"] > hgroup nav ul > li a:hover{ background-color: inherit; border:none; color:#770B62; text-decoration:none}
+header[role="header"] > hgroup nav ul > li.active a,header[role="header"] > hgroup nav ul > li a:hover{ background-color: inherit; border:none; color:#c9bc17; text-decoration:none}
 
-header[role="header"] > hgroup nav .nav-tabs>li.active>a, header[role="header"] > hgroup nav .nav-tabs>li.active>a:focus, header[role="header"] > hgroup nav .nav-tabs>li.active>a:hover{ background-color: inherit; border:none;color:#770B62}
+header[role="header"] > hgroup nav .nav-tabs>li.active>a, header[role="header"] > hgroup nav .nav-tabs>li.active>a:focus, header[role="header"] > hgroup nav .nav-tabs>li.active>a:hover{ background-color: inherit; border:none;color:#c9bc17}
 
 /*===== Socil-Icons ===*/
 
@@ -224,7 +224,7 @@ header[role="header"] > hgroup ul[role="socil-icons"] li{ display:inline-block; 
 
 header[role="header"] > hgroup ul[role="socil-icons"] li > a{ display:block; line-height:52px; font-size:13px; color:#353535}
 
-header[role="header"] > hgroup ul[role="socil-icons"] li a:hover{ color:#770B62}
+header[role="header"] > hgroup ul[role="socil-icons"] li a:hover{ color:#c9bc17}
 
 /*===== Footer ===*/
 
@@ -232,7 +232,7 @@ header[role="header"] footer{ text-align:right}
 
 header[role="header"] footer > p,footer.mobile p{ font-size:12px; line-height:50px; color:#353535; font-weight:400}
 
-header[role="header"] footer > p > i,footer.mobile p i{ color:#770B62; display:inline-block; padding:0 5px}
+header[role="header"] footer > p > i,footer.mobile p i{ color:#c9bc17; display:inline-block; padding:0 5px}
 
 footer.mobile{ display:none}
 
@@ -241,7 +241,7 @@ footer.mobile{ display:none}
 
 article header.page-title h2{ text-align:center;font-family: 'Oranienbaum', serif; text-transform:uppercase; font-size:24px; line-height:26px; color:#353535; font-weight:400; letter-spacing:3px; position:relative; margin-bottom:36px; padding:0; margin-top:0}
 
-article header.page-title h2:after{ content:""; display:block; width:98px; height:3px; position:absolute; left:0; right:0; bottom:-12px; margin:0 auto; background-color:#770B62}
+article header.page-title h2:after{ content:""; display:block; width:98px; height:3px; position:absolute; left:0; right:0; bottom:-12px; margin:0 auto; background-color:#c9bc17}
 
 
 
