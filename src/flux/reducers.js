@@ -2,17 +2,20 @@ import {constants} from './actions';
 
 const initialState = {
   services: {},
-  booking: {
-    services: []
-  },
   masters: {},
-}
+  booking: {
+    selectedServices: [],
+    selectedMasters: [],
+  },
+};
 const {
   SERVICES_LOADING,
   SERVICES_LOADED,
   SELECT_SERVICE,
   MASTERS_LOADED,
+  SELECT_MASTER,
 } = constants;
+
 export function appReducer(state = initialState, action) {
   const actions = {
     SERVICES_LOADING: (st) => {
@@ -25,7 +28,7 @@ export function appReducer(state = initialState, action) {
       return { ...st };
     },
     SELECT_SERVICE: (st, data) => {
-      st.booking.services.push(data.serviceId);
+      st.booking.selectedServices.push(data.serviceId);
       st.booking.currentService = data.serviceId;
       return { ...st };
     },
@@ -37,6 +40,21 @@ export function appReducer(state = initialState, action) {
       st.masters.loading = false;
       st.masters.list = data;
       return { ...st };
+    },
+    SELECT_MASTER: (st, data) => {
+      st.booking.selectedMasters.push(data.masterId);
+      return { ...st };
+    },
+    BOOKING_SUBMIT: (st, data) => {
+      st.booking = {
+        ...st.booking,
+        ...data.booking
+      }
+      return {...st};
+    },
+    BOOKING_CLEAR: (st) => {
+      st.booking = {};
+      return {...st}
     },
     default: (st) => st
   },

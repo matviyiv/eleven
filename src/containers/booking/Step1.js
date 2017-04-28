@@ -12,17 +12,14 @@ export class Step1 extends Component {
   render() {
     const {app: {services} } = this.props;
     const content = services.loading ? 'Loading ...' : this.renderServices(services.list);
-    return (
-
-       <section  className="">
-          <article role="whywe" className="whywe-pan">
-            <header className="page-title">
-              <h2>Чому ми</h2>
-            </header>
-             {content}
-             </article>
-      </section>
-    )
+    return (<section>
+      <article role="whywe" className="whywe-pan">
+        <header className="page-title">
+          <h2>Step1</h2>
+        </header>
+        {content}
+      </article>
+    </section>)
   }
 
   selectService = (serviceId) => {

@@ -17,23 +17,24 @@ export class Step3 extends Component {
     if (app.masters.loading) return (<div>'Loading ...'</div>);
 
     const masters = app.masters.list.filter((m) => m.services.indexOf(id) > -1);
-    const content = masters ? this.renderMasters(masters) : 'No master found!';
+    const content = masters.length ? this.renderMasters(masters) : 'No master found!';
     return (<div>
       {content}
     </div>)
   }
 
-  selectService = (serviceId) => {
+  selectMaster = (id) => {
     return () => {
-      this.props.actions.selectService(serviceId);
-      this.props.actions.loadMasters();
-      this.props.history.push('/booking/step3/' + serviceId);
+      this.props.actions.selectMaster(id);
+      this.props.history.push('/booking/form');
     }
   }
 
   renderMasters(list) {
     const items = list.map((service) => {
-      return <li key={service.id} onClick={this.selectService(service.id)}>{service.name}</li>
+      return <li key={service.id} onClick={this.selectMaster(service.id)}>
+      {service.name}
+      </li>
     });
     return (<ul>
       {items}

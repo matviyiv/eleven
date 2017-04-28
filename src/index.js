@@ -26,6 +26,8 @@ import Contacts from './containers/contacts/Contacts';
 import Step1 from './containers/booking/Step1';
 import Step2 from './containers/booking/Step2';
 import Step3 from './containers/booking/Step3';
+import FinalForm from './containers/booking/FinalForm';
+import Finish from './containers/booking/Finish';
 
 const history = createHistory()
 
@@ -34,9 +36,6 @@ const createStoreWithMiddleware = applyMiddleware(
     thunkMiddleware // lets us dispatch() functions
   )(createStore);
 const store = createStoreWithMiddleware(reducer);
-
-// Now you can dispatch navigation actions from anywhere!
-// store.dispatch(push('/foo'))
 
 ReactDOM.render(
   <Provider store={store}>
@@ -50,6 +49,8 @@ ReactDOM.render(
           <Route path="/booking/step1" component={Step1}/>
           <Route path="/booking/step2/:serviceId" component={Step2}/>
           <Route path="/booking/step3/:subServiceId" component={Step3}/>
+          <Route path="/booking/form" component={FinalForm}/>
+          <Route path="/booking/done" component={Finish}/>
         </App>
       </Switch>
     </Router>

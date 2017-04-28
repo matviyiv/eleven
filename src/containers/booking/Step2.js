@@ -8,12 +8,11 @@ export class Step2 extends Component {
   componentWillMount() {
     const {app: {services, booking}, actions, match: {params} } = this.props;
     !services.list && actions.loadServices();
-    if (!booking.currentService) actions.selectService(params.serviceId);
   }
 
   render() {
     const {app, match: {params}} = this.props;
-    const id = app.booking.currentService || params.serviceId;
+    const id = params.serviceId;
     
     if (app.services.loading) return (<div>'Loading ...'</div>);
 
