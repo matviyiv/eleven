@@ -170,6 +170,12 @@ a:focus, img:focus, button:focus, .btn:focus {
 
 }
 
+
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: transparent;
+}
+
 @font-face {
 
   font-family: 'Roboto', sans-serif;
