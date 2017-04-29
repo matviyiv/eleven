@@ -4,8 +4,7 @@ const initialState = {
   services: {},
   masters: {},
   booking: {
-    selectedServices: [],
-    selectedMasters: [],
+    selectedServices: {}
   },
 };
 const {
@@ -13,7 +12,7 @@ const {
   SERVICES_LOADED,
   SELECT_SERVICE,
   MASTERS_LOADED,
-  SELECT_MASTER,
+  SELECT_MASTER_NEXT_DATE,
 } = constants;
 
 export function appReducer(state = initialState, action) {
@@ -28,8 +27,9 @@ export function appReducer(state = initialState, action) {
       return { ...st };
     },
     SELECT_SERVICE: (st, data) => {
-      st.booking.selectedServices.push(data.serviceId);
-      st.booking.currentService = data.serviceId;
+      st.booking.selectedServices[data.serviceId] = {
+        name: data.serviceName
+      };
       return { ...st };
     },
     MASTERS_LOADING: (st) => {
@@ -41,8 +41,18 @@ export function appReducer(state = initialState, action) {
       st.masters.list = data;
       return { ...st };
     },
-    SELECT_MASTER: (st, data) => {
-      st.booking.selectedMasters.push(data.masterId);
+    SELECT_MASTER_NEXT_DATE: (st, {serviceId, masterId}) => {
+      const service = findSubService(st.services.list, serviceId);
+      const master = st.masters.list.find((m) => m.id == masterId);
+      const dateStart = master.nextDate || new Date();
+      const dateEnd = getDateEnd(dateStart, service.duration);
+      const selectedService = st.booking.selectedServices[serviceId] || {};
+
+      selectedService.masterId = masterId;
+      selectedService.dateStart = dateStart;
+      selectedService.dateEnd = dateEnd;
+      selectedService.name = service.name;
+
       return { ...st };
     },
     BOOKING_SUBMIT: (st, data) => {
@@ -61,4 +71,17 @@ export function appReducer(state = initialState, action) {
   modifier = actions[action.type] || actions.default;
 
   return modifier(state, action.data);
+}
+
+
+function getDateEnd(startDate, serviceDuration) {
+  const dateEnd = new Date(startDate);
+  return new Date(dateEnd.setHours(startDate.getHours() + serviceDuration))
+}
+
+function findSubService(services, subServiceId) {
+  for (let serviceIndex in services) {
+    let subservice = services[serviceIndex].sub.find((sub) => sub.id === subServiceId);
+    if (subservice) return subservice;
+  }
 }

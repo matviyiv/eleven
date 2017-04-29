@@ -6,7 +6,7 @@ export const constants = {
   MASTERS_LOADING: 'MASTERS_LOADING',
   MASTERS_LOADED: 'MASTERS_LOADED',
   MASTERS_FAILED: 'MASTERS_FAILED',
-  SELECT_MASTER: 'SELECT_MASTER',
+  SELECT_MASTER_NEXT_DATE: 'SELECT_MASTER_NEXT_DATE',
   BOOKING_SUBMIT: 'BOOKING_SUBMIT',
   BOOKING_SUBMITED: 'BOOKING_SUBMITED',
   BOOKING_FAILED: 'BOOKING_FAILED',
@@ -36,17 +36,17 @@ export function loadServices() {
   };
 }
 
-export function selectService(serviceId) {
+export function selectService(data) {
   return {
     type: constants.SELECT_SERVICE,
-    data: {serviceId}
+    data
   }
 }
 
-export function selectMaster(masterId) {
+export function selectMasterNextDate(data) {
   return {
-    type: constants.SELECT_MASTER,
-    data: {masterId}
+    type: constants.SELECT_MASTER_NEXT_DATE,
+    data
   }
 }
 

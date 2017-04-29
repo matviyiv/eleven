@@ -17,11 +17,13 @@ export class FinalForm extends Component {
   render() {
     const { name, phone, notes } = this.state;
     const {app: {services, booking} } = this.props;
+    const hasServices = Object.keys(booking.selectedServices).length;
     return (<section>
       <article role="whywe" className="whywe-pan">
         <header className="page-title">
           <h2>Final Form</h2>
         </header>
+        <ul>{hasServices && this.renderServices(booking.selectedServices)}</ul>
         <form>
         <ul>
         <li>
@@ -61,7 +63,7 @@ export class FinalForm extends Component {
             type="submit"
             value="Submit"
             onClick={this.handleSubmit}
-            disabled={!booking.selectedServices.length || !booking.selectedMasters.length}
+            disabled={!hasServices}
             />
         </li>
         <li>
@@ -100,18 +102,17 @@ export class FinalForm extends Component {
 
   submit = () => {
     const { name, phone, notes } = this.state;
-    const { app: { booking }, actions } = this.props;
-    const serviceDate = new Date();
-    const bookingObj = {
-      name,
-      phone,
-      notes,
-      services: booking.selectedServices,
-      masters: booking.selectedMasters,
-      dateStart: serviceDate,
-      dateEnd: new Date(serviceDate.setHours(serviceDate.getHours() + 5)),
+    const { actions } = this.props;
+    actions.submitBooking({ name, phone, notes });
+  }
+
+  renderServices(services) {
+    const content = [];
+    for (let serviceId in services) {
+      let service = services[serviceId];
+      content.push(<li key={serviceId}>{service.name} on {service.dateStart.toString()}</li>);
     };
-    actions.submitBooking(bookingObj);
+    return content;
   }
 }
 
