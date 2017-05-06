@@ -25,7 +25,6 @@ export class Step2 extends Component {
 
   selectService = (serviceId, serviceName) => {
     return () => {
-      this.props.actions.selectService({serviceId, serviceName});
       this.props.actions.loadMasters();
       this.props.history.push('/booking/step3/' + serviceId);
     }

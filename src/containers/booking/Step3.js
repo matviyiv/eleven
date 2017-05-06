@@ -27,16 +27,17 @@ export class Step3 extends Component {
     const isWorking = master.work.indexOf(dateType) > -1;
     const startWorkHours = selectedDate.hours(10).minutes(0).seconds(0);
     if (isWorking) {
+      let index = 0;
       for (let time = startWorkHours; time < moment(startWorkHours).hours(20); time.add(30, 'minutes')) {
-        content.push(<li>
-          <a onClick={this.selectMasterNextDate(master.id, master.nextDate)}>
+        content.push(<li key={index++}>
+          <a onClick={this.selectMasterNextDate(master.id, moment(time))}>
           {time.format('HH:mm')}
           </a>
         </li>);
       }
     }
     else {
-      content.push(<li><a>
+      content.push(<li key="msg-no-master"><a>
         Майстер не працює в цей день спробуйте наступну дату 
         {dateType == 'even' ? ' непарного ' : ' парного'}
         дня

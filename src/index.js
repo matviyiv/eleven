@@ -5,6 +5,8 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 
+import moment from 'moment';
+
 import createHistory from 'history/createBrowserHistory'
 import {
   BrowserRouter as Router,
@@ -28,6 +30,8 @@ import Step2 from './containers/booking/Step2';
 import Step3 from './containers/booking/Step3';
 import FinalForm from './containers/booking/FinalForm';
 import Finish from './containers/booking/Finish';
+
+moment.locale('uk_UA');
 
 const history = createHistory()
 

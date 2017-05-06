@@ -1,4 +1,5 @@
 import {constants} from './actions';
+import moment from 'moment';
 
 const initialState = {
   services: {},
@@ -26,12 +27,6 @@ export function appReducer(state = initialState, action) {
       st.services.list = data;
       return { ...st };
     },
-    SELECT_SERVICE: (st, data) => {
-      st.booking.selectedServices[data.serviceId] = {
-        name: data.serviceName
-      };
-      return { ...st };
-    },
     MASTERS_LOADING: (st) => {
       st.masters.loading = true;
       return {...st};
@@ -44,14 +39,15 @@ export function appReducer(state = initialState, action) {
     SELECT_MASTER_NEXT_DATE: (st, {serviceId, masterId, date}) => {
       const service = findSubService(st.services.list, serviceId);
       const master = st.masters.list.find((m) => m.id == masterId);
-      const dateStart = master.nextDate || new Date();
-      const dateEnd = getDateEnd(dateStart, service.duration);
-      const selectedService = st.booking.selectedServices[serviceId] || {};
+      const dateEnd = moment(date).add(service.duration, 'hours');
+      const selectedService = {
+        masterId: masterId,
+        dateStart: date,
+        dateEnd: dateEnd,
+        name: service.name
+      };
 
-      selectedService.masterId = masterId;
-      selectedService.dateStart = dateStart;
-      selectedService.dateEnd = dateEnd;
-      selectedService.name = service.name;
+      st.booking.selectedServices[serviceId + '_' + date.valueOf()] = selectedService;
 
       return { ...st };
     },
@@ -69,14 +65,9 @@ export function appReducer(state = initialState, action) {
     default: (st) => st
   },
   modifier = actions[action.type] || actions.default;
-
-  return modifier(state, action.data);
-}
-
-
-function getDateEnd(startDate, serviceDuration) {
-  const dateEnd = new Date(startDate);
-  return new Date(dateEnd.setHours(startDate.getHours() + serviceDuration))
+  const newState = modifier(state, action.data);
+  console.log('----', action.type, newState);
+  return newState;
 }
 
 function findSubService(services, subServiceId) {

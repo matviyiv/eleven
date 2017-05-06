@@ -108,9 +108,9 @@ export class FinalForm extends Component {
 
   renderServices(services) {
     const content = [];
-    for (let serviceId in services) {
-      let service = services[serviceId];
-      content.push(<li key={serviceId}>{service.name} on {service.dateStart.toString()}</li>);
+    for (let id in services) {
+      let service = services[id];
+      content.push(<li key={id}>{service.name} {service.dateStart.format('Do MMMM HH:mm')}</li>);
     };
     return content;
   }
