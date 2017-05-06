@@ -42,21 +42,14 @@ export function appReducer(state = initialState, action) {
       const dateEnd = moment(date).add(service.duration, 'hours');
       const selectedService = {
         masterId: masterId,
-        dateStart: date,
-        dateEnd: dateEnd,
+        dateStart: date.toDate().toString(),
+        dateEnd: dateEnd.toDate().toString(),
         name: service.name
       };
 
       st.booking.selectedServices[serviceId + '_' + date.valueOf()] = selectedService;
 
       return { ...st };
-    },
-    BOOKING_SUBMIT: (st, data) => {
-      st.booking = {
-        ...st.booking,
-        ...data.booking
-      }
-      return {...st};
     },
     BOOKING_CLEAR: (st) => {
       st.booking = {};

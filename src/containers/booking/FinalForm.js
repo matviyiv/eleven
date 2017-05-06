@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './booking.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import * as actionCreators from '../../flux/actions';
 
 export class FinalForm extends Component {
@@ -89,7 +90,7 @@ export class FinalForm extends Component {
 
   addMore = (event) => {
     event.preventDefault();
-    this.submit();
+    // this.submit();
     this.props.history.push('/booking/step1');
   }
 
@@ -102,15 +103,15 @@ export class FinalForm extends Component {
 
   submit = () => {
     const { name, phone, notes } = this.state;
-    const { actions } = this.props;
-    actions.submitBooking({ name, phone, notes });
+    const { actions, app: {booking} } = this.props;
+    actions.submitBooking({ ...booking, name, phone, notes });
   }
 
   renderServices(services) {
     const content = [];
     for (let id in services) {
       let service = services[id];
-      content.push(<li key={id}>{service.name} {service.dateStart.format('Do MMMM HH:mm')}</li>);
+      content.push(<li key={id}>{service.name} {moment(service.dateStart).format('Do MMMM HH:mm')}</li>);
     };
     return content;
   }
