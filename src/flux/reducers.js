@@ -41,7 +41,7 @@ export function appReducer(state = initialState, action) {
       st.masters.list = data;
       return { ...st };
     },
-    SELECT_MASTER_NEXT_DATE: (st, {serviceId, masterId}) => {
+    SELECT_MASTER_NEXT_DATE: (st, {serviceId, masterId, date}) => {
       const service = findSubService(st.services.list, serviceId);
       const master = st.masters.list.find((m) => m.id == masterId);
       const dateStart = master.nextDate || new Date();
