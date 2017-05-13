@@ -1,5 +1,6 @@
 import {constants} from './actions';
 import moment from 'moment';
+import _ from 'lodash';
 
 const initialState = {
   services: {},
@@ -14,6 +15,7 @@ const {
   SELECT_SERVICE,
   MASTERS_LOADED,
   SELECT_MASTER_NEXT_DATE,
+  MASTERS_TIME_LOADED,
 } = constants;
 
 export function appReducer(state = initialState, action) {
@@ -38,17 +40,25 @@ export function appReducer(state = initialState, action) {
     },
     SELECT_MASTER_NEXT_DATE: (st, {serviceId, masterId, date}) => {
       const service = findSubService(st.services.list, serviceId);
-      const master = st.masters.list.find((m) => m.id == masterId);
+      const master = st.masters.list[masterId];
       const dateEnd = moment(date).add(service.duration, 'hours');
       const selectedService = {
         masterId: masterId,
         dateStart: date.toDate().toString(),
         dateEnd: dateEnd.toDate().toString(),
-        name: service.name
+        name: service.name,
+        duration: service.duration,
       };
 
-      st.booking.selectedServices[serviceId + '_' + date.valueOf()] = selectedService;
+      st.booking.selectedServices[serviceId + '+' + date.valueOf()] = selectedService;
 
+      return { ...st };
+    },
+    MASTERS_TIME_LOADED: (st, {mastersList, result, date}) => {
+      const time = moment(date).format('YYYY/M/D');
+      mastersList.forEach((master, index) => {
+        _.setWith(st.masters.list[master.id], `booked.${time}`, result[index], Object);
+      })
       return { ...st };
     },
     BOOKING_CLEAR: (st) => {
