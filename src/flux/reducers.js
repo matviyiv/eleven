@@ -16,6 +16,7 @@ const {
   MASTERS_LOADED,
   SELECT_MASTER_NEXT_DATE,
   MASTERS_TIME_LOADED,
+  SAVE_BOOKING_USER,
 } = constants;
 
 export function appReducer(state = initialState, action) {
@@ -61,8 +62,18 @@ export function appReducer(state = initialState, action) {
       })
       return { ...st };
     },
+    BOOKING_SUBMITED: (st) => {
+      st.booking = initialState.booking;
+      return {...st}
+    },
+    SAVE_BOOKING_USER: (st, {name, phone, notes}) => {
+      st.booking.name = name;
+      st.booking.phone = phone;
+      st.booking.notes = notes;
+      return {...st}
+    },
     BOOKING_CLEAR: (st) => {
-      st.booking = {};
+      st.booking = initialState.booking;
       return {...st}
     },
     default: (st) => st

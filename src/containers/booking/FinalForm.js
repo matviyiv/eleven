@@ -89,15 +89,15 @@ export class FinalForm extends Component {
   }
 
   addMore = (event) => {
+    const { name, phone, notes } = this.state;
     event.preventDefault();
-    // this.submit();
+    this.props.actions.saveBookingUser({ name, phone, notes });
     this.props.history.push('/booking/step1');
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
     this.submit();
-    this.props.actions.clearBooking();
     this.props.history.push('/booking/done');
   }
 

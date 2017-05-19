@@ -14,6 +14,7 @@ export const constants = {
   BOOKING_SUBMITED: 'BOOKING_SUBMITED',
   BOOKING_FAILED: 'BOOKING_FAILED',
   BOOKING_CLEAR: 'BOOKING_CLEAR',
+  SAVE_BOOKING_USER: 'SAVE_BOOKING_USER',
   MASTERS_TIME_LOADING: 'MASTERS_TIME_LOADING',
   MASTERS_TIME_LOADED: 'MASTERS_TIME_LOADED',
   MASTERS_TIME_ERROR: 'MASTERS_TIME_ERROR'
@@ -117,11 +118,12 @@ export function submitBooking(booking) {
       data: {booking}
     });
     const mastersData = getMasterTime(booking.selectedServices);
-    debugger;
-    window.firebase.database().ref('lviv/mastersTime')
-      .set(mastersData)
-    // window.firebase.database().ref('lviv/bookings')
-      // .push(booking)
+    Promise.all([
+      window.firebase.database().ref('lviv/mastersTime')
+        .update(mastersData),
+      window.firebase.database().ref('lviv/bookings')
+        .push(booking)
+    ])
       .then(() => {
         console.log('submitBooking done');
         dispatch({
@@ -138,6 +140,13 @@ export function submitBooking(booking) {
   }
 }
 
+export function saveBookingUser(data) {
+  return {
+    type: constants.SAVE_BOOKING_USER,
+    data
+  }
+}
+
 export function clearBooking() {
   return {
     type: constants.BOOKING_CLEAR,
@@ -147,7 +156,7 @@ export function clearBooking() {
 function getMasterTime(bookings) {
   return _.reduce(bookings, (result, booking) => {
     let date = moment(booking.dateStart);
-    _.setWith(result, `${booking.masterId}.${date.get('year')}.${date.get('month')}.${date.get('date')}.${date.get('hour')}.${date.get('minute')}`, {name: booking.name, duration: booking.duration}, Object);
+    result[`${booking.masterId}/${date.get('year')}/${date.get('month')}/${date.get('date')}/${date.get('hour')}/${date.get('minute')}`] = {name: booking.name, duration: booking.duration};
     return result;
   }, {});
 }
