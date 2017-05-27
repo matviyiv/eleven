@@ -8,6 +8,10 @@ const initialState = {
   booking: {
     selectedServices: {}
   },
+  allEvents: {
+    list: [],
+    loading: false,
+  },
 };
 const {
   SERVICES_LOADING,
@@ -17,6 +21,8 @@ const {
   SELECT_MASTER_NEXT_DATE,
   MASTERS_TIME_LOADED,
   SAVE_BOOKING_USER,
+  ALL_EVENTS_LOADED,
+  ALL_EVENTS_LOADING,
 } = constants;
 
 export function appReducer(state = initialState, action) {
@@ -73,8 +79,26 @@ export function appReducer(state = initialState, action) {
       return {...st}
     },
     BOOKING_CLEAR: (st) => {
-      st.booking = initialState.booking;
+      st.booking.selectedServices = initialState.booking.selectedServices;
       return {...st}
+    },
+    ALL_EVENTS_LOADING: (st) => {
+      st.allEvents.loading = true;
+      return {...st};
+    },
+    ALL_EVENTS_LOADED: (st, bookings) => {
+      let eventsList = st.allEvents.list;
+      _.forEach(bookings, (booking) => {
+        eventsList = eventsList.concat(_.map(booking.selectedServices, (service) => ({
+            title: `Сервіс: ${service.name} майстер: ${st.masters.list[service.masterId].name}`,
+            start: new Date(service.dateStart),
+            end: new Date(service.dateEnd),
+            desc: `${booking.name} ${booking.phone}`
+          })));
+      });
+      st.allEvents.loading = false;
+      st.allEvents.list = eventsList;
+      return {...st};
     },
     default: (st) => st
   },

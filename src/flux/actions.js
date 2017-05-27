@@ -10,14 +10,20 @@ export const constants = {
   MASTERS_LOADED: 'MASTERS_LOADED',
   MASTERS_FAILED: 'MASTERS_FAILED',
   SELECT_MASTER_NEXT_DATE: 'SELECT_MASTER_NEXT_DATE',
+
   BOOKING_SUBMIT: 'BOOKING_SUBMIT',
   BOOKING_SUBMITED: 'BOOKING_SUBMITED',
   BOOKING_FAILED: 'BOOKING_FAILED',
   BOOKING_CLEAR: 'BOOKING_CLEAR',
   SAVE_BOOKING_USER: 'SAVE_BOOKING_USER',
+
   MASTERS_TIME_LOADING: 'MASTERS_TIME_LOADING',
   MASTERS_TIME_LOADED: 'MASTERS_TIME_LOADED',
-  MASTERS_TIME_ERROR: 'MASTERS_TIME_ERROR'
+  MASTERS_TIME_ERROR: 'MASTERS_TIME_ERROR',
+  
+  ALL_EVENTS_LOADING: 'ALL_EVENTS_LOADING',
+  ALL_EVENTS_LOADED: 'ALL_EVENTS_LOADED',
+  ALL_EVENTS_FAILED: 'ALL_EVENTS_FAILED',
 };
 
 export function loadServices() {
@@ -111,8 +117,47 @@ export function getMastersTime(mastersList, _date_) {
   }
 }
 
+export function getAllEvents() {
+  return dispatch => {
+    const date = moment().subtract(1, 'month');
+    dispatch({
+      type: constants.ALL_EVENTS_LOADING
+    });
+    window.firebase.database()
+      .ref('lviv/masters')
+      .once('value')
+      .then((masters) => {
+        const mastersList = masters.val();
+        console.log('masters loaded', mastersList);
+        dispatch({
+          type: constants.MASTERS_LOADED,
+          data: mastersList
+        });
+        return window.firebase.database()
+          .ref('lviv/bookings')
+          .orderByChild('timestamp')
+          .startAt(date.toDate().getTime())
+          .once('value');
+      })
+      .then((bookings) => {
+        dispatch({
+          type: constants.ALL_EVENTS_LOADED,
+          data: bookings.val()
+        });
+      })
+      .catch((error) => {
+        console.error('action getAllEvents failed', error);
+        dispatch({
+          type: constants.ALL_EVENTS_FAILED,
+          error: error
+        });
+      });
+  };
+}
+
 export function submitBooking(booking) {
   return dispatch => {
+    booking.timestamp = moment().toDate().getTime();
     dispatch({
       type: constants.BOOKING_SUBMIT,
       data: {booking}
