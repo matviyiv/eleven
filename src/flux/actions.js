@@ -16,6 +16,8 @@ export const constants = {
   BOOKING_FAILED: 'BOOKING_FAILED',
   BOOKING_CLEAR: 'BOOKING_CLEAR',
   SAVE_BOOKING_USER: 'SAVE_BOOKING_USER',
+  BOOKING_DELETED: 'BOOKING_DELETED',
+  BOOKING_DELETED_FAILED: 'BOOKING_DELETED_FAILED',
 
   MASTERS_TIME_LOADING: 'MASTERS_TIME_LOADING',
   MASTERS_TIME_LOADED: 'MASTERS_TIME_LOADED',
@@ -117,29 +119,188 @@ export function getMastersTime(mastersList, _date_) {
   }
 }
 
+var data = {
+      "-Kl7glERlFhN-Jmm4INs" : {
+        "name" : "sdd",
+        "notes" : "dsds",
+        "phone" : "dssd",
+        "selectedServices" : {
+          "s3_3+1496125800000" : {
+            "dateEnd" : "Tue May 30 2017 13:30:00 GMT+0400 (+04)",
+            "dateStart" : "Tue May 30 2017 10:30:00 GMT+0400 (+04)",
+            "duration" : 3,
+            "masterId" : "e4",
+            "name" : "service 33"
+          }
+        },
+        "timestamp" : 1495868314738
+      },
+      "-Kl7gsSXlq98fXh-hROE" : {
+        "name" : "sdd",
+        "notes" : "dsds",
+        "phone" : "dssd",
+        "selectedServices" : {
+          "s2_2+1495974600000" : {
+            "dateEnd" : "Sun May 28 2017 18:30:00 GMT+0400 (+04)",
+            "dateStart" : "Sun May 28 2017 16:30:00 GMT+0400 (+04)",
+            "duration" : 2,
+            "masterId" : "e4",
+            "name" : "service 22"
+          },
+          "s3_3+1496125800000" : {
+            "dateEnd" : "Tue May 30 2017 13:30:00 GMT+0400 (+04)",
+            "dateStart" : "Tue May 30 2017 10:30:00 GMT+0400 (+04)",
+            "duration" : 3,
+            "masterId" : "e4",
+            "name" : "service 33"
+          }
+        },
+        "timestamp" : 1495868344315
+      },
+      "-Kl7kwuZ5rlnJcc2jM-u" : {
+        "name" : "11",
+        "notes" : "11221",
+        "phone" : "1111",
+        "selectedServices" : {
+          "s3_3+1495872000787" : {
+            "dateEnd" : "Sat May 27 2017 15:00:00 GMT+0400 (+04)",
+            "dateStart" : "Sat May 27 2017 12:00:00 GMT+0400 (+04)",
+            "duration" : 3,
+            "masterId" : "e3",
+            "name" : "service 33"
+          }
+        },
+        "timestamp" : 1495869411150
+      },
+      "-Kl7lc0DMVjgI8EMsEjm" : {
+        "name" : "2222",
+        "notes" : "22222",
+        "phone" : "2222",
+        "selectedServices" : {
+          "s3_3+1495872000396" : {
+            "dateEnd" : "Sat May 27 2017 15:00:00 GMT+0400 (+04)",
+            "dateStart" : "Sat May 27 2017 12:00:00 GMT+0400 (+04)",
+            "duration" : 3,
+            "masterId" : "e1",
+            "name" : "service 33"
+          }
+        },
+        "timestamp" : 1495869587650
+      }
+    };
+
+var masters = {
+      "e1" : {
+        "id" : "e1",
+        "name" : "employee 1",
+        "services" : [ "s2_3", "s3_3" ],
+        "work" : [ "odd" ]
+      },
+      "e2" : {
+        "id" : "e2",
+        "name" : "employee 2",
+        "services" : [ "s1_3" ],
+        "work" : [ "even" ]
+      },
+      "e3" : {
+        "id" : "e3",
+        "name" : "employee 3",
+        "services" : [ "s2_3", "s3_3" ],
+        "work" : [ "odd" ]
+      },
+      "e4" : {
+        "id" : "e4",
+        "name" : "employee 4",
+        "services" : [ "s2_2", "s3_3" ],
+        "work" : [ "even" ]
+      },
+      "e5" : {
+        "id" : "e5",
+        "name" : "employee 5",
+        "services" : [ "s1_3", "s3_2" ],
+        "work" : [ "odd" ]
+      }
+    }
+
+    var services = [ {
+      "id" : "s1",
+      "name" : "service 1",
+      "sub" : [ {
+        "duration" : 2,
+        "id" : "s1_1",
+        "name" : "service 11"
+      }, {
+        "duration" : 1,
+        "id" : "s1_2",
+        "name" : "service 12"
+      }, {
+        "duration" : 3,
+        "id" : "s1_3",
+        "name" : "service 13"
+      } ]
+    }, {
+      "id" : "s2",
+      "name" : "service 2",
+      "sub" : [ {
+        "duration" : 4,
+        "id" : "s2_1",
+        "name" : "service 21"
+      }, {
+        "duration" : 2,
+        "id" : "s2_2",
+        "name" : "service 22"
+      }, {
+        "duration" : 3,
+        "id" : "s2_3",
+        "name" : "service 23"
+      } ]
+    }, {
+      "id" : "s3",
+      "name" : "serice 3",
+      "sub" : [ {
+        "duration" : 5,
+        "id" : "s3_1",
+        "name" : "service 31"
+      }, {
+        "duration" : 2,
+        "id" : "s3_2",
+        "name" : "service 32"
+      }, {
+        "duration" : 3,
+        "id" : "s3_3",
+        "name" : "service 33"
+      } ]
+    } ];
+
 export function getAllEvents() {
   return dispatch => {
     const date = moment().subtract(1, 'month');
     dispatch({
+          type: constants.MASTERS_LOADED,
+          data: masters
+        });
+    dispatch({
+          type: constants.ALL_EVENTS_LOADED,
+          data: data
+        });
+    dispatch({
+          type: constants.SERVICES_LOADED,
+          data: services
+        });
+    return;
+    dispatch({
       type: constants.ALL_EVENTS_LOADING
     });
-    window.firebase.database()
-      .ref('lviv/masters')
-      .once('value')
-      .then((masters) => {
-        const mastersList = masters.val();
-        console.log('masters loaded', mastersList);
+    return;
+    Promise.all([
+      loadMastersRequest(),
+      loadBookingsRequest(date),
+    ])
+      .then(([masters, services, bookings]) => {
         dispatch({
           type: constants.MASTERS_LOADED,
-          data: mastersList
+          data: masters.val()
         });
-        return window.firebase.database()
-          .ref('lviv/bookings')
-          .orderByChild('timestamp')
-          .startAt(date.toDate().getTime())
-          .once('value');
-      })
-      .then((bookings) => {
         dispatch({
           type: constants.ALL_EVENTS_LOADED,
           data: bookings.val()
@@ -153,6 +314,20 @@ export function getAllEvents() {
         });
       });
   };
+}
+
+function loadMastersRequest() {
+  return window.firebase.database()
+    .ref('lviv/masters')
+    .once('value');
+}
+
+function loadBookingsRequest(date) {
+  return window.firebase.database()
+    .ref('lviv/bookings')
+    .orderByChild('timestamp')
+    .startAt(date.toDate().getTime())
+    .once('value');
 }
 
 export function submitBooking(booking) {
@@ -195,6 +370,33 @@ export function saveBookingUser(data) {
 export function clearBooking() {
   return {
     type: constants.BOOKING_CLEAR,
+  }
+}
+
+export function deleteBoking(bookingId) {
+  return dispatch => {
+    dispatch({
+        type: constants.BOOKING_DELETED,
+        data: {bookingId}
+      });
+    return;
+  
+    window.firebase.database()
+    .ref('lviv/bookings/' + bookingId)
+    .delete()
+    .then(() => {
+      dispatch({
+        type: constants.BOOKING_DELETED,
+        data: {bookingId}
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: constants.BOOKING_DELETED_FAILED,
+        data: {error}
+      });
+    })
+    
   }
 }
 

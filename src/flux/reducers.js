@@ -23,6 +23,7 @@ const {
   SAVE_BOOKING_USER,
   ALL_EVENTS_LOADED,
   ALL_EVENTS_LOADING,
+  BOOKING_DELETED,
 } = constants;
 
 export function appReducer(state = initialState, action) {
@@ -88,16 +89,23 @@ export function appReducer(state = initialState, action) {
     },
     ALL_EVENTS_LOADED: (st, bookings) => {
       let eventsList = st.allEvents.list;
-      _.forEach(bookings, (booking) => {
+      _.forEach(bookings, (booking, bookingId) => {
         eventsList = eventsList.concat(_.map(booking.selectedServices, (service) => ({
             title: `Сервіс: ${service.name} майстер: ${st.masters.list[service.masterId].name}`,
             start: new Date(service.dateStart),
             end: new Date(service.dateEnd),
-            desc: `${booking.name} ${booking.phone}`
+            desc: `${booking.name} ${booking.phone}`,
+            masterId: service.masterId,
+            bookingId
           })));
       });
       st.allEvents.loading = false;
       st.allEvents.list = eventsList;
+      return {...st};
+    },
+    BOOKING_DELETED: (st, {bookingId}) => {
+      let index = _.findIndex(st.allEvents.list, {bookingId});
+      delete st.allEvents.list[index];
       return {...st};
     },
     default: (st) => st
