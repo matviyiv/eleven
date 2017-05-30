@@ -101,7 +101,7 @@ export function appReducer(state = initialState, action) {
       _.forEach(bookings, (booking, bookingId) => {
         if (booking.status == 'deleted') return;
         eventsList = eventsList.concat(_.map(booking.selectedServices, (service) => ({
-            title: `Сервіс: ${service.name} майстер: ${st.masters.list[service.masterId].name}`,
+            title: `Сервіс: ${service.name} майстер: ${st.masters.list[service.masterId].name} name:${booking.name} ${booking.phone}`,
             start: new Date(service.dateStart),
             end: new Date(service.dateEnd),
             desc: `${booking.name} ${booking.phone}`,
