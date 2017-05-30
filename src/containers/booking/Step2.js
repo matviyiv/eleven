@@ -7,7 +7,7 @@ import * as actionCreators from '../../flux/actions';
 export class Step2 extends Component {
   componentWillMount() {
     const {app: {services, booking}, actions, match: {params} } = this.props;
-    !services.list && actions.loadServices();
+    !services.list && !services.loading && actions.loadServices();
   }
 
   render() {
@@ -23,9 +23,8 @@ export class Step2 extends Component {
     </div>)
   }
 
-  selectService = (serviceId) => {
+  selectService = (serviceId, serviceName) => {
     return () => {
-      this.props.actions.selectService(serviceId);
       this.props.actions.loadMasters();
       this.props.history.push('/booking/step3/' + serviceId);
     }
@@ -33,7 +32,7 @@ export class Step2 extends Component {
 
   renderSubServices(list) {
     const items = list.map((service) => {
-      return <li key={service.id} onClick={this.selectService(service.id)}>{service.name}</li>
+      return <li key={service.id} onClick={this.selectService(service.id, service.name)}>{service.name}</li>
     });
     return (<ul>
       {items}

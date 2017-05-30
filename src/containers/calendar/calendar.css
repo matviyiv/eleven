@@ -1,0 +1,7 @@
+.calendar--container {
+  background-color: white;
+}
+
+.rbc-month-view {
+  display: block !important;
+}

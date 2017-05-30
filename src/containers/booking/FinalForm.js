@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './booking.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import * as actionCreators from '../../flux/actions';
 
 export class FinalForm extends Component {
@@ -17,11 +18,13 @@ export class FinalForm extends Component {
   render() {
     const { name, phone, notes } = this.state;
     const {app: {services, booking} } = this.props;
+    const hasServices = Object.keys(booking.selectedServices).length;
     return (<section>
       <article role="whywe" className="whywe-pan">
         <header className="page-title">
           <h2>Final Form</h2>
         </header>
+        <ul>{hasServices && this.renderServices(booking.selectedServices)}</ul>
         <form>
         <ul>
         <li>
@@ -61,7 +64,7 @@ export class FinalForm extends Component {
             type="submit"
             value="Submit"
             onClick={this.handleSubmit}
-            disabled={!booking.selectedServices.length || !booking.selectedMasters.length}
+            disabled={!hasServices}
             />
         </li>
         <li>
@@ -86,7 +89,9 @@ export class FinalForm extends Component {
   }
 
   addMore = (event) => {
+    const { name, phone, notes } = this.state;
     event.preventDefault();
+    this.props.actions.saveBookingUser({ name, phone, notes });
     this.submit();
     this.props.history.push('/booking/step1');
   }
@@ -100,18 +105,17 @@ export class FinalForm extends Component {
 
   submit = () => {
     const { name, phone, notes } = this.state;
-    const { app: { booking }, actions } = this.props;
-    const serviceDate = new Date();
-    const bookingObj = {
-      name,
-      phone,
-      notes,
-      services: booking.selectedServices,
-      masters: booking.selectedMasters,
-      dateStart: serviceDate,
-      dateEnd: new Date(serviceDate.setHours(serviceDate.getHours() + 5)),
+    const { actions, app: {booking} } = this.props;
+    actions.submitBooking({ ...booking, name, phone, notes });
+  }
+
+  renderServices(services) {
+    const content = [];
+    for (let id in services) {
+      let service = services[id];
+      content.push(<li key={id}>{service.name} {moment(service.dateStart).format('Do MMMM HH:mm')}</li>);
     };
-    actions.submitBooking(bookingObj);
+    return content;
   }
 }
 

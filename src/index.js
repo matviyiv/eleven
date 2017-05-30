@@ -5,6 +5,8 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 
+import moment from 'moment';
+
 import createHistory from 'history/createBrowserHistory'
 import {
   BrowserRouter as Router,
@@ -29,6 +31,10 @@ import Step3 from './containers/booking/Step3';
 import FinalForm from './containers/booking/FinalForm';
 import Finish from './containers/booking/Finish';
 
+import Calendar from './containers/calendar/Calendar';
+
+moment.locale('uk_UA');
+
 const history = createHistory()
 
 const reducer = combineReducers({ app: appReducer });
@@ -51,6 +57,7 @@ ReactDOM.render(
           <Route path="/booking/step3/:subServiceId" component={Step3}/>
           <Route path="/booking/form" component={FinalForm}/>
           <Route path="/booking/done" component={Finish}/>
+          <Route path="/full/calendar" component={Calendar}/>
         </App>
       </Switch>
     </Router>

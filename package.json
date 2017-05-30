@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "firebase": "^4.0.0",
     "history": "^4.6.1",
+    "moment": "^2.18.1",
     "react": "^15.5.4",
+    "react-big-calendar": "^0.14.0",
+    "react-datepicker": "^0.46.0",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
     "react-router": "^4.1.1",
@@ -13,12 +17,12 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "jest": "^20.0.3",
     "react-scripts": "0.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "jest"
   }
 }

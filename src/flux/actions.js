@@ -1,3 +1,18 @@
+import moment from 'moment';
+import _ from 'lodash';
+import firebaseApp from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
+
+const firebase = firebaseApp.initializeApp({
+  apiKey: "AIzaSyB_UMGTtBFm5peIvZr-67dbNBCoUs4tRbg",
+  authDomain: "eleven-6f723.firebaseapp.com",
+  databaseURL: "https://eleven-6f723.firebaseio.com",
+  projectId: "eleven-6f723",
+  storageBucket: "eleven-6f723.appspot.com",
+  messagingSenderId: "772347263433"
+});
+
 export const constants = {
   SERVICES_LOADING: 'SERVICES_LOADING',
   SERVICES_LOADED: 'SERVICES_LOADED',
@@ -6,11 +21,28 @@ export const constants = {
   MASTERS_LOADING: 'MASTERS_LOADING',
   MASTERS_LOADED: 'MASTERS_LOADED',
   MASTERS_FAILED: 'MASTERS_FAILED',
-  SELECT_MASTER: 'SELECT_MASTER',
+  SELECT_MASTER_NEXT_DATE: 'SELECT_MASTER_NEXT_DATE',
+
   BOOKING_SUBMIT: 'BOOKING_SUBMIT',
   BOOKING_SUBMITED: 'BOOKING_SUBMITED',
   BOOKING_FAILED: 'BOOKING_FAILED',
   BOOKING_CLEAR: 'BOOKING_CLEAR',
+  SAVE_BOOKING_USER: 'SAVE_BOOKING_USER',
+  BOOKING_DELETED: 'BOOKING_DELETED',
+  BOOKING_DELETED_FAILED: 'BOOKING_DELETED_FAILED',
+
+  MASTERS_TIME_LOADING: 'MASTERS_TIME_LOADING',
+  MASTERS_TIME_LOADED: 'MASTERS_TIME_LOADED',
+  MASTERS_TIME_ERROR: 'MASTERS_TIME_ERROR',
+  
+  ALL_EVENTS_LOADING: 'ALL_EVENTS_LOADING',
+  ALL_EVENTS_LOADED: 'ALL_EVENTS_LOADED',
+  ALL_EVENTS_FAILED: 'ALL_EVENTS_FAILED',
+
+  AUTH_LOADING: 'AUTH_LOADING',
+  AUTH_DONE: 'AUTH_DONE',
+  AUTH_FAILED: 'AUTH_FAILED',
+  LOGOUT: 'LOGOUT',
 };
 
 export function loadServices() {
@@ -18,7 +50,7 @@ export function loadServices() {
     dispatch({
       type: constants.SERVICES_LOADING
     });
-    window.firebase.database().ref('lviv/services').once('value')
+    firebase.database().ref('lviv/services').once('value')
       .then((services) => {
         console.log('services loaded', services.val());
         dispatch({
@@ -36,17 +68,17 @@ export function loadServices() {
   };
 }
 
-export function selectService(serviceId) {
+export function selectService(data) {
   return {
     type: constants.SELECT_SERVICE,
-    data: {serviceId}
+    data
   }
 }
 
-export function selectMaster(masterId) {
+export function selectMasterNextDate(data) {
   return {
-    type: constants.SELECT_MASTER,
-    data: {masterId}
+    type: constants.SELECT_MASTER_NEXT_DATE,
+    data
   }
 }
 
@@ -55,12 +87,15 @@ export function loadMasters() {
     dispatch({
       type: constants.MASTERS_LOADING
     });
-    window.firebase.database().ref('lviv/masters').once('value')
+    firebase.database()
+      .ref('lviv/masters')
+      .once('value')
       .then((masters) => {
-        console.log('masters loaded', masters.val());
+        const mastersList = masters.val();
+        console.log('masters loaded', mastersList);
         dispatch({
           type: constants.MASTERS_LOADED,
-          data: masters.val()
+          data: mastersList
         });
       })
       .catch((error) => {
@@ -73,14 +108,93 @@ export function loadMasters() {
   };
 }
 
+export function getMastersTime(mastersList, _date_) {
+  return dispatch => {
+    dispatch({
+      type: constants.MASTERS_TIME_LOADING
+    });
+    const date = moment(_date_);
+    if (mastersList) {
+      return Promise.all(
+        mastersList.map((master) => firebase.database()
+          .ref(`lviv/mastersTime/${master.id}/${date.get('year')}/${date.get('month')}/${date.get('date')}`).once('value'))
+      )
+      .then((timeList) => timeList.map((time) => time.val()))
+      .then((result) => {
+        dispatch({
+          type: constants.MASTERS_TIME_LOADED,
+          data: {mastersList, result, date}
+        });
+      })
+      .catch((e) => {
+        dispatch({
+          type: constants.MASTERS_TIME_ERROR,
+          error: e
+        });
+      })
+    }
+  }
+}
+
+export function getAllEvents() {
+  return dispatch => {
+    const date = moment().subtract(1, 'month');
+    dispatch({
+      type: constants.ALL_EVENTS_LOADING
+    });
+
+    Promise.all([
+      loadMastersRequest(),
+      loadBookingsRequest(date),
+    ])
+    .then(([masters, bookings]) => {
+      dispatch({
+        type: constants.MASTERS_LOADED,
+        data: masters.val()
+      });
+      dispatch({
+        type: constants.ALL_EVENTS_LOADED,
+        data: bookings.val()
+      });
+    })
+    .catch((error) => {
+      console.error('action getAllEvents failed', error);
+      dispatch({
+        type: constants.ALL_EVENTS_FAILED,
+        error: error
+      });
+    });
+  };
+}
+
+function loadMastersRequest() {
+  return firebase.database()
+    .ref('lviv/masters')
+    .once('value');
+}
+
+function loadBookingsRequest(date) {
+  return firebase.database()
+    .ref('lviv/bookings')
+    .orderByChild('timestamp')
+    .startAt(date.toDate().getTime())
+    .once('value');
+}
+
 export function submitBooking(booking) {
   return dispatch => {
+    booking.timestamp = moment().toDate().getTime();
     dispatch({
       type: constants.BOOKING_SUBMIT,
       data: {booking}
     });
-    window.firebase.database().ref('lviv/bookings')
-      .push(booking)
+    const mastersData = getMasterTime(booking.selectedServices);
+    Promise.all([
+      firebase.database().ref('lviv/mastersTime')
+        .update(mastersData),
+      firebase.database().ref('lviv/bookings')
+        .push(booking)
+    ])
       .then(() => {
         console.log('submitBooking done');
         dispatch({
@@ -97,8 +211,83 @@ export function submitBooking(booking) {
   }
 }
 
+export function saveBookingUser(data) {
+  return {
+    type: constants.SAVE_BOOKING_USER,
+    data
+  }
+}
+
 export function clearBooking() {
   return {
     type: constants.BOOKING_CLEAR,
   }
+}
+
+export function deleteBoking(bookingId) {
+  return dispatch => {
+    firebase.database()
+    .ref('lviv/bookings/' + bookingId)
+    .once('value')
+    .then((_booking) => {
+      let booking = _booking.val();
+      booking.status = 'deleted';
+      return firebase.database()
+        .ref('lviv/bookings/' + bookingId)
+        .update(booking);
+    })
+    .then(() => {
+      dispatch({
+        type: constants.BOOKING_DELETED,
+        data: {bookingId}
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: constants.BOOKING_DELETED_FAILED,
+        data: {error}
+      });
+    })
+    
+  }
+}
+
+export function authenticate(email, password) {
+  return dispatch => {
+    dispatch({
+      type: constants.AUTH_LOADING,
+    });
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(() => {
+        dispatch({
+          type: constants.AUTH_DONE,
+          data: {email}
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: constants.AUTH_FAILED,
+          error
+        });
+      });
+  }
+}
+
+export function logout() {
+  return dispatch => {
+    firebase.auth().signOut()
+    .then(() => {
+      dispatch({
+        type: constants.LOGOUT
+      });
+    })
+  }
+}
+
+function getMasterTime(bookings) {
+  return _.reduce(bookings, (result, booking) => {
+    let date = moment(booking.dateStart);
+    result[`${booking.masterId}/${date.get('year')}/${date.get('month')}/${date.get('date')}/${date.get('hour')}/${date.get('minute')}`] = {name: booking.name, duration: booking.duration};
+    return result;
+  }, {});
 }
