@@ -12,6 +12,8 @@ import * as actionCreators from '../../flux/actions';
 export class Calendar extends Component {
   state = {
     filterMaster: '',
+    email: '',
+    password: '',
   }
 
   componentWillMount() {
@@ -25,10 +27,26 @@ export class Calendar extends Component {
     BigCalendar.momentLocalizer(moment);
   }
 
+  componentWillUnmount() {
+    this.props.actions.logout();
+  }
+
   render() {
-    const {app: {allEvents}} = this.props;
-    const {filterMaster} = this.state;
+    const {app: {allEvents, auth}} = this.props;
+    const {filterMaster, email, password} = this.state;
     let events = allEvents.list;
+
+    if (auth.loading) {
+      return (<h2>Loading...</h2>);
+    }
+
+    if (auth.status !== 'success') {
+      return (<div>
+        <input type="email" onChange={this.onEmailChange} value={email} placeholder="Email"/>
+        <input type="password" onChange={this.onPasswordChange} value={password} placeholder="Password"/>
+        <button onClick={this.login}>Submit</button>
+      </div>);
+    }
 
     if (allEvents.list.length == 0) {
       return (<h2>{allEvents.loading ? 'Loading...' : 'No events found'}</h2>);
@@ -39,6 +57,7 @@ export class Calendar extends Component {
     }
 
     return (<div className="calendar--container">
+      <div>User: {auth.email}</div>
       Календар усіх подій
       <div>Filters:
       <select onChange={this.changeMaster} value={filterMaster}>
@@ -92,6 +111,14 @@ export class Calendar extends Component {
       this.props.actions.deleteBoking(event.bookingId);
     }
   }  
+
+  onEmailChange = (event) => this.setState({email: event.target.value});
+  onPasswordChange = (event) => this.setState({password: event.target.value});
+
+  login = () => {
+    const {email, password} = this.state;
+    this.props.actions.authenticate(email, password);
+  }
 }
 
 function mapStateToProps(state) {

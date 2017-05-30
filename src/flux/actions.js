@@ -1,5 +1,17 @@
 import moment from 'moment';
 import _ from 'lodash';
+import firebaseApp from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
+
+const firebase = firebaseApp.initializeApp({
+  apiKey: "AIzaSyB_UMGTtBFm5peIvZr-67dbNBCoUs4tRbg",
+  authDomain: "eleven-6f723.firebaseapp.com",
+  databaseURL: "https://eleven-6f723.firebaseio.com",
+  projectId: "eleven-6f723",
+  storageBucket: "eleven-6f723.appspot.com",
+  messagingSenderId: "772347263433"
+});
 
 export const constants = {
   SERVICES_LOADING: 'SERVICES_LOADING',
@@ -26,6 +38,11 @@ export const constants = {
   ALL_EVENTS_LOADING: 'ALL_EVENTS_LOADING',
   ALL_EVENTS_LOADED: 'ALL_EVENTS_LOADED',
   ALL_EVENTS_FAILED: 'ALL_EVENTS_FAILED',
+
+  AUTH_LOADING: 'AUTH_LOADING',
+  AUTH_DONE: 'AUTH_DONE',
+  AUTH_FAILED: 'AUTH_FAILED',
+  LOGOUT: 'LOGOUT',
 };
 
 export function loadServices() {
@@ -33,7 +50,7 @@ export function loadServices() {
     dispatch({
       type: constants.SERVICES_LOADING
     });
-    window.firebase.database().ref('lviv/services').once('value')
+    firebase.database().ref('lviv/services').once('value')
       .then((services) => {
         console.log('services loaded', services.val());
         dispatch({
@@ -70,7 +87,7 @@ export function loadMasters() {
     dispatch({
       type: constants.MASTERS_LOADING
     });
-    window.firebase.database()
+    firebase.database()
       .ref('lviv/masters')
       .once('value')
       .then((masters) => {
@@ -99,7 +116,7 @@ export function getMastersTime(mastersList, _date_) {
     const date = moment(_date_);
     if (mastersList) {
       return Promise.all(
-        mastersList.map((master) => window.firebase.database()
+        mastersList.map((master) => firebase.database()
           .ref(`lviv/mastersTime/${master.id}/${date.get('year')}/${date.get('month')}/${date.get('date')}`).once('value'))
       )
       .then((timeList) => timeList.map((time) => time.val()))
@@ -119,211 +136,45 @@ export function getMastersTime(mastersList, _date_) {
   }
 }
 
-var data = {
-      "-Kl7glERlFhN-Jmm4INs" : {
-        "name" : "sdd",
-        "notes" : "dsds",
-        "phone" : "dssd",
-        "selectedServices" : {
-          "s3_3+1496125800000" : {
-            "dateEnd" : "Tue May 30 2017 13:30:00 GMT+0400 (+04)",
-            "dateStart" : "Tue May 30 2017 10:30:00 GMT+0400 (+04)",
-            "duration" : 3,
-            "masterId" : "e4",
-            "name" : "service 33"
-          }
-        },
-        "timestamp" : 1495868314738
-      },
-      "-Kl7gsSXlq98fXh-hROE" : {
-        "name" : "sdd",
-        "notes" : "dsds",
-        "phone" : "dssd",
-        "selectedServices" : {
-          "s2_2+1495974600000" : {
-            "dateEnd" : "Sun May 28 2017 18:30:00 GMT+0400 (+04)",
-            "dateStart" : "Sun May 28 2017 16:30:00 GMT+0400 (+04)",
-            "duration" : 2,
-            "masterId" : "e4",
-            "name" : "service 22"
-          },
-          "s3_3+1496125800000" : {
-            "dateEnd" : "Tue May 30 2017 13:30:00 GMT+0400 (+04)",
-            "dateStart" : "Tue May 30 2017 10:30:00 GMT+0400 (+04)",
-            "duration" : 3,
-            "masterId" : "e4",
-            "name" : "service 33"
-          }
-        },
-        "timestamp" : 1495868344315
-      },
-      "-Kl7kwuZ5rlnJcc2jM-u" : {
-        "name" : "11",
-        "notes" : "11221",
-        "phone" : "1111",
-        "selectedServices" : {
-          "s3_3+1495872000787" : {
-            "dateEnd" : "Sat May 27 2017 15:00:00 GMT+0400 (+04)",
-            "dateStart" : "Sat May 27 2017 12:00:00 GMT+0400 (+04)",
-            "duration" : 3,
-            "masterId" : "e3",
-            "name" : "service 33"
-          }
-        },
-        "timestamp" : 1495869411150
-      },
-      "-Kl7lc0DMVjgI8EMsEjm" : {
-        "name" : "2222",
-        "notes" : "22222",
-        "phone" : "2222",
-        "selectedServices" : {
-          "s3_3+1495872000396" : {
-            "dateEnd" : "Sat May 27 2017 15:00:00 GMT+0400 (+04)",
-            "dateStart" : "Sat May 27 2017 12:00:00 GMT+0400 (+04)",
-            "duration" : 3,
-            "masterId" : "e1",
-            "name" : "service 33"
-          }
-        },
-        "timestamp" : 1495869587650
-      }
-    };
-
-var masters = {
-      "e1" : {
-        "id" : "e1",
-        "name" : "employee 1",
-        "services" : [ "s2_3", "s3_3" ],
-        "work" : [ "odd" ]
-      },
-      "e2" : {
-        "id" : "e2",
-        "name" : "employee 2",
-        "services" : [ "s1_3" ],
-        "work" : [ "even" ]
-      },
-      "e3" : {
-        "id" : "e3",
-        "name" : "employee 3",
-        "services" : [ "s2_3", "s3_3" ],
-        "work" : [ "odd" ]
-      },
-      "e4" : {
-        "id" : "e4",
-        "name" : "employee 4",
-        "services" : [ "s2_2", "s3_3" ],
-        "work" : [ "even" ]
-      },
-      "e5" : {
-        "id" : "e5",
-        "name" : "employee 5",
-        "services" : [ "s1_3", "s3_2" ],
-        "work" : [ "odd" ]
-      }
-    }
-
-    var services = [ {
-      "id" : "s1",
-      "name" : "service 1",
-      "sub" : [ {
-        "duration" : 2,
-        "id" : "s1_1",
-        "name" : "service 11"
-      }, {
-        "duration" : 1,
-        "id" : "s1_2",
-        "name" : "service 12"
-      }, {
-        "duration" : 3,
-        "id" : "s1_3",
-        "name" : "service 13"
-      } ]
-    }, {
-      "id" : "s2",
-      "name" : "service 2",
-      "sub" : [ {
-        "duration" : 4,
-        "id" : "s2_1",
-        "name" : "service 21"
-      }, {
-        "duration" : 2,
-        "id" : "s2_2",
-        "name" : "service 22"
-      }, {
-        "duration" : 3,
-        "id" : "s2_3",
-        "name" : "service 23"
-      } ]
-    }, {
-      "id" : "s3",
-      "name" : "serice 3",
-      "sub" : [ {
-        "duration" : 5,
-        "id" : "s3_1",
-        "name" : "service 31"
-      }, {
-        "duration" : 2,
-        "id" : "s3_2",
-        "name" : "service 32"
-      }, {
-        "duration" : 3,
-        "id" : "s3_3",
-        "name" : "service 33"
-      } ]
-    } ];
-
 export function getAllEvents() {
   return dispatch => {
     const date = moment().subtract(1, 'month');
     dispatch({
-          type: constants.MASTERS_LOADED,
-          data: masters
-        });
-    dispatch({
-          type: constants.ALL_EVENTS_LOADED,
-          data: data
-        });
-    dispatch({
-          type: constants.SERVICES_LOADED,
-          data: services
-        });
-    return;
-    dispatch({
       type: constants.ALL_EVENTS_LOADING
     });
-    return;
+
     Promise.all([
       loadMastersRequest(),
       loadBookingsRequest(date),
     ])
-      .then(([masters, services, bookings]) => {
-        dispatch({
-          type: constants.MASTERS_LOADED,
-          data: masters.val()
-        });
-        dispatch({
-          type: constants.ALL_EVENTS_LOADED,
-          data: bookings.val()
-        });
-      })
-      .catch((error) => {
-        console.error('action getAllEvents failed', error);
-        dispatch({
-          type: constants.ALL_EVENTS_FAILED,
-          error: error
-        });
+    .then(([masters, bookings]) => {
+      dispatch({
+        type: constants.MASTERS_LOADED,
+        data: masters.val()
       });
+      dispatch({
+        type: constants.ALL_EVENTS_LOADED,
+        data: bookings.val()
+      });
+    })
+    .catch((error) => {
+      console.error('action getAllEvents failed', error);
+      dispatch({
+        type: constants.ALL_EVENTS_FAILED,
+        error: error
+      });
+    });
   };
 }
 
 function loadMastersRequest() {
-  return window.firebase.database()
+  return firebase.database()
     .ref('lviv/masters')
     .once('value');
 }
 
 function loadBookingsRequest(date) {
-  return window.firebase.database()
+  return firebase.database()
     .ref('lviv/bookings')
     .orderByChild('timestamp')
     .startAt(date.toDate().getTime())
@@ -339,9 +190,9 @@ export function submitBooking(booking) {
     });
     const mastersData = getMasterTime(booking.selectedServices);
     Promise.all([
-      window.firebase.database().ref('lviv/mastersTime')
+      firebase.database().ref('lviv/mastersTime')
         .update(mastersData),
-      window.firebase.database().ref('lviv/bookings')
+      firebase.database().ref('lviv/bookings')
         .push(booking)
     ])
       .then(() => {
@@ -375,15 +226,16 @@ export function clearBooking() {
 
 export function deleteBoking(bookingId) {
   return dispatch => {
-    dispatch({
-        type: constants.BOOKING_DELETED,
-        data: {bookingId}
-      });
-    return;
-  
-    window.firebase.database()
+    firebase.database()
     .ref('lviv/bookings/' + bookingId)
-    .delete()
+    .once('value')
+    .then((_booking) => {
+      let booking = _booking.val();
+      booking.status = 'deleted';
+      return firebase.database()
+        .ref('lviv/bookings/' + bookingId)
+        .update(booking);
+    })
     .then(() => {
       dispatch({
         type: constants.BOOKING_DELETED,
@@ -397,6 +249,38 @@ export function deleteBoking(bookingId) {
       });
     })
     
+  }
+}
+
+export function authenticate(email, password) {
+  return dispatch => {
+    dispatch({
+      type: constants.AUTH_LOADING,
+    });
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(() => {
+        dispatch({
+          type: constants.AUTH_DONE,
+          data: {email}
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: constants.AUTH_FAILED,
+          error
+        });
+      });
+  }
+}
+
+export function logout() {
+  return dispatch => {
+    firebase.auth().signOut()
+    .then(() => {
+      dispatch({
+        type: constants.LOGOUT
+      });
+    })
   }
 }
 

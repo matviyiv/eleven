@@ -12,6 +12,11 @@ const initialState = {
     list: [],
     loading: false,
   },
+  auth: {
+    status: '',
+    loading: false,
+    email: '',
+  }
 };
 const {
   SERVICES_LOADING,
@@ -24,6 +29,9 @@ const {
   ALL_EVENTS_LOADED,
   ALL_EVENTS_LOADING,
   BOOKING_DELETED,
+  AUTH_LOADING,
+  AUTH_DONE,
+  LOGOUT,
 } = constants;
 
 export function appReducer(state = initialState, action) {
@@ -77,6 +85,7 @@ export function appReducer(state = initialState, action) {
       st.booking.name = name;
       st.booking.phone = phone;
       st.booking.notes = notes;
+      st.booking.status = 'active';
       return {...st}
     },
     BOOKING_CLEAR: (st) => {
@@ -90,6 +99,7 @@ export function appReducer(state = initialState, action) {
     ALL_EVENTS_LOADED: (st, bookings) => {
       let eventsList = st.allEvents.list;
       _.forEach(bookings, (booking, bookingId) => {
+        if (booking.status == 'deleted') return;
         eventsList = eventsList.concat(_.map(booking.selectedServices, (service) => ({
             title: `Сервіс: ${service.name} майстер: ${st.masters.list[service.masterId].name}`,
             start: new Date(service.dateStart),
@@ -106,6 +116,21 @@ export function appReducer(state = initialState, action) {
     BOOKING_DELETED: (st, {bookingId}) => {
       let index = _.findIndex(st.allEvents.list, {bookingId});
       delete st.allEvents.list[index];
+      return {...st};
+    },
+    AUTH_LOADING: (st) => {
+      st.auth.loading = true;
+      return {...st};
+    },
+    AUTH_DONE: (st, {email}) => {
+      st.auth.email = email;
+      st.auth.status = 'success';
+      st.auth.loading = false;
+      return {...st};
+    },
+    LOGOUT: (st) => {
+      st.auth.email = '';
+      st.auth.status = '';
       return {...st};
     },
     default: (st) => st
