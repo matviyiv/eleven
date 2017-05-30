@@ -26,3 +26,45 @@
 .time-list a:hover {
   background-color: #111111;
 }
+
+
+
+/*===== step ===*/
+
+article[role="step"].step-pan{ padding-top:17.6%}
+
+article[role="step"].step-pan p{ letter-spacing:1px; line-height:18px; font-weight:300}
+
+article[role="step"].step-pan ul{ margin:0; padding:0; text-align:center; padding-top:20px;}
+
+article[role="step"].step-pan ul > li{ display: inline-block; margin: 10px 10px; background: rgba(255,255,255,0.7); padding: 10px; width: 200px; height: 150px;}
+
+article[role="step"].step-pan ul > li,article[role="step"].step-pan ul > li > i,article[role="step"].step-pan ul > li > h6,article[role="subscribe"].subscribe-pan form label,article[role="subscribe"].subscribe-pan form label i{transition-delay: 0s;transition-duration: 0.6s;transition-property: all;transition-timing-function: ease;}
+
+article[role="step"].step-pan ul > li > i{ font-size:26px; padding-bottom:18px;color:#d1c315;}
+
+article[role="step"].step-pan ul > li > h6{ font-weight:700; font-size:12px; line-height:13px; text-transform:uppercase; letter-spacing:2px}
+
+article[role="step"].step-pan ul > li > p{ font-size:12px; line-height:18px; letter-spacing:inherit; padding-top:5px}
+
+article[role="step"].step-pan ul > li:hover i{ color:#efe51d}
+
+/*===== sub-step ===*/
+
+article[role="sub-step"].sub-step-pan{ padding-top:17.6%}
+
+article[role="sub-step"].sub-step-pan p{ letter-spacing:1px; line-height:18px; font-weight:300}
+
+article[role="sub-step"].sub-step-pan ul{ margin:0; padding:0; text-align:center; padding-top:20px;}
+
+article[role="sub-step"].sub-step-pan ul > li{ display: block; margin: 10px 10px; background: rgba(255,255,255,0.7); padding: 10px;}
+
+article[role="sub-step"].sub-step-pan ul > li,article[role="sub-step"].sub-step-pan ul > li > i,article[role="sub-step"].sub-step-pan ul > li > h6,article[role="subscribe"].subscribe-pan form label,article[role="subscribe"].subscribe-pan form label i{transition-delay: 0s;transition-duration: 0.6s;transition-property: all;transition-timing-function: ease;}
+
+article[role="sub-step"].sub-step-pan ul > li > i{ font-size:26px; padding-bottom:18px;color:#d1c315;}
+
+article[role="sub-step"].sub-step-pan ul > li > h6{ font-weight:700; font-size:12px; line-height:13px; text-transform:uppercase; letter-spacing:2px}
+
+article[role="sub-step"].sub-step-pan ul > li > p{ font-size:12px; line-height:18px; letter-spacing:inherit; padding-top:5px}
+
+article[role="sub-step"].sub-step-pan ul > li:hover i{ color:#efe51d}

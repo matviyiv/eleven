@@ -18,9 +18,14 @@ export class Step2 extends Component {
 
     const service = app.services.list.find((s) => s.id === id);
     const content = service ? this.renderSubServices(service.sub) : 'No service found!';
-    return (<div>
-      {content}
-    </div>)
+    return ( <section>
+      <article role="sub-step" className="sub-step-pan">
+        <header className="page-title">
+          <h2>Step1</h2>
+        </header>
+        {content}
+      </article>
+    </section>)
   }
 
   selectService = (serviceId, serviceName) => {

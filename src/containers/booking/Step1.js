@@ -13,7 +13,7 @@ export class Step1 extends Component {
     const {app: {services} } = this.props;
     const content = services.loading ? 'Loading ...' : this.renderServices(services.list);
     return (<section>
-      <article role="whywe" className="whywe-pan">
+      <article role="step" className="step-pan">
         <header className="page-title">
           <h2>Step1</h2>
         </header>
