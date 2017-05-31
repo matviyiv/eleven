@@ -32,6 +32,13 @@ const {
   AUTH_LOADING,
   AUTH_DONE,
   LOGOUT,
+
+  SERVICES_FAILED,
+  BOOKING_FAILED,
+  BOOKING_DELETED_FAILED,
+  MASTERS_TIME_ERROR,
+  ALL_EVENTS_FAILED,
+  AUTH_FAILED,
 } = constants;
 
 export function appReducer(state = initialState, action) {
@@ -136,6 +143,14 @@ export function appReducer(state = initialState, action) {
     default: (st) => st
   },
   modifier = actions[action.type] || actions.default;
+  if ([
+      SERVICES_FAILED,
+      BOOKING_FAILED,
+      BOOKING_DELETED_FAILED,
+      MASTERS_TIME_ERROR,
+      ALL_EVENTS_FAILED,
+      AUTH_FAILED,
+    ].indexOf(action.type) > -1) console.error(action.error || action.data.error)
   const newState = modifier(state, action.data);
   console.log('----', action.type, newState);
   return newState;

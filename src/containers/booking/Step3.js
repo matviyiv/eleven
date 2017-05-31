@@ -29,14 +29,14 @@ export class Step3 extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {filteredMasters, currentService} = this.state;
+    const {filteredMasters, currentService, selectedDate} = this.state;
     const {app: {masters, services}, match: {params}} = nextProps;
     const id = params.subServiceId;
 
     if (!filteredMasters && masters.list) {
-      this.setState({
-        filteredMasters: _.filter(masters.list, (m) => m.services.indexOf(id) > -1)
-      });
+      let mastersList = _.filter(masters.list, (m) => m.services.indexOf(id) > -1);
+      this.setState({filteredMasters: mastersList});
+      this.props.actions.getMastersTime(mastersList, selectedDate);
     }
 
     if (!currentService) {
@@ -44,7 +44,7 @@ export class Step3 extends Component {
     }
   }
 
-  getAvaliableTime(master) {
+  renderAvaliableTime(master) {
     const {selectedDate, currentService} = this.state;
     const listOfAvaliableHours = MasterHelper.getAvaliableTime({master, selectedDate, duration: currentService.duration});
     const date = selectedDate.date();
@@ -73,7 +73,7 @@ export class Step3 extends Component {
     
     if (masters.loading || services.loading) return (<div>Loading ...</div>);
 
-    const content = filteredMasters.length ? this.renderMasters(filteredMasters) : 'No master found!';
+    const content = filteredMasters ? this.renderMasters(filteredMasters) : 'No master found!';
 
     return (<div>
       <h2>{currentService.name} duration: {currentService.duration}h</h2>
@@ -118,7 +118,7 @@ export class Step3 extends Component {
 
   renderMasters(list) {
     const items = list.map((master) => {
-      const timeList = this.getAvaliableTime(master);
+      const timeList = this.renderAvaliableTime(master);
       return <li key={master.id}>
       <a onClick={this.selectMaster(master.id)}>{master.name}</a>
       <br/>

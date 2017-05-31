@@ -231,10 +231,14 @@ export function deleteBoking(bookingId) {
     .once('value')
     .then((_booking) => {
       let booking = _booking.val();
+      const mastersData = getMasterTime(booking.selectedServices);
+
       booking.status = 'deleted';
-      return firebase.database()
-        .ref('lviv/bookings/' + bookingId)
-        .update(booking);
+      return Promise.all([
+        _.keys(mastersData).map((key) => firebase.database().ref('lviv/mastersTime/' + key).remove()),
+        firebase.database().ref('lviv/bookings/' + bookingId)
+          .update(booking)
+      ]);
     })
     .then(() => {
       dispatch({

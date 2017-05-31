@@ -28,11 +28,10 @@ export class Step2 extends Component {
     </section>)
   }
 
-  selectService = (serviceId, serviceName) => {
-    return () => {
-      this.props.actions.loadMasters();
-      this.props.history.push('/booking/step3/' + serviceId);
-    }
+  selectService = (serviceId, serviceName) => () => {
+    const {app: {masters, services}, actions, history} = this.props;
+    !masters.list && !masters.loading && actions.loadMasters();
+    history.push('/booking/step3/' + serviceId);
   }
 
   renderSubServices(list) {

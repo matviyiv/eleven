@@ -12,11 +12,13 @@ export class FinalForm extends Component {
       name: props.app.booking.name || '',
       phone: props.app.booking.phone || '',
       notes: props.app.booking.notes || '',
+      nameInputInvalid: false,
+      phoneInputInvalid: false,
     };
   }
 
   render() {
-    const { name, phone, notes } = this.state;
+    const { name, phone, notes, nameInputInvalid, phoneInputInvalid } = this.state;
     const {app: {services, booking} } = this.props;
     const hasServices = Object.keys(booking.selectedServices).length;
     return (<section>
@@ -33,8 +35,11 @@ export class FinalForm extends Component {
             type="text"
             autoFocus="true"
             name="name"
+            ref="nameInput"
+            className={nameInputInvalid ? 'invalid-input' : ''}
             value={name}
             onChange={this.nameChange}
+            required={true}
             />
           </label></li>
         <li>
@@ -42,8 +47,11 @@ export class FinalForm extends Component {
             <input
               type="tel"
               name="phone"
+              ref="phoneInput"
+              className={phoneInputInvalid ? 'invalid-input' : ''}
               value={phone}
               onChange={this.phoneChange}
+              required={true}
               />
           </label>
         </li>
@@ -98,6 +106,12 @@ export class FinalForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    if (!this.refs.nameInput.validity.valid || !this.refs.phoneInput.validity.valid) {
+      return this.setState({
+        nameInputInvalid: !this.refs.nameInput.validity.valid,
+        phoneInputInvalid: !this.refs.phoneInput.validity.valid
+      });
+    }
     this.submit();
     this.props.actions.clearBooking();
     this.props.history.push('/booking/done');
