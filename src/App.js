@@ -9,6 +9,7 @@ export default class App extends Component {
     return (
       <div className="app">
         <BackgroundSlider/>
+        <div className="over-bg"></div>
          <div className="container"> 
             <div className="tab-content text-center"> 
              {this.props.children}

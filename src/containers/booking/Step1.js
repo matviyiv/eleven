@@ -10,14 +10,22 @@ export class Step1 extends Component {
     !services.list && this.props.actions.loadServices();
   }
   render() {
-    const {app: {services} } = this.props;
-    const content = services.loading ? 'Loading ...' : this.renderServices(services.list);
     return (<section>
       <article role="step" className="step-pan">
         <header className="page-title">
-          <h2>Step1</h2>
+          <h2>Вибери послугу</h2>
         </header>
-        {content}
+        <ul>
+          <li onClick={this.selectService("s1")}> <i className="fa fa-scissors" aria-hidden="true"></i>
+            <h6>Перукарські послуги</h6>
+          </li>
+          <li onClick={this.selectService("s2")}> <i className="fa fa-diamond" aria-hidden="true"></i>
+            <h6>Макіяж</h6>
+          </li>
+          <li onClick={this.selectService("s3")}> <i className="fa fa-hand-peace-o" aria-hidden="true"></i>
+            <h6>Манікюр</h6>
+          </li>
+        </ul>
       </article>
     </section>)
   }
@@ -28,14 +36,6 @@ export class Step1 extends Component {
     }
   }
 
-  renderServices(list) {
-    const items = list.map((service) => {
-      return <li key={service.id} onClick={this.selectService(service.id)}>{service.name}</li>
-    });
-    return (<ul className="booking--service-list">
-      {items}
-    </ul>)
-  }
 }
 
 function mapStateToProps(state) {
