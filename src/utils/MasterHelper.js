@@ -26,12 +26,12 @@ export function getAvaliableTime({master, selectedDate, duration}) {
   return timeList.filter((time, index) => {
     return moment(time).add(duration, 'hours').get('hours') <= 20
       && (timeList[index + (duration / 0.5)] ?
-        timeList[index + (duration / 0.5)].get('hours') == moment(time).add(duration, 'hours').get('hours')
+        timeList[index + (duration / 0.5)].get('hours') === moment(time).add(duration, 'hours').get('hours')
         :
-        moment(time).add(duration, 'hours').format('HH:mm') == '20:00');
+        moment(time).add(duration, 'hours').format('HH:mm') === '20:00');
   });
 }
 
 export function isEven(n) {
-  return n == parseFloat(n)? !(n%2) : void 0;
+  return n === parseFloat(n)? !(n%2) : void 0;
 }

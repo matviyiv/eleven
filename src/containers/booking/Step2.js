@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './booking.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import * as actionCreators from '../../flux/actions';
 
 export class Step2 extends Component {
@@ -36,7 +37,7 @@ export class Step2 extends Component {
 
   renderSubServices(list) {
     const items = list.map((service) => {
-      return <li key={service.id} onClick={this.selectService(service.id, service.name)}>{service.name}</li>
+      return <li key={service.id} onClick={this.selectService(service.id, service.name)}>{_.capitalize(service.name)}</li>
     });
     return (<ul>
       {items}
