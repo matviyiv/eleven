@@ -17,13 +17,13 @@ export class Step1 extends Component {
         </header>
         <ul>
           <li onClick={this.selectService("s1")}> <i className="fa fa-scissors" aria-hidden="true"></i>
-            <h6>Перукарські послуги</h6>
+            <h6>hair style</h6>
           </li>
           <li onClick={this.selectService("s2")}> <i className="fa fa-diamond" aria-hidden="true"></i>
-            <h6>Макіяж</h6>
+            <h6>make up</h6>
           </li>
           <li onClick={this.selectService("s3")}> <i className="fa fa-hand-peace-o" aria-hidden="true"></i>
-            <h6>Манікюр</h6>
+            <h6>nail art</h6>
           </li>
         </ul>
       </article>
