@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import './booking.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import firebaseApp from 'firebase/app';
+import 'firebase/auth';
 import * as actionCreators from '../../flux/actions';
 
 export class FinalForm extends Component {
@@ -14,13 +17,35 @@ export class FinalForm extends Component {
       notes: props.app.booking.notes || '',
       nameInputInvalid: false,
       phoneInputInvalid: false,
+      showVerification: false,
+      verificationCode: '',
     };
   }
 
+  componentDidMount() {
+    this.recaptchaVerifier = new firebaseApp.auth.RecaptchaVerifier('make-booking', {
+      'size': 'invisible',
+      'callback': (response) => {
+        this.handleSubmit();
+      }
+    });
+
+    // this.refs.nameInput.setCustomValidity('це поле обовязкове');
+    // this.refs.phoneInput.setCustomValidity('це поле обовязкове');
+  }
+
   render() {
-    const { name, phone, notes, nameInputInvalid, phoneInputInvalid } = this.state;
+    const { name, phone, notes, nameInputInvalid, phoneInputInvalid, showVerification } = this.state;
     const {app: {services, booking} } = this.props;
     const hasServices = Object.keys(booking.selectedServices).length;
+
+    if (showVerification) {
+      return (<div>
+        <input type="text" onChange={this.onCodeChange}/>
+        <input type="submit" onClick={this.handleVerification} value="Submit"/>
+      </div>);
+    }
+
     return (<section>
       <article role="whywe" className="whywe-pan">
         <header className="page-title">
@@ -39,7 +64,6 @@ export class FinalForm extends Component {
             className={nameInputInvalid ? 'invalid-input' : ''}
             value={name}
             onChange={this.nameChange}
-            required={true}
             />
           </label></li>
         <li>
@@ -71,7 +95,8 @@ export class FinalForm extends Component {
           <input
             type="submit"
             value="Submit"
-            onClick={this.handleSubmit}
+            id="make-booking"
+            data-sitekey="6Ld8pyMUAAAAAMqNYtkiuY9lZrbJWbH8cfxUWyNR"
             disabled={!hasServices}
             />
         </li>
@@ -84,17 +109,10 @@ export class FinalForm extends Component {
     </section>);
   }
 
-  nameChange = (event) => {
-    this.setState({name: event.target.value});
-  }
-
-  phoneChange = (event) => {
-    this.setState({phone: event.target.value});
-  }
-
-  notesChange = (event) => {
-    this.setState({notes: event.target.value});
-  }
+  nameChange = (event) => this.setState({name: event.target.value})
+  phoneChange = (event) => this.setState({phone: event.target.value})
+  notesChange = (event) => this.setState({notes: event.target.value})
+  onCodeChange = (event) => this.setState({verificationCode: event.target.value})
 
   addMore = (event) => {
     const { name, phone, notes } = this.state;
@@ -105,16 +123,33 @@ export class FinalForm extends Component {
   }
 
   handleSubmit = (event) => {
-    event.preventDefault();
+    event && event.preventDefault();
     if (!this.refs.nameInput.validity.valid || !this.refs.phoneInput.validity.valid) {
       return this.setState({
         nameInputInvalid: !this.refs.nameInput.validity.valid,
         phoneInputInvalid: !this.refs.phoneInput.validity.valid
       });
     }
-    this.submit();
-    this.props.actions.clearBooking();
-    this.props.history.push('/booking/done');
+    firebaseApp.auth().signInWithPhoneNumber(this.state.phone, this.recaptchaVerifier)
+      .then((confirmation) => {
+        this.confirmationResult = confirmation;
+        this.setState({showVerification: true})
+      })
+      .catch((error) => {
+        console.error('signInWithPhoneNumber', error);
+      });
+  }
+
+  handleVerification = () => {
+    const {verificationCode} = this.state;
+    this.confirmationResult.confirm(verificationCode)
+      .then(({user}) => {
+        this.submit();
+        this.props.actions.clearBooking();
+        this.props.history.push('/booking/done');
+      }).catch(function (error) {
+        console.error('confirm', error);
+      });
   }
 
   submit = () => {
