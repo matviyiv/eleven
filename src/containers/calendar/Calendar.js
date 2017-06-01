@@ -48,11 +48,11 @@ export class Calendar extends Component {
       </div>);
     }
 
-    if (allEvents.list.length == 0) {
+    if (allEvents.list.length === 0) {
       return (<h2>{allEvents.loading ? 'Loading...' : 'No events found'}</h2>);
     }
 
-    if (filterMaster != '') {
+    if (filterMaster !== '') {
       events = _.filter(events, {masterId: filterMaster});
     }
 

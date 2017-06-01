@@ -19,7 +19,7 @@ export default class App extends Component {
              {this.props.children}
             </div>
          </div>
-        <Menu/>
+        <Menu currentPath={this.props.location.pathname}/>
       </div>
     );
   }

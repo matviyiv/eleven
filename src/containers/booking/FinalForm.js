@@ -19,7 +19,7 @@ export class FinalForm extends Component {
 
   render() {
     const { name, phone, notes, nameInputInvalid, phoneInputInvalid } = this.state;
-    const {app: {services, booking} } = this.props;
+    const {app: {booking} } = this.props;
     const hasServices = Object.keys(booking.selectedServices).length;
     return (<section>
       <article role="whywe" className="whywe-pan">

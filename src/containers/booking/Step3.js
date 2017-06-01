@@ -21,7 +21,6 @@ export class Step3 extends Component {
     const {
       app: {masters, services},
       actions,
-      match: {params}
     } = this.props;
 
     !masters.list && !masters.loading && actions.loadMasters();
@@ -56,10 +55,10 @@ export class Step3 extends Component {
         </li>);
 
     
-    if (listOfAvaliableHours.length == 0) {
+    if (listOfAvaliableHours.length === 0) {
       content = [<li key="msg-no-master"><a>
         Майстер не працює або зайнятий в цей день спробуйте наступну дату 
-        {dateType == 'even' ? ' непарного ' : ' парного '}
+        {dateType === 'even' ? ' непарного ' : ' парного '}
         дня
       </a></li>];
     }
@@ -92,15 +91,6 @@ export class Step3 extends Component {
     </div>)
   }
 
-  selectMaster = (masterId) => {
-    const {match: {params}} = this.props;
-    const serviceId = params.subServiceId;
-    return () => {
-      // this.props.actions.selectMaster({masterId, serviceId});
-      // this.props.history.push(`/booking/calendar/${serviceId}/${masterId}`);
-    }
-  }
-
   selectMasterNextDate = (masterId, date) => {
     const {match: {params}} = this.props;
     const serviceId = params.subServiceId;
@@ -120,9 +110,9 @@ export class Step3 extends Component {
     const items = list.map((master) => {
       const timeList = this.renderAvaliableTime(master);
       return <li key={master.id}>
-      <a onClick={this.selectMaster(master.id)}>{master.name}</a>
+      <a>{master.name}</a>
       <br/>
-        Avaliable date: {timeList}
+      Avaliable date: {timeList}
       </li>
     });
 

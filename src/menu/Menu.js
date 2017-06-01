@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 export default class Menu extends Component {
   render() {
+    const {currentPath} = this.props;
     return (
 <header role="header">
   <hgroup> 
@@ -13,10 +14,18 @@ export default class Menu extends Component {
      </h1>
     <nav role="nav" id="header-nav" className="nav navy">
       <ul className="nav nav-tabs">
-        <li className="active"><Link to="/" title="Головна">Головна</Link></li>
-        <li><Link to="/whywe"title="Чому ми">Чому ми</Link></li>
-        <li><Link to="/services" title="Послуги">Послуги</Link></li>
-        <li><Link to="/contacts"  title="Контакти">Контакти</Link></li>
+        <li className={currentPath === '/' ? 'active' : ''}>
+          <Link to="/" title="Головна">Головна</Link>
+        </li>
+        <li className={currentPath === '/whywe' ? 'active' : ''}>
+          <Link to="/whywe"title="Чому ми">Чому ми</Link>
+        </li>
+        <li className={currentPath === '/services' ? 'active' : ''}>
+          <Link to="/services" title="Послуги">Послуги</Link>
+        </li>
+        <li className={currentPath === '/contacts' ? 'active' : ''}>
+          <Link to="/contacts"  title="Контакти">Контакти</Link>
+        </li>
       </ul>
       <div role="socil-icons" className="mobile-social">
         <li><a href="#" target="_blank" title="twitter"><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
