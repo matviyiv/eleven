@@ -42,3 +42,13 @@
   animation: plus-out 0.3s;
   transition: all 0.3s;
 }
+
+@media (max-width: 767px) {
+  .floating-button {
+    bottom: 20px;
+    right: 20px;
+  }
+  .container {
+    padding-top: 30px;
+  }
+}

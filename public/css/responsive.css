@@ -98,9 +98,7 @@
 
 	
 
-	#menu-button{ display: block; position:absolute; right:1%; top:-41px; font-size:0; background-color:#353535; padding:3px 7px; cursor:pointer}
-
-	#menu-button:hover{background-color:#e84d49;}
+	#menu-button{ display: block; position:absolute; right:4%; top:-41px; font-size:0; background-color:#353535; padding:3px 7px; cursor:pointer}
 
 	#menu-button i{font-family:'FontAwesome'; font-size:21px; line-height:23px; color:#FFF; font-weight:normal}
 

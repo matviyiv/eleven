@@ -204,17 +204,15 @@ header[role="header"] > hgroup > h1 > a:hover{ text-decoration:none }
 
 /*===== Nav ===*/
 
-#menu-button{ display:none}
-
 header[role="header"] > hgroup nav{ float:none; clear:both; text-align:center; display:inline-block; position:absolute; left:0; right:0}
 
-header[role="header"] > hgroup nav ul{ padding:0; margin:0; list-style:none; text-align:center; border:none}
+.menu__items { padding:0; margin:0; list-style:none; text-align:center; border:none}
 
-header[role="header"] > hgroup nav ul > li{ float:none; display:inline-block; font-size:12px; text-transform:uppercase; letter-spacing:2px; font-weight:400; margin:0 18.5px}
+.menu__items > li{ float:none; display:inline-block; font-size:12px; text-transform:uppercase; letter-spacing:2px; font-weight:400; margin:0 18.5px}
 
-header[role="header"] > hgroup nav ul > li > a{border-radius:0;border:none; padding:0; line-height:52px; display:block;color:#353535}
+.menu__items > li > a{border-radius:0;border:none; padding:0; line-height:52px; display:block;color:#353535}
 
-header[role="header"] > hgroup nav ul > li.active a,header[role="header"] > hgroup nav ul > li a:hover{ background-color: inherit; border:none; color:#c9bc17; text-decoration:none}
+.menu__items > li.active a,.menu__items > li a:hover{ background-color: inherit; border:none; color:#c9bc17; text-decoration:none}
 
 header[role="header"] > hgroup nav .nav-tabs>li.active>a, header[role="header"] > hgroup nav .nav-tabs>li.active>a:focus, header[role="header"] > hgroup nav .nav-tabs>li.active>a:hover{ background-color: inherit; border:none;color:#c9bc17}
 
@@ -249,6 +247,41 @@ article header.page-title h2{ text-align:center;font-family: 'Oranienbaum', seri
 
 article header.page-title h2:after{ content:""; display:block; width:98px; height:3px; position:absolute; left:0; right:0; bottom:-12px; margin:0 auto; background-color:#c9bc17}
 
+#menu-button {
+  display: none;
+}
 
+@media (max-width: 767px) {
+  header[role="header"] > hgroup nav {
+    display: block;
+    position: relative;
+  }
+  #menu-button {
+    display: block;
+  }
 
+  #menu-button.open {
+    background-color: #c9bc17;
+  }
+
+  .menu__items {
+    max-height: 0;
+    transition: all 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
+  }
+
+  .menu__items > li {
+    display: none;
+  }
+
+  .menu__items.open > li {
+    display: block;
+    margin: 0;
+    border-bottom: 1px solid #CCC;
+  }
+
+  .menu__items.open {
+    overflow-y: hidden;
+    max-height: 120px;
+  }
+}
 

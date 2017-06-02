@@ -2,10 +2,25 @@ import React, { Component } from 'react';
 import './menu.css';
 import logo from '../logo-yellow.svg';
 import { Link } from 'react-router-dom';
+import {classes} from '../utils';
 
 export default class Menu extends Component {
+  state = {
+    isMobileMenuOpen: false
+  }
+
+  toggleMobileMenu = () => {
+    this.setState({isMobileMenuOpen: !this.state.isMobileMenuOpen});
+  }
+
   render() {
     const {currentPath} = this.props;
+    const { isMobileMenuOpen } = this.state;
+    const menuItemsClass = classes({
+      'nav nav-tabs menu__items': true,
+      open: isMobileMenuOpen
+    });
+
     return (
 <header role="header">
   <hgroup> 
@@ -13,7 +28,10 @@ export default class Menu extends Component {
       <Link to="/" className="menu--logo"><img src={logo}/></Link>
      </h1>
     <nav role="nav" id="header-nav" className="nav navy">
-      <ul className="nav nav-tabs">
+      <div id="menu-button" className={isMobileMenuOpen ? 'open' : null} onClick={this.toggleMobileMenu}>
+        <i className="fa fa-bars"></i>Navigation
+      </div>
+      <ul className={menuItemsClass}>
         <li className={currentPath === '/' ? 'active' : ''}>
           <Link to="/" title="Головна">Головна</Link>
         </li>
@@ -28,17 +46,17 @@ export default class Menu extends Component {
         </li>
       </ul>
       <div role="socil-icons" className="mobile-social">
-        <li><a href="#" target="_blank" title="twitter"><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
-        <li><a href="#" target="_blank" title="facebook"><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
-        <li><a href="#" target="_blank" title="google-plus"><i className="fa fa-google-plus" aria-hidden="true"></i></a></li>
-        <li><a href="#" target="_blank" title="pinterest"><i className="fa fa-pinterest" aria-hidden="true"></i></a></li>
+        <li><a href="#" target="_blank" title="twitter"><i className="fa fa-twitter"></i></a></li>
+        <li><a href="#" target="_blank" title="facebook"><i className="fa fa-facebook"></i></a></li>
+        <li><a href="#" target="_blank" title="google-plus"><i className="fa fa-google-plus"></i></a></li>
+        <li><a href="#" target="_blank" title="pinterest"><i className="fa fa-pinterest"></i></a></li>
       </div>
     </nav>
     <ul role="socil-icons" className="desk-social">
-      <li><a href="#" target="_blank" title="twitter"><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
-      <li><a href="#" target="_blank" title="facebook"><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
-      <li><a href="#" target="_blank" title="google-plus"><i className="fa fa-google-plus" aria-hidden="true"></i></a></li>
-      <li><a href="#" target="_blank" title="pinterest"><i className="fa fa-pinterest" aria-hidden="true"></i></a></li>
+      <li><a href="#" target="_blank" title="twitter"><i className="fa fa-twitter"></i></a></li>
+      <li><a href="#" target="_blank" title="facebook"><i className="fa fa-facebook"></i></a></li>
+      <li><a href="#" target="_blank" title="google-plus"><i className="fa fa-google-plus"></i></a></li>
+      <li><a href="#" target="_blank" title="pinterest"><i className="fa fa-pinterest"></i></a></li>
     </ul>
   </hgroup>
   <footer className="desk">
