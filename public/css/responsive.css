@@ -88,7 +88,7 @@
 
 	footer.mobile p{ text-align:center; line-height:18px}
 
-	header[role="header"] > hgroup div[role="socil-icons"]{ clear:both; display:block; margin:8px 0}
+	header[role="header"] > hgroup div[role="socil-icons"]{ clear:both; display:block;}
 
 	header[role="header"] > hgroup div[role="socil-icons"] li{ display:inline-block; margin:0 6px}
 

@@ -9,9 +9,13 @@ export default class Menu extends Component {
     isMobileMenuOpen: false
   }
 
-  toggleMobileMenu = () => {
-    this.setState({isMobileMenuOpen: !this.state.isMobileMenuOpen});
+  componentWillReceiveProps(nextProps) {
+    if (this.props.currentPath !== nextProps.currentPath) {
+      this.setState({isMobileMenuOpen:false});
+    }
   }
+
+  toggleMobileMenu = () => this.setState({isMobileMenuOpen: !this.state.isMobileMenuOpen});
 
   render() {
     const {currentPath} = this.props;
