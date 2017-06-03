@@ -192,7 +192,15 @@ main[role="main-wrapper-iamge"] > .over-bg-color{background-color:rgba(255,255,2
 
 /*===== Header ===*/
 
-header[role="header"]{ position: fixed; bottom:0; left:0; right:0; width:100%; padding:0 5%; z-index:6}
+.menu__header {
+  position: fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  width:100%;
+  padding:0 5%;
+  z-index:6
+}
 
 header[role="header"] > hgroup{background-color:rgba(255,255,255,0.7); overflow:hidden; position:relative }
 
@@ -283,6 +291,12 @@ article header.page-title h2:after{ content:""; display:block; width:98px; heigh
   .menu__items.open {
     overflow-y: hidden;
     max-height: 300px;
+  }
+
+  .menu__header {
+    top: 6px;
+    bottom: inherit;
+    padding: 0 2%;
   }
 }
 

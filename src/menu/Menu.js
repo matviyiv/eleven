@@ -26,7 +26,7 @@ export default class Menu extends Component {
     });
 
     return (
-<header role="header">
+<header role="header" className="menu__header">
   <hgroup> 
     <h1>
       <Link to="/" className="menu--logo"><img src={logo}/></Link>

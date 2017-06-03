@@ -2,9 +2,29 @@
 
 article[role="contact"].contact-pan{ padding-top:17.6%}
 
-article[role="contact"].contact-pan form{width:429px; margin:0 auto; display:block; overflow:hidden; padding-top:5px; padding-bottom:10px}
+.contact__form {
+  width:429px;
+  margin:0 auto;
+  display:block;
+  overflow:hidden;
+  padding-top:5px;
+  padding-bottom:10px
+}
 
-article[role="contact"].contact-pan form input[type="email"]{ display:block; width:369px; height:50px; outline:none; padding:0 10px; border:1px solid #353535; background-color: inherit; font-size:15px; line-height:16px; color:#353535; font-weight:300; float:left}
+.contact__email-input {
+  display:block;
+  width:369px;
+  height:50px;
+  outline:none;
+  padding:0 10px;
+  border:1px solid #353535;
+  background-color: inherit;
+  font-size:15px;
+  line-height:16px;
+  color:#353535;
+  font-weight:300;
+  float:left
+}
 
 article[role="contact"].contact-pan form label{ float:right; width:60px; height:50px; position:relative}
 
@@ -49,3 +69,17 @@ article[role="contact"].contact-pan ul > li i{ padding-right:3px}
 article[role="contact"].contact-pan ul > li > a{ color:#353535;text-decoration:none}
 
 article[role="contact"].contact-pan a:hover{ color:#efe51d}
+
+@media (max-width: 767px) {
+  .contact__email-input {
+    width: 65%;
+  }
+
+  .contact__email-link {
+    word-wrap: break-word;
+  }
+
+  .contact__form {
+    width: inherit;
+  }
+}

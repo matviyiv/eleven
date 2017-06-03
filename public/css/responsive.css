@@ -44,7 +44,7 @@
 
 	article.subscribe-pan[role="subscribe"],article.contact-pan[role="contact"]{ padding-top:53.5%}
 
-	header[role="header"]{ padding:0 1%}
+	.menu__header{ padding:0 1%}
 
 	header[role="header"] > hgroup nav ul > li{ margin:0 4.5px}
 
@@ -69,10 +69,6 @@
 	
 
 	header[role="header"] > hgroup > h1 > a{ width:120%; line-height:39px; font-size:20px}
-
-	
-
-	header[role="header"]{ top:6px; bottom:inherit; padding:0 2%}
 
 	header[role="header"] > hgroup{ overflow:inherit; padding:2%}
 
