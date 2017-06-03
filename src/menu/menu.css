@@ -298,5 +298,7 @@ article header.page-title h2:after{ content:""; display:block; width:98px; heigh
     bottom: inherit;
     padding: 0 2%;
   }
+ header[role="header"] > hgroup{background-color: white;}
+
 }
 

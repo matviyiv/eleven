@@ -20,11 +20,19 @@ export class Step3 extends Component {
   componentWillMount() {
     const {
       app: {masters, services},
+      match: {params},
       actions,
     } = this.props;
 
     !masters.list && !masters.loading && actions.loadMasters();
     !services.list && !services.loading && actions.loadServices();
+
+    if (services.list && !this.state.currentService) {
+      this.setState({
+        currentService: findSubService(services.list, params.subServiceId),
+        filteredMasters: _.filter(masters.list, (m) => m.services.indexOf(params.subServiceId) > -1),
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -70,7 +78,7 @@ export class Step3 extends Component {
     const {app: {masters, services}} = this.props;
     const {filteredMasters, currentService} = this.state;
     
-    if (masters.loading || services.loading) return (<div>Loading ...</div>);
+    if (!currentService || masters.loading || services.loading) return (<div>Loading ...</div>);
 
     const content = filteredMasters ? this.renderMasters(filteredMasters) : 'No master found!';
 
