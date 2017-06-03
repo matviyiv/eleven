@@ -266,6 +266,7 @@ article header.page-title h2:after{ content:""; display:block; width:98px; heigh
 
   .menu__items {
     max-height: 0;
+    overflow-y: auto;
     transition: all 500ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
   }
 
