@@ -8,10 +8,11 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333333;
 }
 .time-list li {
-  float: left;  
+  float: left;
+  background-color: #333;
+  margin-left: 10px;  
 }
 
 .time-list a {
@@ -72,3 +73,48 @@ article[role="sub-step"].sub-step-pan ul > li > h6{ font-weight:700; font-size:1
 article[role="sub-step"].sub-step-pan ul > li > p{ font-size:12px; line-height:18px; letter-spacing:inherit; padding-top:5px}
 
 article[role="sub-step"].sub-step-pan ul > li:hover i{ color:#efe51d}
+
+h2 {
+
+    text-align: center;
+    font-family: 'Oranienbaum', serif;
+    text-transform: uppercase;
+    font-size: 24px;
+    line-height: 26px;
+    color: #353535;
+    font-weight: 400;
+    letter-spacing: 3px;
+    position: relative;
+    margin-bottom: 36px;
+    padding: 0;
+    margin-top: 25px;
+}
+
+h2:after {
+    content: "";
+    display: block;
+    width: 98px;
+    height: 3px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -12px;
+    margin: 0 auto;
+    background-color: #c9bc17;
+}
+
+.masters {
+    list-style-type: none;
+    margin-top: 15px;
+}
+
+.masters li {
+    margin-top: 15px;
+}
+
+.masterPhoto {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto;
+}

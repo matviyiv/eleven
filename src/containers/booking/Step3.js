@@ -83,7 +83,7 @@ export class Step3 extends Component {
     const content = filteredMasters ? this.renderMasters(filteredMasters) : 'No master found!';
 
     return (<div>
-      <h2>{currentService.name} duration: {currentService.duration}h</h2>
+      <h2>Обери зручний час та майстра</h2>
       <DatePicker
         inline
         dateFormat="DD/MM/YYYY"
@@ -118,13 +118,14 @@ export class Step3 extends Component {
     const items = list.map((master) => {
       const timeList = this.renderAvaliableTime(master);
       return <li key={master.id}>
+      <div><img className="masterPhoto" src="/img/2.jpg"/></div>
       <a>{master.name}</a>
       <br/>
-      Avaliable date: {timeList}
+      Доступні години: {timeList}
       </li>
     });
 
-    return (<ul>
+    return (<ul className="masters">
       {items}
     </ul>)
   }
