@@ -24,6 +24,11 @@
   box-shadow: 0px 2px 5px #666;
 }
 
+.floating-button--back {
+  right: inherit;
+  left: 20px;
+}
+
 .floating-button__text {
   color: white;
   position: absolute;

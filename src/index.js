@@ -47,7 +47,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Switch>
-        <App>
+        <App history={history}>
           <Route exact={true} path="/" component={Main}/>
           <Route path="/whywe" component={Whywe}/>
           <Route path="/contacts" component={Contacts}/>

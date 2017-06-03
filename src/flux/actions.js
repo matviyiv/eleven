@@ -43,6 +43,8 @@ export const constants = {
   AUTH_DONE: 'AUTH_DONE',
   AUTH_FAILED: 'AUTH_FAILED',
   LOGOUT: 'LOGOUT',
+
+  APP_STATE_CHANGE: 'APP_STATE_CHANGE',
 };
 
 export function loadServices() {
@@ -285,6 +287,13 @@ export function logout() {
         type: constants.LOGOUT
       });
     })
+  }
+}
+
+export function changeAppState(stateName) {
+  return {
+    type: constants.APP_STATE_CHANGE,
+    data: {stateName}
   }
 }
 

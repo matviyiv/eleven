@@ -16,6 +16,9 @@ const initialState = {
     status: '',
     loading: false,
     email: '',
+  },
+  appState: {
+    showBackButton: false,
   }
 };
 const {
@@ -39,6 +42,8 @@ const {
   MASTERS_TIME_ERROR,
   ALL_EVENTS_FAILED,
   AUTH_FAILED,
+
+  APP_STATE_CHANGE,
 } = constants;
 
 export function appReducer(state = initialState, action) {
@@ -138,6 +143,13 @@ export function appReducer(state = initialState, action) {
     LOGOUT: (st) => {
       st.auth.email = '';
       st.auth.status = '';
+      return {...st};
+    },
+    APP_STATE_CHANGE: (st, {stateName}) => {
+      st.appState.showBackButton = initialState.appState.showBackButton;
+      if (stateName === 'booking') {
+        st.appState.showBackButton = true;
+      }
       return {...st};
     },
     default: (st) => st
