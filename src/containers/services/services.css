@@ -22,7 +22,7 @@ section, article {
 
 /*===== services ===*/
 
-article[role="services"].services-pan{ padding-top:17.6%}
+article[role="services"].services-pan{ padding-top: 5%}
 
 article[role="services"].services-pan p{ letter-spacing:1px; line-height:18px; font-weight:300}
 
