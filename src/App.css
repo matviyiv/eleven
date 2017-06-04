@@ -43,6 +43,10 @@
   transition: all 0.3s;
 }
 
+.app__content {
+  margin-bottom: 120px;
+}
+
 @media (max-width: 767px) {
   .floating-button {
     bottom: 20px;

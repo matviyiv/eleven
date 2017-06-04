@@ -120,8 +120,7 @@ export class Step3 extends Component {
       return <li key={master.id}>
       <div><img className="masterPhoto" src="/img/2.jpg"/></div>
       <a>{master.name}</a>
-      <br/>
-      Доступні години: {timeList}
+      <br/>{timeList}
       </li>
     });
 

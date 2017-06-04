@@ -14,11 +14,11 @@ export default class App extends Component {
           <div className="floating-button__text">+</div>
         </Link>
         <div className="over-bg"></div>
-         <div className="container"> 
+        <div className="container app__content"> 
             <div className="tab-content text-center"> 
              {this.props.children}
             </div>
-         </div>
+        </div>
         <Menu currentPath={this.props.location.pathname}/>
       </div>
     );
