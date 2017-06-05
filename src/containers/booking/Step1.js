@@ -3,6 +3,7 @@ import './booking.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../flux/actions';
+import FloatingButton from '../../components/FloatingButton';
 
 export class Step1 extends Component {
   componentWillMount() {
@@ -10,7 +11,9 @@ export class Step1 extends Component {
     !services.list && this.props.actions.loadServices();
   }
   render() {
-    return (<section>
+    return (<div>
+    <FloatingButton showBackButton history={this.props.history}/>
+    <section>
       <article role="step" className="step-pan">
         <header className="page-title">
           <h2>Вибери послугу</h2>
@@ -27,7 +30,8 @@ export class Step1 extends Component {
           </li>
         </ul>
       </article>
-    </section>)
+    </section>
+    </div>)
   }
 
   selectService = (serviceId) => {

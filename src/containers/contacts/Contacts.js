@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import './contacts.css';
+import FloatingButton from '../../components/FloatingButton';
 
 export default class Contacts extends Component {
   render() {
-    return (
+    return (<div>
+      <FloatingButton showBookingButton history={this.props.history}/>
           <article role="contact" className="contact-pan">
             <header className="page-title">
               <h2>Контакти</h2>
@@ -26,6 +28,6 @@ export default class Contacts extends Component {
              </div>
           </div>
         </article>
-      )
+      </div>)
   }
 }

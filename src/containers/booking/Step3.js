@@ -9,6 +9,7 @@ import moment from 'moment';
 
 import * as actionCreators from '../../flux/actions';
 import * as MasterHelper from '../../utils/MasterHelper';
+import FloatingButton from '../../components/FloatingButton';
 
 export class Step3 extends Component {
   state = {
@@ -83,6 +84,7 @@ export class Step3 extends Component {
     const content = filteredMasters ? this.renderMasters(filteredMasters) : 'No master found!';
 
     return (<div>
+      <FloatingButton showBackButton history={this.props.history}/>
       <h2>Обери зручний час та майстра</h2>
       <DatePicker
         inline

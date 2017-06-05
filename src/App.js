@@ -10,9 +10,6 @@ export default class App extends Component {
     return (
       <div className="app">
         <BackgroundSlider/>
-        <Link to="/booking/step1" className="floating-button">
-          <div className="floating-button__text">+</div>
-        </Link>
         <div className="over-bg"></div>
         <div className="container app__content"> 
             <div className="tab-content text-center"> 

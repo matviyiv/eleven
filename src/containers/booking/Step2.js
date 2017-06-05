@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import * as actionCreators from '../../flux/actions';
+import FloatingButton from '../../components/FloatingButton';
 
 export class Step2 extends Component {
   componentWillMount() {
@@ -19,14 +20,17 @@ export class Step2 extends Component {
 
     const service = app.services.list.find((s) => s.id === id);
     const content = service ? this.renderSubServices(service.sub) : 'No service found!';
-    return ( <section>
-      <article role="sub-step" className="sub-step-pan">
-        <header className="page-title">
-          <h2>Що бажаєш?</h2>
-        </header>
-        {content}
-      </article>
-    </section>)
+    return (<div>
+      <FloatingButton showBackButton history={this.props.history}/>
+      <section>
+        <article role="sub-step" className="sub-step-pan">
+          <header className="page-title">
+            <h2>Що бажаєш?</h2>
+          </header>
+          {content}
+        </article>
+      </section>
+    </div>)
   }
 
   selectService = (serviceId, serviceName) => () => {

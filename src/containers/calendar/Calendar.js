@@ -8,6 +8,7 @@ import _ from 'lodash';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import * as actionCreators from '../../flux/actions';
+import FloatingButton from '../../components/FloatingButton';
 
 export class Calendar extends Component {
   state = {
@@ -57,6 +58,7 @@ export class Calendar extends Component {
     }
 
     return (<div className="calendar--container">
+      <FloatingButton showBookingButton history={this.props.history}/>
       <div>User: {auth.email}</div>
       Календар усіх подій
       <div>Filters:

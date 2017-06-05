@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import './services.css';
+import FloatingButton from '../../components/FloatingButton';
 
 export default class Services extends Component {
   render() {
-    return (
+    return (<div>
+    		<FloatingButton showBookingButton history={this.props.history}/>
     	   <section  className="">
 	        <article role="services" className="services-pan">
 	          <header className="page-title">
@@ -33,6 +35,6 @@ export default class Services extends Component {
 		          </ul>
 	           </article>
       </section>
-    )
+    </div>)
 }
 }
