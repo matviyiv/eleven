@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './App.css';
 
-import BackgroundSlider from './background-slider/BackgroundSlider';
-import Menu from './menu/Menu';
+import BackgroundSlider from './components/background-slider/BackgroundSlider';
+import Menu from './components/menu/Menu';
 
 export default class App extends Component {
   render() {

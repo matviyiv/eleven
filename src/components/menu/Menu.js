@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './menu.css';
-import logo from '../logo-yellow.svg';
+import logo from '../../logo-yellow.svg';
 import { Link } from 'react-router-dom';
-import {classes} from '../utils';
+import {classes} from '../../utils';
 
 export default class Menu extends Component {
   state = {
