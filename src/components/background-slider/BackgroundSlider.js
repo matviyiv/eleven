@@ -24,7 +24,7 @@ export default class BackgroundSlider extends Component {
   }
 
   setTimer = () => {
-    clearTimeout(this.timer)
+    clearTimeout(this.timer);
     this.timer = setTimeout(() => {
       this.setState({activeIndex: randomImageIndex()});
     }, this.props.changeTime);
@@ -36,7 +36,7 @@ export default class BackgroundSlider extends Component {
       let imageClass = 'background__image background__image';
       imageClass += activeIndex === index ? '--visible' : '--hidden';
       return (<div className={imageClass} style={{backgroundImage: `url(${img})`}} key={index}></div>);
-    })
+    });
 
     return (
       <div className="background">
@@ -49,5 +49,5 @@ export default class BackgroundSlider extends Component {
 }
 
 function randomImageIndex() {
-  return Math.floor(Math.random() * 3) + 0 ;
+  return Math.floor(Math.random() * 3) + 0;
 }

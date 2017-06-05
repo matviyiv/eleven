@@ -8,7 +8,7 @@ export function getAvaliableTime({master, selectedDate, duration}) {
   const isWorking = master.work.indexOf(dateType) > -1;
   const startWorkHours = selectedDate.hours(10).minutes(0).seconds(0);
 
-  if (!isWorking) return timeList;
+  if (!isWorking) {return timeList;}
 
   let bookedTime;
   for (let time = startWorkHours; time < moment(startWorkHours).hours(20); time.add(30, 'minutes')) {

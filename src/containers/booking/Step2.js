@@ -16,7 +16,7 @@ export class Step2 extends Component {
     const {app, match: {params}} = this.props;
     const id = params.serviceId;
     
-    if (app.services.loading) return (<div>'Loading ...'</div>);
+    if (app.services.loading) {return (<div>'Loading ...'</div>);}
 
     const service = app.services.list.find((s) => s.id === id);
     const content = service ? this.renderSubServices(service.sub) : 'No service found!';
@@ -30,7 +30,7 @@ export class Step2 extends Component {
           {content}
         </article>
       </section>
-    </div>)
+    </div>);
   }
 
   selectService = (serviceId, serviceName) => () => {
@@ -41,11 +41,11 @@ export class Step2 extends Component {
 
   renderSubServices(list) {
     const items = list.map((service) => {
-      return <li key={service.id} onClick={this.selectService(service.id, service.name)}>{_.capitalize(service.name)}</li>
+      return <li key={service.id} onClick={this.selectService(service.id, service.name)}>{_.capitalize(service.name)}</li>;
     });
     return (<ul>
       {items}
-    </ul>)
+    </ul>);
   }
 }
 

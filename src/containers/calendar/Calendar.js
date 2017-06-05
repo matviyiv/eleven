@@ -95,11 +95,11 @@ export class Calendar extends Component {
     </div>);
   }
 
-  renederMasters () {
+  renederMasters() {
     const {app:{masters}} = this.props;
     return _.map(masters.list, (master) => (<option value={master.id} key={master.id}>
       {master.name}
-    </option>))
+    </option>));
   }
 
   changeMaster = (event) => {

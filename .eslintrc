@@ -1,20 +1,31 @@
 {
-  parserOptions: {
+  "parserOptions": {
     "sourceType": "module",
+    "ecmaVersion": 6,
     "ecmaFeatures": {
         "jsx": true,
         "module": true,
         "modules": true
     }
   },
+  "parser": "babel-eslint",
   "env": {
     "browser": true,
-    "node": true,
     "es6": true,
-    "mocha": true
+    "mocha": true,
+    "jest": true,
   },
-  "globals": {},
+  "plugins": [
+    "react"
+  ],
+  "globals": {
+    "expect": true,
+    "firebase": true,
+    "exports": true,
+  },
+  extends: ['plugin:react/recommended'],
   "rules": {
+    "react/prop-types": 1,
     "strict": 0,
     "eol-last": 0,
     "space-before-function-paren": [
@@ -23,7 +34,7 @@
     ],
     "no-shadow": 2,
     "max-statements": [2, 20],
-    "one-var": 2,
+    "one-var": 0,
     "semi": 2,
     "semi-spacing": 2,
     "brace-style": [2, "stroustrup", { "allowSingleLine": true }],
@@ -47,7 +58,7 @@
     "no-extend-native": 0,
     "yoda": [2, "never"],
     "no-cond-assign": 2,
-    "no-console": 2,
+    "no-console": 1,
     "complexity": [2, 5],
     "curly": [2, "all"],
     "dot-notation": 2,

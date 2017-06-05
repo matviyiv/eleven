@@ -5,12 +5,12 @@ import 'firebase/auth';
 import 'firebase/database';
 
 const firebase = firebaseApp.initializeApp({
-  apiKey: "AIzaSyB_UMGTtBFm5peIvZr-67dbNBCoUs4tRbg",
-  authDomain: "eleven-6f723.firebaseapp.com",
-  databaseURL: "https://eleven-6f723.firebaseio.com",
-  projectId: "eleven-6f723",
-  storageBucket: "eleven-6f723.appspot.com",
-  messagingSenderId: "772347263433"
+  apiKey: 'AIzaSyB_UMGTtBFm5peIvZr-67dbNBCoUs4tRbg',
+  authDomain: 'eleven-6f723.firebaseapp.com',
+  databaseURL: 'https://eleven-6f723.firebaseio.com',
+  projectId: 'eleven-6f723',
+  storageBucket: 'eleven-6f723.appspot.com',
+  messagingSenderId: '772347263433'
 });
 
 export const constants = {
@@ -72,14 +72,14 @@ export function selectService(data) {
   return {
     type: constants.SELECT_SERVICE,
     data
-  }
+  };
 }
 
 export function selectMasterNextDate(data) {
   return {
     type: constants.SELECT_MASTER_NEXT_DATE,
     data
-  }
+  };
 }
 
 export function loadMasters() {
@@ -131,9 +131,9 @@ export function getMastersTime(mastersList, _date_) {
           type: constants.MASTERS_TIME_ERROR,
           error: e
         });
-      })
+      });
     }
-  }
+  };
 }
 
 export function getAllEvents() {
@@ -208,20 +208,20 @@ export function submitBooking(booking) {
           error: error
         });
       });
-  }
+  };
 }
 
 export function saveBookingUser(data) {
   return {
     type: constants.SAVE_BOOKING_USER,
     data
-  }
+  };
 }
 
 export function clearBooking() {
   return {
     type: constants.BOOKING_CLEAR,
-  }
+  };
 }
 
 export function deleteBoking(bookingId) {
@@ -251,9 +251,9 @@ export function deleteBoking(bookingId) {
         type: constants.BOOKING_DELETED_FAILED,
         data: {error}
       });
-    })
+    });
     
-  }
+  };
 }
 
 export function authenticate(email, password) {
@@ -274,7 +274,7 @@ export function authenticate(email, password) {
           error
         });
       });
-  }
+  };
 }
 
 export function logout() {
@@ -284,8 +284,8 @@ export function logout() {
       dispatch({
         type: constants.LOGOUT
       });
-    })
-  }
+    });
+  };
 }
 
 function getMasterTime(bookings) {

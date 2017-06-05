@@ -31,7 +31,7 @@ export default class FloatingButton extends Component {
     }
 
     if (showBookingButton) {
-      return history.push('/booking/step1');;
+      return history.push('/booking/step1'); ;
     }
   }
 }

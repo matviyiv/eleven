@@ -6,6 +6,7 @@
     "firebase": "^4.0.0",
     "history": "^4.6.1",
     "moment": "^2.18.1",
+    "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-big-calendar": "^0.14.0",
     "react-datepicker": "^0.46.0",
@@ -17,12 +18,16 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^7.0.1",
     "jest": "^20.0.3",
     "react-scripts": "0.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ./src"
   }
 }

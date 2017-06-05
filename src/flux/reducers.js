@@ -21,14 +21,16 @@ const initialState = {
 const {
   SERVICES_LOADING,
   SERVICES_LOADED,
-  SELECT_SERVICE,
   MASTERS_LOADED,
+  MASTERS_LOADING,
   SELECT_MASTER_NEXT_DATE,
   MASTERS_TIME_LOADED,
   SAVE_BOOKING_USER,
   ALL_EVENTS_LOADED,
   ALL_EVENTS_LOADING,
   BOOKING_DELETED,
+  BOOKING_SUBMITED,
+  BOOKING_CLEAR,
   AUTH_LOADING,
   AUTH_DONE,
   LOGOUT,
@@ -43,27 +45,26 @@ const {
 
 export function appReducer(state = initialState, action) {
   const actions = {
-    SERVICES_LOADING: (st) => {
+    [SERVICES_LOADING]: (st) => {
       st.services.loading = true;
       return { ...st };
     },
-    SERVICES_LOADED: (st, data) => {
+    [SERVICES_LOADED]: (st, data) => {
       st.services.loading = false;
       st.services.list = data;
       return { ...st };
     },
-    MASTERS_LOADING: (st) => {
+    [MASTERS_LOADING]: (st) => {
       st.masters.loading = true;
       return {...st};
     },
-    MASTERS_LOADED: (st, data) => {
+    [MASTERS_LOADED]: (st, data) => {
       st.masters.loading = false;
       st.masters.list = data;
       return { ...st };
     },
-    SELECT_MASTER_NEXT_DATE: (st, {serviceId, masterId, date}) => {
+    [SELECT_MASTER_NEXT_DATE]: (st, {serviceId, masterId, date}) => {
       const service = findSubService(st.services.list, serviceId);
-      const master = st.masters.list[masterId];
       const dateEnd = moment(date).add(service.duration, 'hours');
       const selectedService = {
         masterId: masterId,
@@ -77,36 +78,36 @@ export function appReducer(state = initialState, action) {
 
       return { ...st };
     },
-    MASTERS_TIME_LOADED: (st, {mastersList, result, date}) => {
+    [MASTERS_TIME_LOADED]: (st, {mastersList, result, date}) => {
       const time = moment(date).format('YYYY/M/D');
       mastersList.forEach((master, index) => {
         _.setWith(st.masters.list[master.id], `booked.${time}`, result[index], Object);
-      })
+      });
       return { ...st };
     },
-    BOOKING_SUBMITED: (st) => {
+    [BOOKING_SUBMITED]: (st) => {
       st.booking = initialState.booking;
-      return {...st}
+      return {...st};
     },
-    SAVE_BOOKING_USER: (st, {name, phone, notes}) => {
+    [SAVE_BOOKING_USER]: (st, {name, phone, notes}) => {
       st.booking.name = name;
       st.booking.phone = phone;
       st.booking.notes = notes;
       st.booking.status = 'active';
-      return {...st}
+      return {...st};
     },
-    BOOKING_CLEAR: (st) => {
+    [BOOKING_CLEAR]: (st) => {
       st.booking.selectedServices = initialState.booking.selectedServices;
-      return {...st}
+      return {...st};
     },
-    ALL_EVENTS_LOADING: (st) => {
+    [ALL_EVENTS_LOADING]: (st) => {
       st.allEvents.loading = true;
       return {...st};
     },
-    ALL_EVENTS_LOADED: (st, bookings) => {
+    [ALL_EVENTS_LOADED]: (st, bookings) => {
       let eventsList = st.allEvents.list;
       _.forEach(bookings, (booking, bookingId) => {
-        if (booking.status == 'deleted') return;
+        if (booking.status === 'deleted') {return;}
         eventsList = eventsList.concat(_.map(booking.selectedServices, (service) => ({
             title: `Сервіс: ${service.name} майстер: ${st.masters.list[service.masterId].name} name:${booking.name} ${booking.phone}`,
             start: new Date(service.dateStart),
@@ -120,22 +121,22 @@ export function appReducer(state = initialState, action) {
       st.allEvents.list = eventsList;
       return {...st};
     },
-    BOOKING_DELETED: (st, {bookingId}) => {
+    [BOOKING_DELETED]: (st, {bookingId}) => {
       let index = _.findIndex(st.allEvents.list, {bookingId});
       delete st.allEvents.list[index];
       return {...st};
     },
-    AUTH_LOADING: (st) => {
+    [AUTH_LOADING]: (st) => {
       st.auth.loading = true;
       return {...st};
     },
-    AUTH_DONE: (st, {email}) => {
+    [AUTH_DONE]: (st, {email}) => {
       st.auth.email = email;
       st.auth.status = 'success';
       st.auth.loading = false;
       return {...st};
     },
-    LOGOUT: (st) => {
+    [LOGOUT]: (st) => {
       st.auth.email = '';
       st.auth.status = '';
       return {...st};
@@ -150,7 +151,7 @@ export function appReducer(state = initialState, action) {
       MASTERS_TIME_ERROR,
       ALL_EVENTS_FAILED,
       AUTH_FAILED,
-    ].indexOf(action.type) > -1) console.error(action.error || action.data.error)
+    ].indexOf(action.type) > -1) {console.error(action.error || action.data.error);}
   const newState = modifier(state, action.data);
   console.log('----', action.type, newState);
   return newState;
@@ -159,6 +160,6 @@ export function appReducer(state = initialState, action) {
 function findSubService(services, subServiceId) {
   for (let serviceIndex in services) {
     let subservice = services[serviceIndex].sub.find((sub) => sub.id === subServiceId);
-    if (subservice) return subservice;
+    if (subservice) {return subservice;}
   }
 }

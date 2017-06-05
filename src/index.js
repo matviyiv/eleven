@@ -1,20 +1,20 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import { createStore, combineReducers, applyMiddleware } from 'redux'
-import { Provider } from 'react-redux'
-import thunkMiddleware from 'redux-thunk'
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunkMiddleware from 'redux-thunk';
 
 import moment from 'moment';
 
-import createHistory from 'history/createBrowserHistory'
+import createHistory from 'history/createBrowserHistory';
 import {
   BrowserRouter as Router,
   Route,
   Switch
-} from 'react-router-dom'
+} from 'react-router-dom';
 
-import {appReducer} from './flux/reducers'
+import {appReducer} from './flux/reducers';
 
 import './index.css';
 import App from './App';
@@ -35,7 +35,7 @@ import Calendar from './containers/calendar/Calendar';
 
 moment.locale('uk_UA');
 
-const history = createHistory()
+const history = createHistory();
 
 const reducer = combineReducers({ app: appReducer });
 const createStoreWithMiddleware = applyMiddleware(
@@ -63,4 +63,4 @@ ReactDOM.render(
     </Router>
   </Provider>,
   document.getElementById('root')
-)
+);

@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './whywe.css';
 import FloatingButton from '../../components/FloatingButton';
 
 export default class Whywe extends Component {
+  static propTypes = {
+    history: PropTypes.object.isRequired
+  }
   render() {
     return (<div>
         <FloatingButton showBookingButton history={this.props.history}/>
@@ -30,6 +34,6 @@ export default class Whywe extends Component {
               </ul>
              </article>
       </section>
-    </div>)
+    </div>);
 }
 }

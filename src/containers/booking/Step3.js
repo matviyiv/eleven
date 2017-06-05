@@ -79,7 +79,7 @@ export class Step3 extends Component {
     const {app: {masters, services}} = this.props;
     const {filteredMasters, currentService} = this.state;
     
-    if (!currentService || masters.loading || services.loading) return (<div>Loading ...</div>);
+    if (!currentService || masters.loading || services.loading) {return (<div>Loading ...</div>);}
 
     const content = filteredMasters ? this.renderMasters(filteredMasters) : 'No master found!';
 
@@ -89,16 +89,16 @@ export class Step3 extends Component {
       <DatePicker
         inline
         dateFormat="DD/MM/YYYY"
-        todayButton={"Сьогодні"}
+        todayButton={'Сьогодні'}
         utcOffset={+2}
         locale="uk_UA"
         selected={this.state.selectedDate}
         onChange={this.handleDateChange}
         minDate={moment()}
-        maxDate={moment().add(30, "days")}
+        maxDate={moment().add(30, 'days')}
         placeholderText="Виберіть дату візиту" />
       {content}
-    </div>)
+    </div>);
   }
 
   selectMasterNextDate = (masterId, date) => {
@@ -107,7 +107,7 @@ export class Step3 extends Component {
     return () => {
       this.props.actions.selectMasterNextDate({masterId, serviceId, date});
       this.props.history.push('/booking/form');
-    }
+    };
   }
 
   handleDateChange = (selectedDate) => {
@@ -123,19 +123,19 @@ export class Step3 extends Component {
       <div><img className="masterPhoto" src="/img/2.jpg"/></div>
       <a>{master.name}</a>
       <br/>{timeList}
-      </li>
+      </li>;
     });
 
     return (<ul className="masters">
       {items}
-    </ul>)
+    </ul>);
   }
 }
 
 function findSubService(services, subServiceId) {
   for (let serviceIndex in services) {
     let subservice = services[serviceIndex].sub.find((sub) => sub.id === subServiceId);
-    if (subservice) return subservice;
+    if (subservice) {return subservice;}
   }
 }
 

@@ -66,6 +66,6 @@ export default class Menu extends Component {
   <footer className="desk">
      <p>&copy; All rights reserved. Eleven 2017 Made with <i className="fa fa-heart" aria-hidden="true"></i></p>
   </footer>
-</header>)
+</header>);
   }
 }

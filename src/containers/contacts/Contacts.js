@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import './contacts.css';
 import FloatingButton from '../../components/FloatingButton';
 
 export default class Contacts extends Component {
+  static propTypes = {
+    history: PropTypes.object.isRequired
+  }
+
   render() {
     return (<div>
       <FloatingButton showBookingButton history={this.props.history}/>
@@ -28,6 +34,6 @@ export default class Contacts extends Component {
              </div>
           </div>
         </article>
-      </div>)
+      </div>);
   }
 }
