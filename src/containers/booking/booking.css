@@ -127,6 +127,31 @@ h2:after {
   margin: 0 auto;
 }
 
+.final-form--booking-list,
+.final-form--fields {
+  list-style-type: none;
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+  background: rgba(255,255,255,0.7);
+}
+
+.final-form--fields {
+  display: block;
+}
+
+.final-form--submit {
+  float: left;
+}
+
+.final-form--add {
+  float: right;
+}
+
+.final-form {
+  padding-top: 5%;
+}
+
 @media (max-width: 767px) {
   .masters {
     display: block;
@@ -134,5 +159,9 @@ h2:after {
 
   .masters>li {
     display: inline-block;
+  }
+
+  .final-form {
+    padding-top: 20px;
   }
 }

@@ -17,68 +17,91 @@ export class FinalForm extends Component {
     };
   }
 
+  componentWillMount() {
+    const { app:{booking}, history} = this.props;
+    const hasServices = Object.keys(booking.selectedServices).length;
+    if (!hasServices) {
+      history.push('/booking/step1');
+    }
+  }
+
   render() {
     const { name, phone, notes, nameInputInvalid, phoneInputInvalid } = this.state;
     const {app: {booking} } = this.props;
     const hasServices = Object.keys(booking.selectedServices).length;
-    return (<section>
-      <article role="whywe" className="whywe-pan">
+    return (<section className="container">
+      <article className="final-form">
         <header className="page-title">
-          <h2>Final Form</h2>
+          <h2>Обрані послуги</h2>
         </header>
-        <ul>{hasServices && this.renderServices(booking.selectedServices)}</ul>
+        <ul className="final-form--booking-list">
+          {hasServices && this.renderServices(booking.selectedServices)}
+        </ul>
         <form>
-        <ul>
-        <li>
-          <label>Name: 
+        <div className="final-form--fields clearfix">
+        <div className="form-group row">
+          <label className="col-sm-4 control-label" for="name-input">{"Ім'я:"}</label>
+          <div className="col-sm-6">
           <input
             type="text"
             autoFocus="true"
             name="name"
+            id="name-input"
             ref="nameInput"
-            className={nameInputInvalid ? 'invalid-input' : ''}
+            className={nameInputInvalid ? 'invalid-input' : 'form-control'}
             value={name}
+            placeholder="як до вас звертатися"
             onChange={this.nameChange}
             required={true}
             />
-          </label></li>
-        <li>
-          <label>Phonenumber:
+            </div>
+        </div>
+        <div className="form-group row">
+          <label className="col-sm-4 control-label" for="phone-input">Мобільний номер:</label>
+          <div className="col-sm-6">
             <input
               type="tel"
               name="phone"
               ref="phoneInput"
-              className={phoneInputInvalid ? 'invalid-input' : ''}
+              id="phone-input"
+              className={phoneInputInvalid ? 'invalid-input' : 'form-control'}
               value={phone}
+              placeholder="+38 063 11 22 333"
               onChange={this.phoneChange}
               required={true}
               />
-          </label>
-        </li>
-        <li>
-          <label>Notes:
+          </div>
+        </div>
+        <div className="form-group row">
+          <label className="col-sm-4 control-label" for="phone-input">Додаткова інформація:</label>
+          <div className="col-sm-6">
             <textarea
               name="notes"
               cols="40"
               rows="5"
+              className="form-control"
+              placeholder="мені потрібно ..."
               value={notes}
               onChange={this.notesChange}
               >
             </textarea>
-          </label>
-          </li>
-        <li>
+          </div>
+        </div>
+        <div className="form-group row">
+          <div className="col-sm-1 col-md-offset-2">
           <input
             type="submit"
-            value="Submit"
+            value="Надіслати"
+            className="btn btn-default final-form--submit"
             onClick={this.handleSubmit}
             disabled={!hasServices}
             />
-        </li>
-        <li>
-          <button onClick={this.addMore}>Add more</button>
-        </li>
-        </ul>
+          </div>
+          <div className="col-sm-1 col-md-offset-2">
+          <button className="btn btn-secondary final-form--add" onClick={this.addMore}>Додати послугу</button>
+          </div>
+        </div>
+        </div>
         </form>
       </article>
     </section>);
