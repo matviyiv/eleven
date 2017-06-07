@@ -43,7 +43,7 @@ export class Step2 extends Component {
     const items = list.map((service) => {
       return <li key={service.id} onClick={this.selectService(service.id, service.name)}>{_.capitalize(service.name)}</li>;
     });
-    return (<ul>
+    return (<ul className="step2-list">
       {items}
     </ul>);
   }

@@ -88,7 +88,7 @@ export class FinalForm extends Component {
           </div>
         </div>
         <div className="form-group row">
-          <div className="col-md-2 col-md-offset-2">
+          <div className="col-sm-2 col-sm-offset-2 col-md-1 col-md-offset-3">
           <input
             type="submit"
             value="Надіслати"
@@ -97,7 +97,7 @@ export class FinalForm extends Component {
             disabled={!hasServices}
             />
           </div>
-          <div className="col-md-1">
+          <div className="col-md-2 col-sm-3">
           <button className="btn btn-secondary final-form--add" onClick={this.addMore}>Додати послугу</button>
           </div>
         </div>

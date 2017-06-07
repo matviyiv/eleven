@@ -216,7 +216,7 @@ header[role="header"] > hgroup nav{ float:none; clear:both; text-align:center; d
 
 .menu__items { padding:0; margin:0; list-style:none; text-align:center; border:none}
 
-.menu__items > li{ float:none; display:inline-block; font-size:12px; text-transform:uppercase; letter-spacing:2px; font-weight:400; margin:0 18.5px}
+.menu__items > li{ float:none; display:inline-block; font-size:14px; text-transform:uppercase; letter-spacing:2px; font-weight:400; margin:0 18.5px}
 
 .menu__items > li > a{border-radius:0;border:none; padding:0; line-height:52px; display:block;color:#353535}
 
@@ -257,6 +257,10 @@ article header.page-title h2:after{ content:""; display:block; width:98px; heigh
 
 #menu-button {
   display: none;
+}
+
+.menu__items > li {
+  cursor: pointer;
 }
 
 @media (max-width: 767px) {

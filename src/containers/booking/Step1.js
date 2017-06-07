@@ -18,7 +18,7 @@ export class Step1 extends Component {
         <header className="page-title">
           <h2>Вибери послугу</h2>
         </header>
-        <ul>
+        <ul className="step1-list">
           <li onClick={this.selectService('s1')}> <i className="fa fa-scissors" aria-hidden="true"></i>
             <h6>hair style</h6>
           </li>

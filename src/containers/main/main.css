@@ -23,7 +23,7 @@ section, article {
 
 article[role="main"].main-pan{ padding-top:5%}
 
-article[role="main"].main-pan p{ margin: 0 auto; letter-spacing:1px; width: 80%; line-height:18px; font-weight:300; padding-top: 20px; color:#000; background-color: rgba(255,255,255,0.7); padding: 30px;}
+article[role="main"].main-pan p{ margin: 0 auto; letter-spacing:1px; font-size: 13px; width: 80%; line-height:30px; font-weight:300; padding-top: 20px; color:#000; background-color: rgba(255,255,255,0.7); padding: 30px;}
 
 article[role="main"].main-pan ul{ margin:0; padding:0; text-align:center; padding-top:50px;}
 

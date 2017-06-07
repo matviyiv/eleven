@@ -28,7 +28,7 @@ export default class Contacts extends Component {
         <p>Будь ласка введіть свій емейл і ми повідомимо щойно відкриємось!.</p> <br/>
               <h3><a href="mailto:Contact@eleven.lviv.ua" className="contact__email-link">info@eleven.lviv.ua </a></h3>
           <ul>
-            <li><i className="fa fa-map-marker" aria-hidden="true"></i> м. Львів, вул. Чорновола 31</li>
+            <li><i className="fa fa-map-marker" aria-hidden="true"></i> <a href="https://goo.gl/maps/uhZfiKZjZWp">м. Львів, вул. Чорновола 31</a></li>
             <li><i className="fa fa-phone" aria-hidden="true"></i> <a href="tel:0631813812">0631813812</a></li>
           </ul>
              </div>
