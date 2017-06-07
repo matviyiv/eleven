@@ -43,6 +43,9 @@ export const constants = {
   AUTH_DONE: 'AUTH_DONE',
   AUTH_FAILED: 'AUTH_FAILED',
   LOGOUT: 'LOGOUT',
+
+  SUB_SUCCESS: 'SUB_SUCCESS',
+  SUB_FAILED: 'SUB_FAILED',
 };
 
 export function loadServices() {
@@ -286,6 +289,18 @@ export function logout() {
       });
     });
   };
+}
+
+export function subscribe(email) {
+  return dispatch => {
+    firebase.database().ref('lviv/subscriptions')
+      .push({
+        date: moment().toDate().getTime(),
+        email
+      })
+      .then(() => dispatch({type: constants.SUB_SUCCESS}))
+      .catch((error) => dispatch({type: constants.SUB_FAILED, data: {error}}));
+  }
 }
 
 function getMasterTime(bookings) {

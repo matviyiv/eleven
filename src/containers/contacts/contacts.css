@@ -26,7 +26,7 @@ article[role="contact"].contact-pan{ padding-top:5%;}
   float:left
 }
 
-article[role="contact"].contact-pan form label{ float:right; width:60px; height:50px; position:relative}
+article[role="contact"].contact-pan form label{ float:left; width:60px; height:50px; position:relative}
 
 article[role="contact"].contact-pan form label input{ font-size:0; display:block; border:none; outline:none; cursor:pointer;width:60px; height:50px; background-color:#35373e}
 
