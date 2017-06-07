@@ -148,8 +148,18 @@ h2:after {
   float: right;
 }
 
-.final-form {
+.final-form,
+.booking-success {
   padding-top: 5%;
+}
+
+.booking-success--message {
+  display: inline-block;
+  margin: 10px 10px;
+  background: rgba(255,255,255,0.7);
+  padding: 10px;
+  width: 200px;
+  height: 150px;
 }
 
 @media (max-width: 767px) {
@@ -161,7 +171,8 @@ h2:after {
     display: inline-block;
   }
 
-  .final-form {
+  .final-form,
+  .booking-success {
     padding-top: 20px;
   }
 }

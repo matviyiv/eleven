@@ -9,12 +9,14 @@ export class Finish extends Component {
     // this.props.history.replace({});
   }
   render() {
-    return (<section>
-      <article role="whywe" className="whywe-pan">
+    return (<section className="container">
+      <article className="booking-success">
         <header className="page-title">
-          <h2>Done</h2>
+          <h2>Готово</h2>
         </header>
-        Thank you someone will contact you soon !!!!
+        <div className="booking-success--message">
+        Найблищим часом наш адміністратор звяжеться з вами.
+        </div>
       </article>
     </section>);
   }

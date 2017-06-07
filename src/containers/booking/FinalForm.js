@@ -40,7 +40,7 @@ export class FinalForm extends Component {
         <form>
         <div className="final-form--fields clearfix">
         <div className="form-group row">
-          <label className="col-sm-4 control-label" for="name-input">{"Ім'я:"}</label>
+          <label className="col-sm-4 control-label" htmlFor="name-input">{"Ім'я:"}</label>
           <div className="col-sm-6">
           <input
             type="text"
@@ -57,7 +57,7 @@ export class FinalForm extends Component {
             </div>
         </div>
         <div className="form-group row">
-          <label className="col-sm-4 control-label" for="phone-input">Мобільний номер:</label>
+          <label className="col-sm-4 control-label" htmlFor="phone-input">Мобільний номер:</label>
           <div className="col-sm-6">
             <input
               type="tel"
@@ -73,7 +73,7 @@ export class FinalForm extends Component {
           </div>
         </div>
         <div className="form-group row">
-          <label className="col-sm-4 control-label" for="phone-input">Додаткова інформація:</label>
+          <label className="col-sm-4 control-label" htmlFor="phone-input">Додаткова інформація:</label>
           <div className="col-sm-6">
             <textarea
               name="notes"
@@ -88,7 +88,7 @@ export class FinalForm extends Component {
           </div>
         </div>
         <div className="form-group row">
-          <div className="col-sm-1 col-md-offset-2">
+          <div className="col-md-2 col-md-offset-2">
           <input
             type="submit"
             value="Надіслати"
@@ -97,7 +97,7 @@ export class FinalForm extends Component {
             disabled={!hasServices}
             />
           </div>
-          <div className="col-sm-1 col-md-offset-2">
+          <div className="col-md-1">
           <button className="btn btn-secondary final-form--add" onClick={this.addMore}>Додати послугу</button>
           </div>
         </div>
