@@ -35,7 +35,7 @@ const {
   AUTH_LOADING,
   AUTH_DONE,
   LOGOUT,
-  SUB_SUCCESS,
+  SUB_START,
   SERVICES_FAILED,
   BOOKING_FAILED,
   BOOKING_DELETED_FAILED,
@@ -142,7 +142,7 @@ export function appReducer(state = initialState, action) {
       st.auth.status = '';
       return {...st};
     },
-    [SUB_SUCCESS]: (st) => {
+    [SUB_START]: (st) => {
       st.subscription.success = true;
       return {...st};
     },

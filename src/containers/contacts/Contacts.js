@@ -26,7 +26,9 @@ export class Contacts extends Component {
             </header>
             <div className ="box">
             <div className="ntify_form">
+            <div className="contact--content">
             {subscription.success ? 'дякуємо що підписались на наші новини' : this.renderForm()}
+            </div>
               <br/>
               <h3><a href="mailto:Contact@eleven.lviv.ua" className="contact__email-link">info@eleven.lviv.ua </a></h3>
           <ul>

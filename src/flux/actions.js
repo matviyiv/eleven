@@ -46,6 +46,7 @@ export const constants = {
 
   SUB_SUCCESS: 'SUB_SUCCESS',
   SUB_FAILED: 'SUB_FAILED',
+  SUB_START: 'SUB_START',
 };
 
 export function loadServices() {
@@ -293,6 +294,9 @@ export function logout() {
 
 export function subscribe(email) {
   return dispatch => {
+    dispatch({
+      type: constants.SUB_START
+    });
     firebase.database().ref('lviv/subscriptions')
       .push({
         date: moment().toDate().getTime(),
