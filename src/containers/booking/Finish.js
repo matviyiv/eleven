@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './booking.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as actionCreators from '../../flux/actions';
 
 export class Finish extends Component {
@@ -16,6 +17,8 @@ export class Finish extends Component {
         </header>
         <div className="booking-success--message">
         Найблищим часом наш адміністратор звяжеться з вами.
+        <br/>
+        <Link to="/" className="booking-success--link">На головну</Link>
         </div>
       </article>
     </section>);

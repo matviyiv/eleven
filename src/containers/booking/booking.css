@@ -168,6 +168,11 @@ h2:after {
   height: 150px;
 }
 
+.booking-success--link {
+  color: #c9bc17;
+  line-height: 60px;
+}
+
 @media (max-width: 767px) {
   .masters {
     display: block;

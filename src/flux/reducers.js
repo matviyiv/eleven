@@ -98,7 +98,7 @@ export function appReducer(state = initialState, action) {
       return {...st};
     },
     [BOOKING_CLEAR]: (st) => {
-      st.booking.selectedServices = initialState.booking.selectedServices;
+      st.booking.selectedServices = {};
       return {...st};
     },
     [ALL_EVENTS_LOADING]: (st) => {
