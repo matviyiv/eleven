@@ -123,7 +123,7 @@ h2:after {
   background: rgba(255,255,255,0.7);
   padding: 10px; 
   width: 300px;
-  min-height: 400px;
+  max-height: 600px;
 }
 
 .masterPhoto {
@@ -152,6 +152,7 @@ h2:after {
 
 .final-form--add {
   float: right;
+  background-color: #c9bc17;
 }
 
 .final-form,
@@ -185,5 +186,9 @@ h2:after {
   .final-form,
   .booking-success {
     padding-top: 20px;
+  }
+
+  .final-form--container {
+    padding-top: 0px;
   }
 }

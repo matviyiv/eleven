@@ -29,7 +29,7 @@ export class FinalForm extends Component {
     const { name, phone, notes, nameInputInvalid, phoneInputInvalid } = this.state;
     const {app: {booking} } = this.props;
     const hasServices = Object.keys(booking.selectedServices).length;
-    return (<section className="container">
+    return (<section className="container final-form--container">
       <article className="final-form">
         <header className="page-title">
           <h2>Обрані послуги</h2>

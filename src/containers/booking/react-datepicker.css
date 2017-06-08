@@ -17,8 +17,12 @@
 }
 
 .react-datepicker__current-month {
-    font-size: 1.5rem;
-  }
+  font-size: 1.5rem;
+}
+
+.react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range {
+  background-color: #c9bc17;
+}
 
 .react-datepicker__input-container > input{    
   display: block;
