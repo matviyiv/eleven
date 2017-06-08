@@ -16,7 +16,8 @@ const initialState = {
     status: '',
     loading: false,
     email: '',
-  }
+  },
+  subscription: {},
 };
 const {
   SERVICES_LOADING,
@@ -34,7 +35,7 @@ const {
   AUTH_LOADING,
   AUTH_DONE,
   LOGOUT,
-
+  SUB_SUCCESS,
   SERVICES_FAILED,
   BOOKING_FAILED,
   BOOKING_DELETED_FAILED,
@@ -139,6 +140,10 @@ export function appReducer(state = initialState, action) {
     [LOGOUT]: (st) => {
       st.auth.email = '';
       st.auth.status = '';
+      return {...st};
+    },
+    [SUB_SUCCESS]: (st) => {
+      st.subscription.success = true;
       return {...st};
     },
     default: (st) => st
