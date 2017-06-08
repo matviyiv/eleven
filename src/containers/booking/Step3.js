@@ -7,6 +7,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 
+import './react-datepicker.css';
 import * as actionCreators from '../../flux/actions';
 import * as MasterHelper from '../../utils/MasterHelper';
 import FloatingButton from '../../components/FloatingButton';
@@ -87,7 +88,6 @@ export class Step3 extends Component {
       <FloatingButton showBackButton history={this.props.history}/>
       <h2>Обери зручний час та майстра</h2>
       <DatePicker
-        inline
         dateFormat="DD/MM/YYYY"
         todayButton={'Сьогодні'}
         utcOffset={+2}
