@@ -165,6 +165,10 @@ h2:after {
   border: 2px solid red;
 }
 
+.final-form--submitted input:required:valid {
+  border: none;
+}
+
 .booking-success--message {
   display: inline-block;
   margin: 10px 10px;

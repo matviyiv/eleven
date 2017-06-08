@@ -25,8 +25,14 @@ export class FinalForm extends Component {
   }
 
   componentDidMount() {
-    this.refs.nameInput.setCustomValidity("Це поле є обов'язковим")
-    this.refs.phoneInput.setCustomValidity("Це поле є обов'язковим");
+    const { name, phone } = this.state;
+    if (!name) {
+      this.refs.nameInput.setCustomValidity("Це поле є обов'язковим");
+    }
+
+    if (!phone) {
+      this.refs.phoneInput.setCustomValidity("Будь ласка введіть вірний мобільний номер");
+    }
   }
 
   render() {
@@ -108,9 +114,15 @@ export class FinalForm extends Component {
     </section>);
   }
 
-  nameChange = (event) => this.setState({name: event.target.value, isSubmitted: false });
+  nameChange = (event) => {
+    this.refs.nameInput.setCustomValidity('');
+    this.setState({name: event.target.value, isSubmitted: false });
+  }
 
-  phoneChange = (event) => this.setState({phone: event.target.value, isSubmitted: false });
+  phoneChange = (event) => {
+    this.refs.phoneInput.setCustomValidity('');
+    this.setState({phone: event.target.value, isSubmitted: false });
+  }
 
   notesChange = (event) => this.setState({notes: event.target.value});
 
