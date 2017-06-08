@@ -120,7 +120,7 @@ export class Step3 extends Component {
     const items = list.map((master) => {
       const timeList = this.renderAvaliableTime(master);
       return <li key={master.id}>
-      <div><img className="masterPhoto" src="/img/2.jpg"/></div>
+      <div><img className="masterPhoto" src={`/img/avatars/${master.avatar}`}/></div>
       <a>{master.name}</a>
       <br/>{timeList}
       </li>;
