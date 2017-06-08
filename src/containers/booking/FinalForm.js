@@ -12,8 +12,7 @@ export class FinalForm extends Component {
       name: props.app.booking.name || '',
       phone: props.app.booking.phone || '',
       notes: props.app.booking.notes || '',
-      nameInputInvalid: false,
-      phoneInputInvalid: false,
+      isSubmitted: false,
     };
   }
 
@@ -25,8 +24,13 @@ export class FinalForm extends Component {
     }
   }
 
+  componentDidMount() {
+    this.refs.nameInput.setCustomValidity("Це поле є обов'язковим")
+    this.refs.phoneInput.setCustomValidity("Це поле є обов'язковим");
+  }
+
   render() {
-    const { name, phone, notes, nameInputInvalid, phoneInputInvalid } = this.state;
+    const { name, phone, notes, isSubmitted } = this.state;
     const {app: {booking} } = this.props;
     const hasServices = Object.keys(booking.selectedServices).length;
     return (<section className="container final-form--container">
@@ -37,7 +41,7 @@ export class FinalForm extends Component {
         <ul className="final-form--booking-list">
           {hasServices && this.renderServices(booking.selectedServices)}
         </ul>
-        <form>
+        <form onSubmit={this.handleSubmit} className={isSubmitted ? 'final-form--submitted' : ''}>
         <div className="final-form--fields clearfix">
         <div className="form-group row">
           <label className="col-sm-4 control-label" htmlFor="name-input">{"Ім'я:"}</label>
@@ -48,7 +52,7 @@ export class FinalForm extends Component {
             name="name"
             id="name-input"
             ref="nameInput"
-            className={nameInputInvalid ? 'invalid-input' : 'form-control'}
+            className="form-control"
             value={name}
             placeholder="як до вас звертатися"
             onChange={this.nameChange}
@@ -64,7 +68,7 @@ export class FinalForm extends Component {
               name="phone"
               ref="phoneInput"
               id="phone-input"
-              className={phoneInputInvalid ? 'invalid-input' : 'form-control'}
+              className="form-control"
               value={phone}
               placeholder="+38 063 11 22 333"
               onChange={this.phoneChange}
@@ -88,17 +92,14 @@ export class FinalForm extends Component {
           </div>
         </div>
         <div className="form-group row">
-          <div className="col-sm-2 col-sm-offset-2 col-md-1 col-md-offset-3">
+          <div className="col-sm-4 col-sm-offset-2 col-md-4 col-md-offset-4 clearfix">
           <input
             type="submit"
             value="Надіслати"
-            className="btn btn-default final-form--submit"
-            onClick={this.handleSubmit}
-            disabled={!hasServices}
+            className="btn btn-default final-form__submit"
+            onClick={this.onClickSubmit}
             />
-          </div>
-          <div className="col-md-2 col-sm-3">
-          <button className="btn btn-secondary final-form--add" onClick={this.addMore}>Додати послугу</button>
+          <button className="btn btn-secondary final-form__add" onClick={this.addMore}>Додати послугу</button>
           </div>
         </div>
         </div>
@@ -107,34 +108,23 @@ export class FinalForm extends Component {
     </section>);
   }
 
-  nameChange = (event) => {
-    this.setState({name: event.target.value});
-  }
+  nameChange = (event) => this.setState({name: event.target.value, isSubmitted: false });
 
-  phoneChange = (event) => {
-    this.setState({phone: event.target.value});
-  }
+  phoneChange = (event) => this.setState({phone: event.target.value, isSubmitted: false });
 
-  notesChange = (event) => {
-    this.setState({notes: event.target.value});
-  }
+  notesChange = (event) => this.setState({notes: event.target.value});
+
+  onClickSubmit = () => this.setState({isSubmitted: true})
 
   addMore = (event) => {
     const { name, phone, notes } = this.state;
     event.preventDefault();
     this.props.actions.saveBookingUser({ name, phone, notes });
-    this.submit();
     this.props.history.push('/booking/step1');
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    if (!this.refs.nameInput.validity.valid || !this.refs.phoneInput.validity.valid) {
-      return this.setState({
-        nameInputInvalid: !this.refs.nameInput.validity.valid,
-        phoneInputInvalid: !this.refs.phoneInput.validity.valid
-      });
-    }
     this.submit();
     this.props.actions.clearBooking();
     this.props.history.push('/booking/done');

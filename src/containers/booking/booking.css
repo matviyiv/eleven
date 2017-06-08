@@ -146,18 +146,23 @@ h2:after {
   display: block;
 }
 
-.final-form--submit {
+.final-form__submit {
   float: left;
 }
 
-.final-form--add {
-  float: right;
+.final-form__add {
+  float: left;
   background-color: #c9bc17;
+  margin-left: 20px;
 }
 
 .final-form,
 .booking-success {
   padding-top: 5%;
+}
+
+.final-form--submitted input:invalid {
+  border: 2px solid red;
 }
 
 .booking-success--message {
@@ -190,5 +195,9 @@ h2:after {
 
   .final-form--container {
     padding-top: 0px;
+  }
+
+  .final-form__add {
+    float: right;
   }
 }
