@@ -31,9 +31,10 @@ export class Contacts extends Component {
             </div>
               <br/>
               <h3><a href="mailto:Contact@eleven.lviv.ua" className="contact__email-link">info@eleven.lviv.ua </a></h3>
-          <ul>
+          <ul className="contact__list">
             <li><i className="fa fa-map-marker" aria-hidden="true"></i> <a href="https://goo.gl/maps/uhZfiKZjZWp">м. Львів, вул. Чорновола 31</a></li>
-            <li><i className="fa fa-phone" aria-hidden="true"></i> <a href="tel:0631813812">0631813812</a></li>
+            <li><i className="fa fa-phone" aria-hidden="true"></i> <a href="tel:0975271332">(097) 52 71 332</a></li>
+            <li><i className="fa fa-phone" aria-hidden="true"></i> <a href="tel:0730094421">(073) 00 94 421</a></li>
           </ul>
              </div>
           </div>

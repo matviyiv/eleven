@@ -66,11 +66,22 @@ article[role="contact"].contact-pan h3 > a{ color:#353535; text-decoration:none}
 
 article[role="contact"].contact-pan ul{ text-align:center; list-style:none; padding:0; margin:0; padding-top:8px}
 
-article[role="contact"].contact-pan ul > li{ display:inline-block; font-size:19px; line-height:20px; margin:0 4px}
+.contact__list > li { 
+  display: inline-block;
+  font-size: 19px;
+  line-height: 20px;
+  margin: 10px 4px;
+  width: 100%;
+}
 
-article[role="contact"].contact-pan ul > li i{ padding-right:3px}
+.contact__list > li i {
+  padding-right:3px
+}
 
-article[role="contact"].contact-pan ul > li > a{ color:#353535;text-decoration:none}
+.contact__list > li > a {
+  color:#353535;
+  text-decoration:none
+}
 
 article[role="contact"].contact-pan a:hover{ color:#efe51d}
 
