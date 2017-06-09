@@ -30,6 +30,7 @@ export const constants = {
   SAVE_BOOKING_USER: 'SAVE_BOOKING_USER',
   BOOKING_DELETED: 'BOOKING_DELETED',
   BOOKING_DELETED_FAILED: 'BOOKING_DELETED_FAILED',
+  BOOKING_DELETE_SERVICE: 'BOOKING_DELETE_SERVICE',
 
   MASTERS_TIME_LOADING: 'MASTERS_TIME_LOADING',
   MASTERS_TIME_LOADED: 'MASTERS_TIME_LOADED',
@@ -304,6 +305,13 @@ export function subscribe(email) {
       })
       .then(() => dispatch({type: constants.SUB_SUCCESS}))
       .catch((error) => dispatch({type: constants.SUB_FAILED, data: {error}}));
+  }
+}
+
+export function deleteSelectedService(serviceId) {
+  return {
+    type: constants.BOOKING_DELETE_SERVICE,
+    data: {serviceId}
   }
 }
 

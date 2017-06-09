@@ -32,6 +32,7 @@ const {
   BOOKING_DELETED,
   BOOKING_SUBMITED,
   BOOKING_CLEAR,
+  BOOKING_DELETE_SERVICE,
   AUTH_LOADING,
   AUTH_DONE,
   LOGOUT,
@@ -110,7 +111,7 @@ export function appReducer(state = initialState, action) {
       _.forEach(bookings, (booking, bookingId) => {
         if (booking.status === 'deleted') {return;}
         eventsList = eventsList.concat(_.map(booking.selectedServices, (service) => ({
-            title: `Сервіс: ${service.name} майстер: ${st.masters.list[service.masterId].name} name:${booking.name} ${booking.phone}`,
+            title: `Сервіс: ${service.name} майстер: ${st.masters.list[service.masterId].name} клієнт:${booking.name} ${booking.phone}`,
             start: new Date(service.dateStart),
             end: new Date(service.dateEnd),
             desc: `${booking.name} ${booking.phone}`,
@@ -144,6 +145,10 @@ export function appReducer(state = initialState, action) {
     },
     [SUB_START]: (st) => {
       st.subscription.success = true;
+      return {...st};
+    },
+    [BOOKING_DELETE_SERVICE]: (st, {serviceId}) => {
+      delete st.booking.selectedServices[serviceId];
       return {...st};
     },
     default: (st) => st

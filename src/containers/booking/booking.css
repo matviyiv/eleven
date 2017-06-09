@@ -154,6 +154,7 @@ h2:after {
   float: left;
   background-color: #c9bc17;
   margin-left: 20px;
+  color: white;
 }
 
 .final-form,
@@ -167,6 +168,16 @@ h2:after {
 
 .final-form--submitted input:required:valid {
   border: none;
+}
+
+.final-form__selected-service {
+  font-size: 15px;
+}
+
+.final-form__selected-service > span {
+  padding-left: 20px;
+  color: red;
+  cursor: pointer;
 }
 
 .booking-success--message {

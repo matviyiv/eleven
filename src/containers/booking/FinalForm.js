@@ -142,6 +142,10 @@ export class FinalForm extends Component {
     this.props.history.push('/booking/done');
   }
 
+  deleteSelectedService = (serviceId) => () => {
+    this.props.actions.deleteSelectedService(serviceId);
+  }
+
   submit = () => {
     const { name, phone, notes } = this.state;
     const { actions, app: {booking} } = this.props;
@@ -152,7 +156,10 @@ export class FinalForm extends Component {
     const content = [];
     for (let id in services) {
       let service = services[id];
-      content.push(<li key={id}>{service.name} {moment(service.dateStart).format('Do MMMM HH:mm')}</li>);
+      content.push(<li key={id} className="final-form__selected-service">
+        {service.name} {moment(service.dateStart).format('Do MMMM HH:mm')}
+        <span className="glyphicon glyphicon-remove" onClick={this.deleteSelectedService(id)}></span>
+      </li>);
     };
     return content;
   }
