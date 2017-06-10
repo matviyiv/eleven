@@ -92,6 +92,7 @@ export class Step3 extends Component {
         todayButton={'Сьогодні'}
         utcOffset={+2}
         locale="uk_UA"
+        readOnly={true}
         selected={this.state.selectedDate}
         onChange={this.handleDateChange}
         minDate={moment()}

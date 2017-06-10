@@ -56,7 +56,7 @@ export class Contacts extends Component {
         <input name="" type="submit" className="button-icon" />
         <i className="fa fa-paper-plane" aria-hidden="true" onClick={this.submit}></i>
       </label>
-      <p>Будь ласка введіть свій емейл і ми повідомимо щойно відкриємось!.</p> 
+      <p>Підпишись і будь в курсі наших новинок!</p> 
     </form>);
   }
 

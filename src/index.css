@@ -9,3 +9,69 @@ body {
     overflow-y: scroll;
   }
 }
+
+/* lg */
+
+@media (min-width:1400px) and (max-width:1920px) {
+  article.subscribe-pan[role="subscribe"],article.contact-pan[role="contact"]{ padding-top:32.6%}
+}
+
+/* md */
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  article.subscribe-pan[role="subscribe"],article.contact-pan[role="contact"]{ padding-top:32.6%}
+}
+
+/* sm */
+
+@media (min-width: 768px) and (max-width: 991px) {
+  article.subscribe-pan[role="subscribe"],article.contact-pan[role="contact"]{ padding-top:53.5%}
+  .menu__header{ padding:0 1%}
+  header[role="header"] > hgroup nav ul > li{ margin:0 4.5px}
+}
+
+/* xs */
+
+@media (max-width: 767px) {
+  header[role="header"] > hgroup > h1 > a{ width:120%; line-height:39px; font-size:20px}
+
+  header[role="header"] > hgroup{ overflow:inherit; padding:2%}
+
+  header[role="header"] > hgroup nav{ position: relative;width:100%; text-align:center}
+
+  footer.desk,header[role="header"] > hgroup ul[role="socil-icons"].desk-social{ display:none}
+
+  header[role="header"] > hgroup nav ul,header[role="header"] > hgroup ul[role="socil-icons"]{ text-align:center; width:100%}
+
+  header[role="header"] > hgroup nav ul > li{ display:block; margin:0; border-bottom:1px solid #CCC}
+
+  header[role="header"] > hgroup nav ul > li a{ line-height:40px}
+
+  footer.mobile p{ text-align:center; line-height:18px}
+
+  header[role="header"] > hgroup div[role="socil-icons"]{ clear:both; display:block;}
+
+  header[role="header"] > hgroup div[role="socil-icons"] li{ display:inline-block; margin:0 6px}
+
+  header[role="header"] > hgroup div[role="socil-icons"] li a{ color:#353535}
+
+  header[role="header"] > hgroup div[role="socil-icons"] li a:hover{color:#e84d49}
+
+  
+
+  #menu-button{ display: block; position:absolute; right:4%; top:-41px; font-size:0; background-color:#353535; padding:3px 7px; cursor:pointer}
+
+  #menu-button i{font-family:'FontAwesome'; font-size:21px; line-height:23px; color:#FFF; font-weight:normal}
+
+
+  article.subscribe-pan[role="subscribe"] form{ width:100%}
+
+  article.subscribe-pan[role="subscribe"] form input[type="email"]{ width:79.2%}
+
+  article.contact-pan[role="contact"] h3{ font-size:24px; line-height:26px}
+
+  article header.page-title h2{ font-size:22px}
+
+  footer.mobile{ display:block}
+
+}
