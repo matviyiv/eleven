@@ -49,7 +49,7 @@ export default class Menu extends Component {
           <Link to="/contacts"  title="Контакти">Контакти</Link>
         </li>
         <li className={currentPath === '/booking/step1' ? 'active' : ''}>
-          <Link to="/booking/step1"  title="Забронювати час">Забронювати час</Link>
+          <Link to="/booking/step1"  title="Забронювати час">Забронювати</Link>
         </li>
       </ul>
       <div role="socil-icons" className="mobile-social">

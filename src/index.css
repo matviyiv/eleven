@@ -4,4 +4,8 @@ body {
   font-family: sans-serif;
 }
 
-html { overflow-y: scroll; }
+@media (max-width: 767px) {
+  html {
+    overflow-y: scroll;
+  }
+}
