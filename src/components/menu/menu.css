@@ -206,7 +206,7 @@ header[role="header"] > hgroup > h1 > a:hover{ text-decoration:none }
 
 /*===== Nav ===*/
 
-header[role="header"] > hgroup nav{ float:none; clear:both; text-align:center; display:inline-block; position:absolute; left:0; right:0}
+header[role="header"] > hgroup nav{ float:none; clear:both; text-align:center; display:inline-block; position:absolute; left:0px; right:0}
 
 .menu__items { padding:0; margin:0; list-style:none; text-align:center; border:none}
 

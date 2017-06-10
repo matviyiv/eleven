@@ -42,7 +42,7 @@
 
 /*===== step ===*/
 
-article[role="step"].step-pan{ padding-top:17.6%}
+article[role="step"].step-pan{ padding-top:5%}
 
 article[role="step"].step-pan p{ letter-spacing:1px; line-height:18px; font-weight:300}
 
@@ -62,7 +62,7 @@ article[role="step"].step-pan ul > li:hover i{ color:#efe51d}
 
 /*===== sub-step ===*/
 
-article[role="sub-step"].sub-step-pan{ padding-top:17.6%}
+article[role="sub-step"].sub-step-pan{ padding-top:5%}
 
 article[role="sub-step"].sub-step-pan p{ letter-spacing:1px; line-height:18px; font-weight:300}
 

@@ -13,10 +13,16 @@
 }
 
 .app__content {
-  margin-bottom: 120px;
+    height: 80vh;
+    overflow-y: scroll;
+    width: 100%;
 }
 
 @media (max-width: 767px) {
+  .app__content {
+    height: 100vh;
+}
+
   .floating-button {
     bottom: 20px;
     right: 20px;
