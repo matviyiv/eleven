@@ -21,7 +21,7 @@ export default class App extends Component {
   }
   render() {
     return (
-      <div className="app">
+      <div className="app noselect">
         <BackgroundSlider/>
         <div className="over-bg"></div>
         <div className="app__content"> 
