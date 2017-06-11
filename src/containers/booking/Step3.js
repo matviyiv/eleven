@@ -97,6 +97,7 @@ export class Step3 extends Component {
         onChange={this.handleDateChange}
         minDate={moment()}
         maxDate={moment().add(30, 'days')}
+        ref="datepicker"
         placeholderText="Виберіть дату візиту" />
       {content}
     </div>);
@@ -113,6 +114,7 @@ export class Step3 extends Component {
 
   handleDateChange = (selectedDate) => {
     const {filteredMasters} = this.state;
+    this.refs.datepicker.cancelFocusInput();
     this.props.actions.getMastersTime(filteredMasters, selectedDate);
     this.setState({selectedDate});
   }

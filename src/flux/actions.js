@@ -55,41 +55,6 @@ export function loadServices() {
     dispatch({
       type: constants.SERVICES_LOADING
     });
-    firebase.database().ref('lviv/services/2/sub').set([ {
-  "duration" : 2,
-  "id" : "s3_8",
-  "name" : "all inclusive (зняття + чистка + покриття)"
-}, {
-  "duration" : 1,
-  "id" : "s3_1",
-  "name" : "класичний без покриття"
-}, {
-  "duration" : 1,
-  "id" : "s3_2",
-  "name" : "покриття гель лак"
-}, {
-  "duration" : 0.5,
-  "id" : "s3_3",
-  "name" : "покриття лак"
-}, {
-  "duration" : 0.5,
-  "id" : "s3_4",
-  "name" : "зняття гель лак"
-}, {
-  "duration" : 1,
-  "id" : "s3_5",
-  "name" : "чоловічий манікюр"
-}, {
-  "duration" : 0.5,
-  "id" : "s3_6",
-  "name" : "дитячий манікюр"
-}, {
-  "duration" : 2,
-  "id" : "s3_7",
-  "name" : "педикюр"
-} ])
-.then(() => console.log('done'))
-.catch((e) => console.error(e));
     firebase.database().ref('lviv/services').once('value')
       .then((services) => {
         console.log('services loaded', services.val());

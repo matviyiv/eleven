@@ -68,7 +68,7 @@ article[role="sub-step"].sub-step-pan p{ letter-spacing:1px; line-height:18px; f
 
 article[role="sub-step"].sub-step-pan ul{ margin:0; padding:0; text-align:center; padding-top:20px;}
 
-article[role="sub-step"].sub-step-pan ul > li{ height: 70px; line-height: 50px; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;
+article[role="sub-step"].sub-step-pan ul > li{ min-height: 70px; line-height: 50px; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;
 font-weight: 400;display: block; margin: 10px 10px; background: rgba(255,255,255,0.7); padding: 10px;}
 
 article[role="sub-step"].sub-step-pan ul > li,article[role="sub-step"].sub-step-pan ul > li > i,article[role="sub-step"].sub-step-pan ul > li > h6,article[role="subscribe"].subscribe-pan form label,article[role="subscribe"].subscribe-pan form label i{transition-delay: 0s;transition-duration: 0.6s;transition-property: all;transition-timing-function: ease;}
@@ -194,6 +194,10 @@ h2:after {
   line-height: 60px;
 }
 
+.final-form .form-control {
+  font-size: 16px;
+}
+
 @media (max-width: 767px) {
   .masters {
     display: block;
@@ -214,5 +218,6 @@ h2:after {
 
   .final-form__add {
     float: right;
+    margin-left: 0px;
   }
 }

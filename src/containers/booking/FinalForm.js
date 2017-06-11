@@ -60,7 +60,7 @@ export class FinalForm extends Component {
             ref="nameInput"
             className="form-control"
             value={name}
-            placeholder="як до вас звертатися"
+            placeholder="як до тебе звертатися"
             onChange={this.nameChange}
             required={true}
             />
