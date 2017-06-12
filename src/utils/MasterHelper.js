@@ -4,9 +4,10 @@ import _ from 'lodash';
 export function getAvaliableTime({master, selectedDate, duration}) {
   const timeList = [];
   const date = selectedDate.date();
+  const isToday = moment().get('date') === selectedDate.get('date');
   const dateType = isEven(date) ? 'even' : 'odd';
   const isWorking = master.work.indexOf(dateType) > -1;
-  const startWorkHours = selectedDate.hours(10).minutes(0).seconds(0);
+  const startWorkHours = selectedDate.hours(isToday ? moment().get('hours') + 1 : 10).minutes(0).seconds(0);
 
   if (!isWorking) {return timeList;}
 

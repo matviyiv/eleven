@@ -60,9 +60,9 @@ article[role="contact"].contact-pan .box { margin: 0 auto; letter-spacing: 1px; 
 
 article[role="contact"].contact-pan{ padding-top:5%}
 
-article[role="contact"].contact-pan h3{ font-size:30px; line-height:32px; font-weight:700}
+.contact__company-mail { font-size:30px; line-height:32px; font-weight:700}
 
-article[role="contact"].contact-pan h3 > a{ color:#353535; text-decoration:none}
+.contact__company-mail  > a{ color:#353535; text-decoration:none}
 
 article[role="contact"].contact-pan ul{ text-align:center; list-style:none; padding:0; margin:0; padding-top:8px}
 
@@ -96,5 +96,13 @@ article[role="contact"].contact-pan a:hover{ color:#efe51d}
 
   .contact__form {
     width: inherit;
+  }
+
+  .contact__company-mail {
+    font-size: 20px;
+  }
+
+  .contact--content { 
+    margin: 0;
   }
 }

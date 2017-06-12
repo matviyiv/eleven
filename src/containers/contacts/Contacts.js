@@ -30,7 +30,7 @@ export class Contacts extends Component {
             {subscription.success ? 'дякуємо що підписались на наші новини' : this.renderForm()}
             </div>
               <br/>
-              <h3><a href="mailto:Contact@eleven.lviv.ua" className="contact__email-link">info@eleven.lviv.ua </a></h3>
+              <h3 className="contact__company-mail"><a href="mailto:Contact@eleven.lviv.ua" className="contact__email-link">info@eleven.lviv.ua </a></h3>
           <ul className="contact__list">
             <li><i className="fa fa-map-marker" aria-hidden="true"></i> <a href="https://goo.gl/maps/uhZfiKZjZWp">м. Львів, вул. Чорновола 31</a></li>
             <li><i className="fa fa-phone" aria-hidden="true"></i> <a href="tel:0975271332">(097) 52 71 332</a></li>

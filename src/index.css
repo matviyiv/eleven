@@ -43,7 +43,6 @@ body {
 /* xs */
 
 @media (max-width: 767px) {
-  header[role="header"] > hgroup > h1 > a{ width:120%; line-height:39px; font-size:20px}
 
   header[role="header"] > hgroup{ overflow:inherit; padding:2%}
 
@@ -77,8 +76,6 @@ body {
   article.subscribe-pan[role="subscribe"] form{ width:100%}
 
   article.subscribe-pan[role="subscribe"] form input[type="email"]{ width:79.2%}
-
-  article.contact-pan[role="contact"] h3{ font-size:24px; line-height:26px}
 
   article header.page-title h2{ font-size:22px}
 
