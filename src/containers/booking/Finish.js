@@ -16,7 +16,7 @@ export class Finish extends Component {
           <h2>Готово</h2>
         </header>
         <div className="booking-success--message">
-        Найблищим часом наш адміністратор звяжеться з вами.
+        {"Найблищим часом наш адміністратор зв'яжеться з вами."}
         <br/>
         <Link to="/" className="booking-success--link">На головну</Link>
         </div>
