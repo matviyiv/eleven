@@ -18,6 +18,7 @@ export class Calendar extends Component {
   }
 
   componentWillMount() {
+    Notification && Notification.requestPermission();
     BigCalendar.momentLocalizer(moment);
   }
 

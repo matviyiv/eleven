@@ -113,7 +113,7 @@ export function appReducer(state = initialState, action) {
       let eventsList = st.allEvents.list;
       _.forEach(bookings, (booking, bookingId) => {
         if (booking.status === 'deleted') {return;}
-        eventsList = eventsList.concat(prepareCalendarEvent(booking, bookingId, st.masters));
+        eventsList = [].concat(eventsList, prepareCalendarEvent(booking, bookingId, st.masters));
       });
       st.allEvents.loading = false;
       st.allEvents.list = eventsList;
@@ -154,11 +154,11 @@ export function appReducer(state = initialState, action) {
     [DB_BOOKING_UPDATE]: (st, {booking, bookingId}) => {
       if (booking.status === 'deleted' || !st.masters.list) {return st;}
       let eventsList = st.allEvents.list;
-      const wasAdded = _.find(eventsList, {bookingId: bookingId});
-      if (wasAdded) {return st;}
-      eventsList = eventsList.concat(prepareCalendarEvent(booking, bookingId, st.masters));
+      if (_.find(eventsList, {bookingId: bookingId})) {return st;}
+      eventsList = [].concat(eventsList, prepareCalendarEvent(booking, bookingId, st.masters));
       st.allEvents.loading = false;
       st.allEvents.list = eventsList;
+      showNotification(booking);
       return {...st};
     },
     default: (st) => st
@@ -193,4 +193,10 @@ function prepareCalendarEvent(booking, bookingId, masters) {
     masterId: service.masterId,
     bookingId
   }))
+}
+
+function showNotification(booking) {
+  new Notification('Нове бронювання', {
+    body: booking.title
+  })
 }
