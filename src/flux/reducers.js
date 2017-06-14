@@ -186,7 +186,7 @@ function findSubService(services, subServiceId) {
 
 function prepareCalendarEvent(booking, bookingId, masters) {
   return _.map(booking.selectedServices, (service) => ({
-    title: `Сервіс: ${service.name} майстер: ${masters.list[service.masterId].name} клієнт:${booking.name} ${booking.phone}`,
+    title: `Сервіс: ${service.name} майстер: ${masters.list[service.masterId].name} клієнт: ${booking.name} тел: ${booking.phone} дод: ${booking.notes}`,
     start: new Date(service.dateStart),
     end: new Date(service.dateEnd),
     desc: `${booking.name} ${booking.phone}`,
@@ -197,6 +197,6 @@ function prepareCalendarEvent(booking, bookingId, masters) {
 
 function showNotification(booking) {
   new Notification('Нове бронювання', {
-    body: booking.title
+    body: booking.selectedServices[0].dateStart
   })
 }
