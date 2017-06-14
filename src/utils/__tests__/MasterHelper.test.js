@@ -27,7 +27,7 @@ describe('MasterHelper', () => {
     it('should return list of booking times', () => {
       const data = {
         master,
-        selectedDate: moment(),
+        selectedDate: moment().add(1, 'day'),
         duration: 1
       };
       expect(MasterHelper.getAvaliableTime(data).length).toBeGreaterThan(0);
