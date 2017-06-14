@@ -1,7 +1,7 @@
 import moment from 'moment';
 import _ from 'lodash';
 import MockDate from 'mockdate';
-const MasterHelper = require('../MasterHelper');
+import * as MasterHelper from '../MasterHelper';
 
 describe('MasterHelper', () => {
   describe('isEven', () => {
@@ -78,6 +78,17 @@ describe('MasterHelper', () => {
       };
       MockDate.set(moment().hours(18).minutes(0).toDate());
       expect(MasterHelper.getAvaliableTime(data).length).toBe(1);
+      MockDate.reset();
+    });
+
+    it('should return today 20 booking avaliable', () => {
+      const data = {
+        master,
+        selectedDate: moment(),
+        duration: 0.5
+      };
+      MockDate.set(moment().hours(7).minutes(0).toDate());
+      expect(MasterHelper.getAvaliableTime(data).length).toBe(20);
       MockDate.reset();
     });
 

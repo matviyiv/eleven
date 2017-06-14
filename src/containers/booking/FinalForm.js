@@ -98,7 +98,7 @@ export class FinalForm extends Component {
           </div>
         </div>
         <div className="form-group row">
-          <div className="col-sm-4 col-sm-offset-2 col-md-4 col-md-offset-4 clearfix">
+          <div className="col-sm-6 col-sm-offset-4 col-md-4 col-md-offset-4 clearfix">
           <input
             type="submit"
             value="Надіслати"

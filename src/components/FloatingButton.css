@@ -40,4 +40,9 @@
     bottom: 20px;
     right: 20px;
   }
+
+  .floating-button--back {
+    right: inherit;
+    left: 20px;
+  }
 }
