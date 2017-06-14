@@ -48,6 +48,9 @@ export const constants = {
   SUB_SUCCESS: 'SUB_SUCCESS',
   SUB_FAILED: 'SUB_FAILED',
   SUB_START: 'SUB_START',
+
+  DB_BOOKING_SUBSCRIBE: 'DB_BOOKING_SUBSCRIBE',
+  DB_BOOKING_UPDATE: 'DB_BOOKING_UPDATE',
 };
 
 export function loadServices() {
@@ -170,6 +173,25 @@ export function getAllEvents() {
       });
     });
   };
+}
+
+export function subscribeForNewBookings() {
+  return dispatch => {
+    dispatch({
+      type: constants.DB_BOOKING_SUBSCRIBE
+    });
+    firebase.database()
+      .ref('lviv/bookings')
+      .on('child_added', function(snapshot) {
+        dispatch({
+          type: constants.DB_BOOKING_UPDATE,
+          data: {
+            booking: snapshot.val(),
+            bookingId: snapshot.key
+          }
+        });
+      });
+  }
 }
 
 function loadMastersRequest() {

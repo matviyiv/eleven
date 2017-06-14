@@ -18,18 +18,22 @@ export class Calendar extends Component {
   }
 
   componentWillMount() {
-    const {
-      app: {allEvents},
-      actions
-    } = this.props;
-
-    !allEvents.list.length && !allEvents.loading && actions.getAllEvents();
-    
     BigCalendar.momentLocalizer(moment);
   }
 
   componentWillUnmount() {
     this.props.actions.logout();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      app: {allEvents, auth, db},
+      actions
+    } = nextProps;
+    if (auth.status == 'success') {
+      !allEvents.list.length && !allEvents.loading && actions.getAllEvents();
+      !db.subscribed && actions.subscribeForNewBookings();
+    }
   }
 
   render() {
@@ -64,7 +68,7 @@ export class Calendar extends Component {
       <div>Filters:
       <select onChange={this.changeMaster} value={filterMaster}>
         <option value=''>filter by masters</option>
-        {this.renederMasters()}
+        {this.renderMasters()}
       </select>
       </div>
       <BigCalendar
@@ -95,7 +99,7 @@ export class Calendar extends Component {
     </div>);
   }
 
-  renederMasters() {
+  renderMasters() {
     const {app:{masters}} = this.props;
     return _.map(masters.list, (master) => (<option value={master.id} key={master.id}>
       {master.name}

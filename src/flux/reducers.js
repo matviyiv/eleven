@@ -18,6 +18,7 @@ const initialState = {
     email: '',
   },
   subscription: {},
+  db: {}
 };
 const {
   SERVICES_LOADING,
@@ -43,6 +44,8 @@ const {
   MASTERS_TIME_ERROR,
   ALL_EVENTS_FAILED,
   AUTH_FAILED,
+  DB_BOOKING_UPDATE,
+  DB_BOOKING_SUBSCRIBE,
 } = constants;
 
 export function appReducer(state = initialState, action) {
@@ -110,14 +113,7 @@ export function appReducer(state = initialState, action) {
       let eventsList = st.allEvents.list;
       _.forEach(bookings, (booking, bookingId) => {
         if (booking.status === 'deleted') {return;}
-        eventsList = eventsList.concat(_.map(booking.selectedServices, (service) => ({
-            title: `Сервіс: ${service.name} майстер: ${st.masters.list[service.masterId].name} клієнт:${booking.name} ${booking.phone}`,
-            start: new Date(service.dateStart),
-            end: new Date(service.dateEnd),
-            desc: `${booking.name} ${booking.phone}`,
-            masterId: service.masterId,
-            bookingId
-          })));
+        eventsList = eventsList.concat(prepareCalendarEvent(booking, bookingId, st.masters));
       });
       st.allEvents.loading = false;
       st.allEvents.list = eventsList;
@@ -151,6 +147,20 @@ export function appReducer(state = initialState, action) {
       delete st.booking.selectedServices[serviceId];
       return {...st};
     },
+    [DB_BOOKING_SUBSCRIBE]: (st, data) => {
+      st.db.subscribed = true;
+      return {...st};
+    },
+    [DB_BOOKING_UPDATE]: (st, {booking, bookingId}) => {
+      if (booking.status === 'deleted' || !st.masters.list) {return st;}
+      let eventsList = st.allEvents.list;
+      const wasAdded = _.find(eventsList, {bookingId: bookingId});
+      if (wasAdded) {return st;}
+      eventsList = eventsList.concat(prepareCalendarEvent(booking, bookingId, st.masters));
+      st.allEvents.loading = false;
+      st.allEvents.list = eventsList;
+      return {...st};
+    },
     default: (st) => st
   },
   modifier = actions[action.type] || actions.default;
@@ -172,4 +182,15 @@ function findSubService(services, subServiceId) {
     let subservice = services[serviceIndex].sub.find((sub) => sub.id === subServiceId);
     if (subservice) {return subservice;}
   }
+}
+
+function prepareCalendarEvent(booking, bookingId, masters) {
+  return _.map(booking.selectedServices, (service) => ({
+    title: `Сервіс: ${service.name} майстер: ${masters.list[service.masterId].name} клієнт:${booking.name} ${booking.phone}`,
+    start: new Date(service.dateStart),
+    end: new Date(service.dateEnd),
+    desc: `${booking.name} ${booking.phone}`,
+    masterId: service.masterId,
+    bookingId
+  }))
 }

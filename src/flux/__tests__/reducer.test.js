@@ -31,13 +31,6 @@ describe('reducers', () => {
       date: moment(new Date('Wed Jun 14 2017 11:00:00 GMT+0300 (EEST)')).hours(11).minutes(0).seconds(0)
     };
     const result = reducers.appReducer(st, actions.selectMasterNextDate(data));
-    const expected = {
-      dateEnd: "Wed Jun 14 2017 14:30:00 GMT+0300 (EEST)",
-      dateStart: "Wed Jun 14 2017 13:30:00 GMT+0300 (EEST)",
-      duration: 1,
-      masterId: "e1",
-      name: "вечірній"
-    };
     expect(result.booking.selectedServices).toMatchSnapshot();
   });
 });
