@@ -9,12 +9,15 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import * as actionCreators from '../../flux/actions';
 import FloatingButton from '../../components/FloatingButton';
+import EditBooking from './EditBooking.js';
 
 export class Calendar extends Component {
   state = {
     filterMaster: '',
     email: '',
     password: '',
+    openEdit: false,
+    selectedBookingId: '',
   }
 
   componentWillMount() {
@@ -39,7 +42,7 @@ export class Calendar extends Component {
 
   render() {
     const {app: {allEvents, auth}} = this.props;
-    const {filterMaster, email, password} = this.state;
+    const {filterMaster, email, password, openEdit, selectedBooking} = this.state;
     let events = allEvents.list;
 
     if (auth.loading) {
@@ -97,6 +100,11 @@ export class Calendar extends Component {
           \nend: ${slotInfo.end.toLocaleString()}`
         )}
       />
+      <EditBooking
+        isOpen={openEdit}
+        selectedBooking={selectedBooking}
+        updateBooking={this.updateBooking(selectedBooking)}
+      />
     </div>);
   }
 
@@ -112,12 +120,24 @@ export class Calendar extends Component {
   }
 
   onSelectEvent = (event) => {
-    const isConfirmed = confirm('Are you sure you want to delete this booking?');
+    // const isConfirmed = confirm('Are you sure you want to delete this booking?');
+    console.log('booking', event);
+    this.setState({
+      openEdit: !this.state.openEdit,
+      selectedBooking: {
+        id: event.bookingId,
+        data: event.booking,
+      }
+    })
+    // if (isConfirmed) {
+      // this.props.actions.deleteBoking(event.bookingId);
+    // }
+  }
 
-    if (isConfirmed) {
-      this.props.actions.deleteBoking(event.bookingId);
-    }
-  }  
+  updateBooking = (booking) => (event) => {
+    event.preventDefault()
+    console.log('submit')
+  }
 
   onEmailChange = (event) => this.setState({email: event.target.value});
   onPasswordChange = (event) => this.setState({password: event.target.value});

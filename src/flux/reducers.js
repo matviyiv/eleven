@@ -191,7 +191,8 @@ function prepareCalendarEvent(booking, bookingId, masters) {
     end: new Date(service.dateEnd),
     desc: `${booking.name} ${booking.phone}`,
     masterId: service.masterId,
-    bookingId
+    bookingId,
+    booking,
   }))
 }
 
