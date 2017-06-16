@@ -5,3 +5,20 @@
 .rbc-month-view {
   display: block !important;
 }
+
+// EditBooking styles
+
+.edit__controls .btn-primary,
+.edit__controls .btn-default {
+  float: left;
+  margin-left: 20px;
+}
+
+.edit__controls .btn-danger {
+  float: right;
+  margin-right: 20px;
+}
+
+.edit__form {
+  margin: 50px;
+}
