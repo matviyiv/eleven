@@ -41,7 +41,7 @@ export class Calendar extends Component {
   }
 
   render() {
-    const {app: {allEvents, auth}} = this.props;
+    const {app: {allEvents, auth, masters}} = this.props;
     const {filterMaster, email, password, openEdit, selectedBooking} = this.state;
     let events = allEvents.list;
 
@@ -98,6 +98,7 @@ export class Calendar extends Component {
       />
       <EditBooking
         isOpen={openEdit}
+        masters={masters}
         selectedBooking={selectedBooking}
         updateBooking={this.updateBooking(selectedBooking)}
         onCloseModal={this.onCloseModal}
@@ -130,6 +131,8 @@ export class Calendar extends Component {
       selectedBooking: {
         id: event.bookingId,
         data: event.booking,
+        subServiceId: event.subServiceId,
+        title: event.title,
       }
     })
     

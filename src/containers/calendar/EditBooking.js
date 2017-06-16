@@ -4,14 +4,12 @@ import Modal from 'react-modal';
 import './calendar.css';
 
 export default class Calendar extends Component {
-  constructor(props) {
-    super(props);
-    const {name, phone, notes} = props.selectedBooking.data;
-    this.state = {
-      name,
-      phone,
-      notes,
-    };
+  state = {
+    name: '',
+    phone: '',
+    notes: '',
+    duration: 1,
+    title: ''
   }
 
   static defaultProps = {
@@ -21,25 +19,28 @@ export default class Calendar extends Component {
         name: '',
         phone: '',
         notes: '',
+        title: ''
       }
     },
     onCloseModal: () => {}
   }
 
   componentWillReceiveProps(nextProps) {
-    const {selectedBooking:{data}} = nextProps;
-    if (data != this.props.selectedBooking.data) {
+    const {selectedBooking:{data, subServiceId, title}} = nextProps;
+    if (this.props.selectedBooking.subServiceId != subServiceId) {
       this.setState({
         name: data.name,
         phone: data.phone,
         notes: data.notes,
+        title: title,
+        duration: data.selectedServices[subServiceId].duration
       });
     }
   }
 
   render() {
     const {isOpen, updateBooking, onDelete, onCloseModal} = this.props;
-    const {name, phone, notes} = this.state;
+    const {name, phone, notes, duration, title} = this.state;
 
     return (<div>
       <Modal
@@ -52,7 +53,8 @@ export default class Calendar extends Component {
           редагувати бронювання
           <span className="close" onClick={onCloseModal}>x</span>
         </h1>
-        <form onSubmit={updateBooking} clasnnName="edit__form">
+        <form onSubmit={updateBooking} className="edit__form">
+          <div>{title}</div>
           <div className="form-group row">
             <label className="col-sm-4 control-label" htmlFor="name-input">{"Ім'я:"}</label>
             <div className="col-sm-6">
@@ -101,6 +103,22 @@ export default class Calendar extends Component {
               </textarea>
             </div>
           </div>
+          <div className="form-group row">
+            <label className="col-sm-4 control-label" htmlFor="name-input">Тривалість</label>
+            <div className="col-sm-6">
+            <input
+              type="text"
+              name="duration"
+              id="duration-input"
+              ref="durationInput"
+              className="form-control"
+              value={duration}
+              placeholder="тривалість"
+              onChange={this.durationChange}
+              required={true}
+              />
+              </div>
+          </div>
           <div className="edit__controls">
             <input type="submit" value="Зберегти зміни" className="btn btn-primary"/>
             <button onClick={onCloseModal} className="btn btn-default">Закрити</button>
@@ -114,7 +132,11 @@ export default class Calendar extends Component {
   nameChange = () => this.setState({name: event.target.value})
   phoneChange = () => this.setState({phone: event.target.value})
   notesChange = () => this.setState({notes: event.target.value})
-  onDelete = () => this.props.onDelete(this.state.selectedBooking.id)
+  durationChange = () => this.setState({duration: event.target.value})
+  onDelete = () => {
+    this.props.onDelete(this.props.selectedBooking.id);
+    this.props.onCloseModal();
+  }
 }
 
 const modalStyles = {

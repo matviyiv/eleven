@@ -4,14 +4,23 @@ import firebaseApp from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
-const firebase = firebaseApp.initializeApp({
+const testConfig = {
+  apiKey: "AIzaSyCkIvyy_zT8Ce9m5oXdj0JV1OkyN_Nuznc",
+  authDomain: "eleven-test.firebaseapp.com",
+  databaseURL: "https://eleven-test.firebaseio.com",
+  projectId: "eleven-test",
+  storageBucket: "eleven-test.appspot.com",
+  messagingSenderId: "714635009016"
+};
+const prodConfig = {
   apiKey: 'AIzaSyB_UMGTtBFm5peIvZr-67dbNBCoUs4tRbg',
   authDomain: 'eleven-6f723.firebaseapp.com',
   databaseURL: 'https://eleven-6f723.firebaseio.com',
   projectId: 'eleven-6f723',
   storageBucket: 'eleven-6f723.appspot.com',
   messagingSenderId: '772347263433'
-});
+};
+const firebase = firebaseApp.initializeApp(testConfig);
 
 export const constants = {
   SERVICES_LOADING: 'SERVICES_LOADING',
