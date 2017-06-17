@@ -70,7 +70,7 @@ export class FinalForm extends Component {
           <label className="col-sm-4 control-label" htmlFor="phone-input">Мобільний номер:</label>
           <div className="col-sm-6">
             <input
-              type="tel"
+              type="text"
               name="phone"
               ref="phoneInput"
               id="phone-input"
