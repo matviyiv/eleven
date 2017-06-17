@@ -40,6 +40,8 @@ export const constants = {
   BOOKING_DELETED: 'BOOKING_DELETED',
   BOOKING_DELETED_FAILED: 'BOOKING_DELETED_FAILED',
   BOOKING_DELETE_SERVICE: 'BOOKING_DELETE_SERVICE',
+  BOOKING_UPDATED: 'BOOKING_UPDATED',
+  BOOKING_UPDATE_FAILED: 'BOOKING_UPDATE_FAILED',
 
   MASTERS_TIME_LOADING: 'MASTERS_TIME_LOADING',
   MASTERS_TIME_LOADED: 'MASTERS_TIME_LOADED',
@@ -290,6 +292,22 @@ export function deleteBoking(bookingId) {
     });
     
   };
+}
+
+export function updateBooking(bookingId, booking, subServiceId) {
+  return dispatch => {
+    firebase.database().ref('lviv/bookings/' + bookingId)
+      .update(booking)
+      .then(() => {
+        dispatch({type: constants.BOOKING_UPDATED, data: {booking, subServiceId, bookingId}})
+      })
+      .catch((error) => {
+        dispatch({
+          type: constants.BOOKING_UPDATE_FAILED,
+          error: 'Failed to update booking' + error
+        });
+      });
+  }
 }
 
 export function authenticate(email, password) {

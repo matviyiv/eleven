@@ -100,7 +100,7 @@ export class Calendar extends Component {
         isOpen={openEdit}
         masters={masters}
         selectedBooking={selectedBooking}
-        updateBooking={this.updateBooking(selectedBooking)}
+        updateBooking={this.updateBooking}
         onCloseModal={this.onCloseModal}
         onDelete={this.onDelete}
       />
@@ -125,7 +125,6 @@ export class Calendar extends Component {
   }
 
   onSelectEvent = (event) => {
-    console.log('booking', event);
     this.setState({
       openEdit: !this.state.openEdit,
       selectedBooking: {
@@ -138,9 +137,8 @@ export class Calendar extends Component {
     
   }
 
-  updateBooking = (booking) => (event) => {
-    event.preventDefault()
-    console.log('submit')
+  updateBooking = (bookingId, booking, subServiceId) => {
+    this.props.actions.updateBooking(bookingId, booking, subServiceId);
   }
 
   onEmailChange = (event) => this.setState({email: event.target.value});

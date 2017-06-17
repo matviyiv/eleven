@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import moment from 'moment';
 
 import './calendar.css';
 
@@ -39,7 +40,7 @@ export default class Calendar extends Component {
   }
 
   render() {
-    const {isOpen, updateBooking, onDelete, onCloseModal} = this.props;
+    const {isOpen, onDelete, onCloseModal} = this.props;
     const {name, phone, notes, duration, title} = this.state;
 
     return (<div>
@@ -53,7 +54,7 @@ export default class Calendar extends Component {
           редагувати бронювання
           <span className="close" onClick={onCloseModal}>x</span>
         </h1>
-        <form onSubmit={updateBooking} className="edit__form">
+        <form onSubmit={this.onSubmit} className="edit__form">
           <div>{title}</div>
           <div className="form-group row">
             <label className="col-sm-4 control-label" htmlFor="name-input">{"Ім'я:"}</label>
@@ -107,11 +108,14 @@ export default class Calendar extends Component {
             <label className="col-sm-4 control-label" htmlFor="name-input">Тривалість</label>
             <div className="col-sm-6">
             <input
-              type="text"
+              type="number"
               name="duration"
               id="duration-input"
               ref="durationInput"
               className="form-control"
+              min="0.5"
+              max="6"
+              step="0.5"
               value={duration}
               placeholder="тривалість"
               onChange={this.durationChange}
@@ -129,12 +133,31 @@ export default class Calendar extends Component {
     </div>)
   }
 
-  nameChange = () => this.setState({name: event.target.value})
-  phoneChange = () => this.setState({phone: event.target.value})
-  notesChange = () => this.setState({notes: event.target.value})
-  durationChange = () => this.setState({duration: event.target.value})
+  nameChange = (event) => this.setState({name: event.target.value})
+  phoneChange = (event) => this.setState({phone: event.target.value})
+  notesChange = (event) => this.setState({notes: event.target.value})
+  durationChange = (event) => this.setState({duration: event.target.value})
   onDelete = () => {
     this.props.onDelete(this.props.selectedBooking.id);
+    this.props.onCloseModal();
+  }
+  onSubmit = (event) => {
+    event.preventDefault();
+    const {data, id, subServiceId} = this.props.selectedBooking;
+    const {name, phone, notes, duration} = this.state;
+    let booking = {
+      ...data,
+      name,
+      phone,
+      notes,
+    }
+    let subService = booking.selectedServices[subServiceId];
+    if (subService.duration !== +duration) {
+      subService.duration = +duration;
+      subService.dateEnd = moment(subService.dateStart).add(+duration, 'hours').toString();
+    }
+
+    this.props.updateBooking(id, booking, subServiceId);
     this.props.onCloseModal();
   }
 }
