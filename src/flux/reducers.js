@@ -34,6 +34,7 @@ const {
   BOOKING_SUBMITED,
   BOOKING_CLEAR,
   BOOKING_DELETE_SERVICE,
+  BOOKING_UPDATED,
   AUTH_LOADING,
   AUTH_DONE,
   LOGOUT,
@@ -73,8 +74,8 @@ export function appReducer(state = initialState, action) {
       const dateEnd = moment(date).add(service.duration, 'hours');
       const selectedService = {
         masterId: masterId,
-        dateStart: date.toDate().toString(),
-        dateEnd: dateEnd.toDate().toString(),
+        dateStart: date.toString(),
+        dateEnd: dateEnd.toString(),
         name: service.name,
         duration: service.duration,
       };
@@ -122,6 +123,13 @@ export function appReducer(state = initialState, action) {
     [BOOKING_DELETED]: (st, {bookingId}) => {
       let index = _.findIndex(st.allEvents.list, {bookingId});
       delete st.allEvents.list[index];
+      return {...st};
+    },
+    [BOOKING_UPDATED]: (st, {booking, bookingId, subServiceId}) => {
+      let eventsList = st.allEvents.list;
+      let index = _.findIndex(eventsList, {subServiceId: subServiceId});
+      eventsList[index] = _.find(prepareCalendarEvent(booking, bookingId, st.masters), {subServiceId: subServiceId});
+      st.allEvents.list = eventsList;
       return {...st};
     },
     [AUTH_LOADING]: (st) => {
@@ -185,13 +193,15 @@ function findSubService(services, subServiceId) {
 }
 
 function prepareCalendarEvent(booking, bookingId, masters) {
-  return _.map(booking.selectedServices, (service) => ({
+  return _.map(booking.selectedServices, (service, subServiceId) => ({
     title: `Сервіс: ${service.name} майстер: ${masters.list[service.masterId].name} клієнт: ${booking.name} тел: ${booking.phone} дод: ${booking.notes}`,
     start: new Date(service.dateStart),
     end: new Date(service.dateEnd),
     desc: `${booking.name} ${booking.phone}`,
     masterId: service.masterId,
-    bookingId
+    bookingId,
+    booking,
+    subServiceId
   }))
 }
 

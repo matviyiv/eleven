@@ -4,14 +4,23 @@ import firebaseApp from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
-const firebase = firebaseApp.initializeApp({
+const testConfig = {
+  apiKey: "AIzaSyCkIvyy_zT8Ce9m5oXdj0JV1OkyN_Nuznc",
+  authDomain: "eleven-test.firebaseapp.com",
+  databaseURL: "https://eleven-test.firebaseio.com",
+  projectId: "eleven-test",
+  storageBucket: "eleven-test.appspot.com",
+  messagingSenderId: "714635009016"
+};
+const prodConfig = {
   apiKey: 'AIzaSyB_UMGTtBFm5peIvZr-67dbNBCoUs4tRbg',
   authDomain: 'eleven-6f723.firebaseapp.com',
   databaseURL: 'https://eleven-6f723.firebaseio.com',
   projectId: 'eleven-6f723',
   storageBucket: 'eleven-6f723.appspot.com',
   messagingSenderId: '772347263433'
-});
+};
+const firebase = firebaseApp.initializeApp(prodConfig);
 
 export const constants = {
   SERVICES_LOADING: 'SERVICES_LOADING',
@@ -31,6 +40,8 @@ export const constants = {
   BOOKING_DELETED: 'BOOKING_DELETED',
   BOOKING_DELETED_FAILED: 'BOOKING_DELETED_FAILED',
   BOOKING_DELETE_SERVICE: 'BOOKING_DELETE_SERVICE',
+  BOOKING_UPDATED: 'BOOKING_UPDATED',
+  BOOKING_UPDATE_FAILED: 'BOOKING_UPDATE_FAILED',
 
   MASTERS_TIME_LOADING: 'MASTERS_TIME_LOADING',
   MASTERS_TIME_LOADED: 'MASTERS_TIME_LOADED',
@@ -281,6 +292,22 @@ export function deleteBoking(bookingId) {
     });
     
   };
+}
+
+export function updateBooking(bookingId, booking, subServiceId) {
+  return dispatch => {
+    firebase.database().ref('lviv/bookings/' + bookingId)
+      .update(booking)
+      .then(() => {
+        dispatch({type: constants.BOOKING_UPDATED, data: {booking, subServiceId, bookingId}})
+      })
+      .catch((error) => {
+        dispatch({
+          type: constants.BOOKING_UPDATE_FAILED,
+          error: 'Failed to update booking' + error
+        });
+      });
+  }
 }
 
 export function authenticate(email, password) {

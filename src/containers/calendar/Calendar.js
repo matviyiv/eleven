@@ -9,12 +9,15 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import * as actionCreators from '../../flux/actions';
 import FloatingButton from '../../components/FloatingButton';
+import EditBooking from './EditBooking.js';
 
 export class Calendar extends Component {
   state = {
     filterMaster: '',
     email: '',
     password: '',
+    openEdit: false,
+    selectedBookingId: '',
   }
 
   componentWillMount() {
@@ -38,8 +41,8 @@ export class Calendar extends Component {
   }
 
   render() {
-    const {app: {allEvents, auth}} = this.props;
-    const {filterMaster, email, password} = this.state;
+    const {app: {allEvents, auth, masters}} = this.props;
+    const {filterMaster, email, password, openEdit, selectedBooking} = this.state;
     let events = allEvents.list;
 
     if (auth.loading) {
@@ -92,10 +95,14 @@ export class Calendar extends Component {
         scrollToTime={new Date(1970, 1, 1, 6)}
         defaultDate={moment().toDate()}
         onSelectEvent={this.onSelectEvent}
-        onSelectSlot={(slotInfo) => alert(
-          `selected slot: \n\nstart ${slotInfo.start.toLocaleString()}
-          \nend: ${slotInfo.end.toLocaleString()}`
-        )}
+      />
+      <EditBooking
+        isOpen={openEdit}
+        masters={masters}
+        selectedBooking={selectedBooking}
+        updateBooking={this.updateBooking}
+        onCloseModal={this.onCloseModal}
+        onDelete={this.onDelete}
       />
     </div>);
   }
@@ -111,13 +118,28 @@ export class Calendar extends Component {
     this.setState({filterMaster: event.target.value});
   }
 
-  onSelectEvent = (event) => {
-    const isConfirmed = confirm('Are you sure you want to delete this booking?');
-
-    if (isConfirmed) {
-      this.props.actions.deleteBoking(event.bookingId);
+  onDelete = (bookingId) => {
+    if (confirm('Ви впевнені що хочете идалити бронювання?')) {
+      this.props.actions.deleteBoking(bookingId);
     }
-  }  
+  }
+
+  onSelectEvent = (event) => {
+    this.setState({
+      openEdit: !this.state.openEdit,
+      selectedBooking: {
+        id: event.bookingId,
+        data: event.booking,
+        subServiceId: event.subServiceId,
+        title: event.title,
+      }
+    })
+    
+  }
+
+  updateBooking = (bookingId, booking, subServiceId) => {
+    this.props.actions.updateBooking(bookingId, booking, subServiceId);
+  }
 
   onEmailChange = (event) => this.setState({email: event.target.value});
   onPasswordChange = (event) => this.setState({password: event.target.value});
@@ -125,6 +147,10 @@ export class Calendar extends Component {
   login = () => {
     const {email, password} = this.state;
     this.props.actions.authenticate(email, password);
+  }
+
+  onCloseModal = () => {
+    this.setState({openEdit: false})
   }
 }
 
