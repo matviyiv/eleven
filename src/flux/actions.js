@@ -20,7 +20,7 @@ const prodConfig = {
   storageBucket: 'eleven-6f723.appspot.com',
   messagingSenderId: '772347263433'
 };
-const firebase = firebaseApp.initializeApp(testConfig);
+const firebase = firebaseApp.initializeApp(prodConfig);
 
 export const constants = {
   SERVICES_LOADING: 'SERVICES_LOADING',
