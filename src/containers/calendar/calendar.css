@@ -9,15 +9,18 @@
 // EditBooking styles
 
 .edit__controls .btn-default {
-  float: left;
   margin: 20px;
 }
 
 .edit__controls .btn-danger {
-  float: right;
   margin: 20px;
 }
 
 .edit__form {
   margin: 50px;
+}
+
+.calendar--container .booking--confirmed {
+  color: white;
+  background-color: green;
 }

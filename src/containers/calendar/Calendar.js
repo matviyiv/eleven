@@ -10,6 +10,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import * as actionCreators from '../../flux/actions';
 import FloatingButton from '../../components/FloatingButton';
 import EditBooking from './EditBooking.js';
+import {classes} from '../../utils';
 
 export class Calendar extends Component {
   state = {
@@ -34,7 +35,7 @@ export class Calendar extends Component {
       app: {allEvents, auth, db},
       actions
     } = nextProps;
-    if (auth.status == 'success') {
+    if (auth.status === 'success') {
       !allEvents.list.length && !allEvents.loading && actions.getAllEvents();
       !db.subscribed && actions.subscribeForNewBookings();
     }
@@ -50,11 +51,11 @@ export class Calendar extends Component {
     }
 
     if (auth.status !== 'success') {
-      return (<div>
+      return (<form onSubmit={this.login}>
         <input type="email" onChange={this.onEmailChange} value={email} placeholder="Email"/>
         <input type="password" onChange={this.onPasswordChange} value={password} placeholder="Password"/>
         <button onClick={this.login}>Submit</button>
-      </div>);
+      </form>);
     }
 
     if (allEvents.list.length === 0) {
@@ -95,6 +96,7 @@ export class Calendar extends Component {
         scrollToTime={new Date(1970, 1, 1, 6)}
         defaultDate={moment().toDate()}
         onSelectEvent={this.onSelectEvent}
+        eventPropGetter={this.eventPropGetter}
       />
       <EditBooking
         isOpen={openEdit}
@@ -144,13 +146,23 @@ export class Calendar extends Component {
   onEmailChange = (event) => this.setState({email: event.target.value});
   onPasswordChange = (event) => this.setState({password: event.target.value});
 
-  login = () => {
+  login = (event) => {
     const {email, password} = this.state;
+    event.preventDefault();
     this.props.actions.authenticate(email, password);
   }
 
   onCloseModal = () => {
     this.setState({openEdit: false})
+  }
+
+  eventPropGetter(data) {
+    const status = data.booking.status || 'new';
+    console.log(status);
+    const eventClasses = classes({
+      'booking--confirmed': status == 'confirmed'
+    });
+    return {className: eventClasses, style: {}};
   }
 }
 

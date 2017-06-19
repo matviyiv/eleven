@@ -3,6 +3,11 @@ import Modal from 'react-modal';
 import moment from 'moment';
 
 import './calendar.css';
+const modalStyles = {
+  overlay: {
+    zIndex: 100
+  }
+}
 
 export default class Calendar extends Component {
   state = {
@@ -10,7 +15,8 @@ export default class Calendar extends Component {
     phone: '',
     notes: '',
     duration: 1,
-    title: ''
+    title: '',
+    bookingStatus: 'new'
   }
 
   static defaultProps = {
@@ -34,14 +40,15 @@ export default class Calendar extends Component {
         phone: data.phone,
         notes: data.notes,
         title: title,
-        duration: data.selectedServices[subServiceId].duration
+        duration: data.selectedServices[subServiceId].duration,
+        bookingStatus: data.status
       });
     }
   }
 
   render() {
     const {isOpen, onCloseModal} = this.props;
-    const {name, phone, notes, duration, title} = this.state;
+    const {name, phone, notes, duration, title, bookingStatus} = this.state;
 
     return (<div>
       <Modal
@@ -123,10 +130,19 @@ export default class Calendar extends Component {
               />
               </div>
           </div>
+          <div className="form-group row">
+            <label className="col-sm-4 control-label" htmlFor="state-input">Тривалість</label>
+            <div className="col-sm-6">
+              <select className="form-control" id="state-input" value={bookingStatus} onChange={this.bookingStatusChange}>
+                <option value="new">нове</option>
+                <option value="confirmed">підтверджено</option>
+              </select>
+            </div>
+          </div>
           <div className="edit__controls">
-            <input type="submit" value="Зберегти зміни" className="btn btn-primary"/>
-            <button onClick={onCloseModal} className="btn btn-default">Закрити</button>
-            <button onClick={this.onDelete} className="btn btn-danger">Видалити</button>
+            <input type="submit" value="Зберегти зміни" className="btn btn-primary pull-left"/>
+            <button onClick={onCloseModal} className="btn btn-default pull-left">Закрити</button>
+            <button onClick={this.onDelete} className="btn btn-danger pull-right">Видалити</button>
           </div>
         </form>
       </Modal>
@@ -137,6 +153,7 @@ export default class Calendar extends Component {
   phoneChange = (event) => this.setState({phone: event.target.value})
   notesChange = (event) => this.setState({notes: event.target.value})
   durationChange = (event) => this.setState({duration: event.target.value})
+  bookingStatusChange = (event) => this.setState({bookingStatus: event.target.value})
   onDelete = () => {
     this.props.onDelete(this.props.selectedBooking.id);
     this.props.onCloseModal();
@@ -144,12 +161,13 @@ export default class Calendar extends Component {
   onSubmit = (event) => {
     event.preventDefault();
     const {data, id, subServiceId} = this.props.selectedBooking;
-    const {name, phone, notes, duration} = this.state;
+    const {name, phone, notes, duration, bookingStatus} = this.state;
     let booking = {
       ...data,
       name,
       phone,
       notes,
+      status: bookingStatus
     }
     let subService = booking.selectedServices[subServiceId];
     if (subService.duration !== +duration) {
@@ -159,11 +177,5 @@ export default class Calendar extends Component {
 
     this.props.updateBooking(id, booking, subServiceId);
     this.props.onCloseModal();
-  }
-}
-
-const modalStyles = {
-  overlay: {
-    zIndex: 100
   }
 }

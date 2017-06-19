@@ -222,6 +222,7 @@ function loadBookingsRequest(date) {
 export function submitBooking(booking) {
   return dispatch => {
     booking.timestamp = moment().toDate().getTime();
+    booking.status = 'new';
     dispatch({
       type: constants.BOOKING_SUBMIT,
       data: {booking}

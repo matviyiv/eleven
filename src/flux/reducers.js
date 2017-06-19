@@ -201,7 +201,7 @@ function prepareCalendarEvent(booking, bookingId, masters) {
     masterId: service.masterId,
     bookingId,
     booking,
-    subServiceId
+    subServiceId,
   }))
 }
 
