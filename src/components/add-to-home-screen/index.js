@@ -1,3 +1,4 @@
+/* eslint-disable */
 import './style.css';
 
 /* Add to Homescreen v3.2.3 ~ (c) 2015 Matteo Spinelli ~ @license: http://cubiq.org/license */

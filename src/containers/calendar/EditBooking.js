@@ -28,7 +28,7 @@ export default class Calendar extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {selectedBooking:{data, subServiceId, title}} = nextProps;
-    if (this.props.selectedBooking.subServiceId != subServiceId) {
+    if (this.props.selectedBooking.subServiceId !== subServiceId) {
       this.setState({
         name: data.name,
         phone: data.phone,
@@ -40,7 +40,7 @@ export default class Calendar extends Component {
   }
 
   render() {
-    const {isOpen, onDelete, onCloseModal} = this.props;
+    const {isOpen, onCloseModal} = this.props;
     const {name, phone, notes, duration, title} = this.state;
 
     return (<div>
