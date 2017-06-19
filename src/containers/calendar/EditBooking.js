@@ -131,7 +131,7 @@ export default class Calendar extends Component {
               </div>
           </div>
           <div className="form-group row">
-            <label className="col-sm-4 control-label" htmlFor="state-input">Тривалість</label>
+            <label className="col-sm-4 control-label" htmlFor="state-input">Статус бронювання</label>
             <div className="col-sm-6">
               <select className="form-control" id="state-input" value={bookingStatus} onChange={this.bookingStatusChange}>
                 <option value="new">нове</option>
