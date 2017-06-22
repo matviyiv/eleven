@@ -749,6 +749,6 @@ function _removeToken () {
 
 // expose to the world
 // window.addToHomescreen = ath;
-exports.addToHomescreen = ath;
+export const addToHomescreen = ath;
 
 // })(window, document);

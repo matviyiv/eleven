@@ -29,7 +29,7 @@
     "eslint-plugin-react": "^7.0.1",
     "jest": "^20.0.4",
     "mockdate": "^2.0.1",
-    "react-scripts": "0.9.5",
+    "react-scripts": "1.0.7",
     "react-test-renderer": "^15.5.4"
   },
   "scripts": {

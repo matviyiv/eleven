@@ -37,7 +37,7 @@ export default class Menu extends Component {
          </h1>
         <nav role="nav" id="header-nav" className="nav navy">
           <div id="menu-button" className={isMobileMenuOpen ? 'open' : null} onClick={this.toggleMobileMenu}>
-            <i className="fa fa-bars"></i>Navigation
+            <i className="hamburger">☰</i>Navigation
           </div>
           <ul className={menuItemsClass}>
             <li className={currentPath === '/' ? 'active' : ''}>

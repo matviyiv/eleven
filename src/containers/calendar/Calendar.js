@@ -121,7 +121,7 @@ export class Calendar extends Component {
   }
 
   onDelete = (bookingId) => {
-    if (confirm('Ви впевнені що хочете идалити бронювання?')) {
+    if (window.confirm('Ви впевнені що хочете идалити бронювання?')) {
       this.props.actions.deleteBoking(bookingId);
     }
   }

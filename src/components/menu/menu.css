@@ -253,6 +253,20 @@ article header.page-title h2:after{ content:""; display:block; width:98px; heigh
   display: none;
 }
 
+.hamburger {
+  background: none;
+  top: 0;
+  right: 0;
+  border: 0;
+  cursor: pointer;
+  outline: none;
+  font-style: normal;
+  font-size: 21px;
+  line-height: 23px;
+  color: #FFF;
+  font-weight: normal;
+}
+
 .menu__items > li {
   cursor: pointer;
 }
