@@ -4,14 +4,6 @@ import firebaseApp from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
-const testConfig = {
-  apiKey: "AIzaSyCkIvyy_zT8Ce9m5oXdj0JV1OkyN_Nuznc",
-  authDomain: "eleven-test.firebaseapp.com",
-  databaseURL: "https://eleven-test.firebaseio.com",
-  projectId: "eleven-test",
-  storageBucket: "eleven-test.appspot.com",
-  messagingSenderId: "714635009016"
-};
 const prodConfig = {
   apiKey: 'AIzaSyB_UMGTtBFm5peIvZr-67dbNBCoUs4tRbg',
   authDomain: 'eleven-6f723.firebaseapp.com',

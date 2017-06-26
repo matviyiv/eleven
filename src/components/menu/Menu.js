@@ -57,13 +57,13 @@ export default class Menu extends Component {
             </li>
           </ul>
           <div role="socil-icons" className="mobile-social">
-            <li><a href="https://www.facebook.com/Eleven-beauty-bar-116922598898721/" target="_blank" title="facebook"><i className="fa fa-facebook"></i></a></li>
-            <li><a href="https://www.instagram.com/eleven.beauty.bar/" target="_blank" title="instagram"><i className="fa fa-instagram"></i></a></li>
+            <li><a href="https://www.facebook.com/Eleven-beauty-bar-116922598898721/" target="_blank" title="facebook" rel="noopener noreferrer"><i className="fa fa-facebook"></i></a></li>
+            <li><a href="https://www.instagram.com/eleven.beauty.bar/" target="_blank" title="instagram" rel="noopener noreferrer"><i className="fa fa-instagram"></i></a></li>
           </div>
         </nav>
         <ul role="socil-icons" className="desk-social">
-          <li><a href="https://www.facebook.com/Eleven-beauty-bar-116922598898721/" target="_blank" title="facebook"><i className="fa fa-facebook"></i></a></li>
-          <li><a href="https://www.instagram.com/eleven.beauty.bar/" target="_blank" title="instagram"><i className="fa fa-instagram"></i></a></li>
+          <li><a href="https://www.facebook.com/Eleven-beauty-bar-116922598898721/" target="_blank" title="facebook" rel="noopener noreferrer"><i className="fa fa-facebook"></i></a></li>
+          <li><a href="https://www.instagram.com/eleven.beauty.bar/" target="_blank" title="instagram" rel="noopener noreferrer"><i className="fa fa-instagram"></i></a></li>
         </ul>
       </hgroup>
       <footer className="desk">

@@ -159,7 +159,7 @@ export class Calendar extends Component {
   eventPropGetter(data) {
     const status = data.booking.status || 'new';
     const eventClasses = classes({
-      'booking--confirmed': status == 'confirmed'
+      'booking--confirmed': status === 'confirmed'
     });
     return {className: eventClasses, style: {}};
   }
