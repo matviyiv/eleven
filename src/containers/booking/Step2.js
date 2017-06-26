@@ -41,7 +41,9 @@ export class Step2 extends Component {
   }
 
   renderSubServices(list) {
-    const items = list.map((service) => {
+    const items = list
+    .sort((serviceA, serviceB) => serviceA.order - serviceB.order)
+    .map((service) => {
       return <li
         key={service.id}
         onClick={this.selectService(service.id, service.name)}>

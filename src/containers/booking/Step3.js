@@ -120,7 +120,9 @@ export class Step3 extends Component {
   }
 
   renderMasters(list) {
-    const items = list.map((master) => {
+    const items = _.values(list)
+    .sort((masterA, masterB) => masterA.sort - masterB.sort)
+    .map((master) => {
       const timeList = this.renderAvaliableTime(master);
       return <li key={master.id} className="clearfix">
         <div><img className="masterPhoto" src={`/img/avatars/${master.avatar}`}/></div>
