@@ -95,7 +95,7 @@ export class Calendar extends Component {
         views={['month', 'week', 'day']}
         scrollToTime={new Date(1970, 1, 1, 6)}
         defaultDate={moment().toDate()}
-        onSelectEvent={this.onSelectEvent}
+        onSelectEvent={!isNoEditUser(auth.id) && this.onSelectEvent}
         eventPropGetter={this.eventPropGetter}
       />
       <EditBooking
@@ -163,6 +163,10 @@ export class Calendar extends Component {
     });
     return {className: eventClasses, style: {}};
   }
+}
+
+function isNoEditUser(uid) {
+  return uid && uid === 'FoLpSC6zk9cWy1qWdOhN5R5NrMg1';
 }
 
 function mapStateToProps(state) {

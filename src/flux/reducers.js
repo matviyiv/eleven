@@ -136,8 +136,9 @@ export function appReducer(state = initialState, action) {
       st.auth.loading = true;
       return {...st};
     },
-    [AUTH_DONE]: (st, {email}) => {
+    [AUTH_DONE]: (st, {email, id}) => {
       st.auth.email = email;
+      st.auth.id = id;
       st.auth.status = 'success';
       st.auth.loading = false;
       return {...st};

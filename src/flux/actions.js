@@ -312,7 +312,7 @@ export function authenticate(email, password) {
       .then(() => {
         dispatch({
           type: constants.AUTH_DONE,
-          data: {email}
+          data: {email, id: firebase.auth().currentUser.uid}
         });
       })
       .catch((error) => {
