@@ -17,7 +17,7 @@ export function getAvaliableTime({master, selectedDate, duration}) {
     //filter booked time
     bookedTime = _.get(master.booked, `${moment(time).format('YYYY/M/D')}.${time.get('hour')}.${time.get('minute')}`, bookedTime);
     if (bookedTime) {
-      time.add(bookedTime.duration - 0.5, 'hours'); // inus step 30 min
+      time.add(bookedTime.duration - 0.5, 'hours'); // minus step 30 min
       bookedTime = null;
       continue;
     }

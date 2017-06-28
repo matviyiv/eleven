@@ -30,10 +30,12 @@ export class Step3 extends Component {
     !services.list && !services.loading && actions.loadServices();
 
     if (services.list && masters.list && !this.state.currentService) {
+      const mastersList = _.filter(masters.list, (m) => m.services.indexOf(params.subServiceId) > -1);
       this.setState({
         currentService: findSubService(services.list, params.subServiceId),
-        filteredMasters: _.filter(masters.list, (m) => m.services.indexOf(params.subServiceId) > -1),
+        filteredMasters: mastersList,
       });
+      this.props.actions.getMastersTime(mastersList, this.state.selectedDate);
     }
   }
 

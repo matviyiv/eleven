@@ -3,6 +3,7 @@ import './calendar.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import 'moment/locale/uk';
 import BigCalendar from 'react-big-calendar';
 import _ from 'lodash';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -11,6 +12,8 @@ import * as actionCreators from '../../flux/actions';
 import FloatingButton from '../../components/FloatingButton';
 import EditBooking from './EditBooking.js';
 import {classes} from '../../utils';
+
+moment.locale('uk_UA');
 
 export class Calendar extends Component {
   state = {
@@ -23,7 +26,7 @@ export class Calendar extends Component {
 
   componentWillMount() {
     Notification && Notification.requestPermission();
-    BigCalendar.momentLocalizer(moment);
+    BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
   }
 
   componentWillUnmount() {
@@ -92,7 +95,7 @@ export class Calendar extends Component {
           week: 'тиждень',
           day: 'день',
         }}
-        views={['month', 'week', 'day']}
+        views={['month', 'week', 'day', 'agenda']}
         scrollToTime={new Date(1970, 1, 1, 6)}
         defaultDate={moment().toDate()}
         onSelectEvent={!isNoEditUser(auth.id) && this.onSelectEvent}
