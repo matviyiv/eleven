@@ -49,7 +49,6 @@ export class Step2 extends Component {
         onClick={this.selectService(service.id, service.name)}>
         <div className="step2__service-name">{_.capitalize(service.name)}</div>
         <div className="step2__service-price">від {service.price}грн</div>
-        <div className="step2__service-discount">від {service.price - (service.price*DISCOUNT)}грн</div>
       </li>;
     });
     return (<ul className="step2-list">
