@@ -12,3 +12,18 @@ import _ from 'lodash';
 export function classes(classObject) {
   return _.keys(_.pickBy(classObject, _.identity)).join(' ');
 }
+
+export function fetchGet(url) {
+  return fetch(url).
+    then(responseHandler);
+}
+
+function responseHandler(res) {
+  if (res.status >= 300) {
+    return Promise.reject({
+      status: res.status,
+      text: res.statusText
+    });
+  }
+  return res.json();
+}
