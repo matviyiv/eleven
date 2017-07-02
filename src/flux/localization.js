@@ -7,17 +7,20 @@ const {
   } = constants;
 const initialState = {
   currentLocale: 'ua',
-  ua
+  currentLocalization: ua,
+  ua: ua,
 };
 export function localization(state = initialState, action) {
   const actions = {
     [LOCALIZATION_LOADED]: (st, {localization, locale}) => {
       st[locale] = localization;
       st.currentLocale = locale;
+      st.currentLocalization = st[locale];
       return { ...st };
     },
     [SET_LAGUAGE]: (st, {locale}) => {
       st.currentLocale = locale;
+      st.currentLocalization =  st[locale];
       return { ...st };
     },
     default: (st) => st

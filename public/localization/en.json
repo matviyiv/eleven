@@ -1,3 +1,14 @@
 {
-  "test1": "english"
+  "menu": {
+    "main": "Main",
+    "whywe": "Why we",
+    "services": "Services",
+    "contacts": "Contacts",
+    "booktime": "Booking"
+  },
+  "main": {
+    "title": "Main",
+    "bodyText": "We are team of creative young people. Who want to make their ideas live. <br/>  We work for you to feel confident and trust us 100%. <br/> Beaty bar Eleven has wide range of hair style services, makeup and manicure at affordable prices.<br/> Come over! It's cozy here.",
+    "booknow": "Book now!"
+  }
 }

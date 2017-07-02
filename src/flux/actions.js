@@ -369,13 +369,15 @@ function getMasterTime(bookings) {
   }, {});
 }
 
-export function changeLanguage(locale) {
+export function changeLanguage(locale, str) {
   return dispatch => {
-    dispatch({
-      type: constants.SET_LAGUAGE,
-      data: {locale}
-    });
-
+    if (str[locale]) {
+      return dispatch({
+        type: constants.SET_LAGUAGE,
+        data: {locale}
+      });
+    }
+   
     fetchGet(`/localization/${locale}.json`)
       .then((localization) => {
         dispatch({
