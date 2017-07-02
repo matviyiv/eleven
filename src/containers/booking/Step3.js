@@ -57,6 +57,7 @@ export class Step3 extends Component {
 
   renderAvaliableTime(master) {
     const {selectedDate, currentService} = this.state;
+    const {str} = this.props;
     const listOfAvaliableHours = MasterHelper.getAvaliableTime({master, selectedDate, duration: currentService.duration});
     const date = selectedDate.date();
     const dateType = MasterHelper.isEven(date) ? 'even' : 'odd';
@@ -69,9 +70,9 @@ export class Step3 extends Component {
     
     if (listOfAvaliableHours.length === 0) {
       content = [<li key="msg-no-master"><a>
-        Майстер не працює або зайнятий в цей день спробуйте наступну дату 
-        {dateType === 'even' ? ' непарного ' : ' парного '}
-        дня
+        {str.doesnt_work1}
+        {` ${dateType === 'even' ? str.odd : str.even} `}
+        {str.doesnt_work2}
       </a></li>];
     }
 
@@ -79,7 +80,7 @@ export class Step3 extends Component {
   }
 
   render() {
-    const {app: {masters, services}} = this.props;
+    const {app: {masters, services}, str, currentLocale} = this.props;
     const {filteredMasters, currentService} = this.state;
     
     if (!currentService || masters.loading || services.loading) {return (<div>Loading ...</div>);}
@@ -88,19 +89,19 @@ export class Step3 extends Component {
 
     return (<div>
       <FloatingButton showBackButton history={this.props.history}/>
-      <h2>Обери зручний час та майстра</h2>
+      <h2>{str.title}</h2>
       <DatePicker
         dateFormat="DD/MM/YYYY"
-        todayButton={'Сьогодні'}
+        todayButton={str.today}
         utcOffset={+2}
-        locale="uk_UA"
+        locale={currentLocale}
         readOnly={true}
         selected={this.state.selectedDate}
         onChange={this.handleDateChange}
         minDate={moment()}
         maxDate={moment().add(30, 'days')}
         ref="datepicker"
-        placeholderText="Виберіть дату візиту" />
+        placeholderText={str.placeholderText} />
       {content}
     </div>);
   }
@@ -147,7 +148,7 @@ function findSubService(services, subServiceId) {
 }
 
 function mapStateToProps(state) {
-  return {app: state.app};
+  return {app: state.app, str: state.str.currentLocalization.step3, currentLocale: state.str.currentLocale};
 }
 
 function mapDispatchToProps(dispatch) {

@@ -14,7 +14,7 @@ export class Step2 extends Component {
   }
 
   render() {
-    const {app, match: {params}} = this.props;
+    const {app, match: {params}, str} = this.props;
     const id = params.serviceId;
     
     if (app.services.loading) {return (<div>'Loading ...'</div>);}
@@ -26,7 +26,7 @@ export class Step2 extends Component {
       <section>
         <article role="sub-step" className="sub-step-pan">
           <header className="page-title">
-            <h2>Що бажаєш?</h2>
+            <h2>{str.title}</h2>
           </header>
           {content}
         </article>
@@ -58,7 +58,7 @@ export class Step2 extends Component {
 }
 
 function mapStateToProps(state) {
-  return { app: state.app };
+  return { app: state.app, str: state.str.currentLocalization.step2 };
 }
 
 function mapDispatchToProps(dispatch) {

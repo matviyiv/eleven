@@ -6,19 +6,18 @@ import { Link } from 'react-router-dom';
 import * as actionCreators from '../../flux/actions';
 
 export class Finish extends Component {
-  componentDidMount() {
-    // this.props.history.replace({});
-  }
   render() {
+    const {str} = this.props;
+
     return (<section className="container">
       <article className="booking-success">
         <header className="page-title">
-          <h2>Готово</h2>
+          <h2>{str.title}</h2>
         </header>
         <div className="booking-success--message">
-        {"Найблищим часом наш адміністратор зв'яжеться з вами."}
+        {str.body}
         <br/>
-        <Link to="/" className="booking-success--link">На головну</Link>
+        <Link to="/" className="booking-success--link">{str.main_page}</Link>
         </div>
       </article>
     </section>);
@@ -26,7 +25,7 @@ export class Finish extends Component {
 }
 
 function mapStateToProps(state) {
-  return { app: state.app };
+  return { app: state.app, str: state.str.currentLocalization.finish };
 }
 
 function mapDispatchToProps(dispatch) {

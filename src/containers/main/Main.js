@@ -29,7 +29,6 @@ export class Main extends Component {
   }
 }
 
-
 function mapStateToProps(state) {
   return { str: state.str.currentLocalization.main };
 }
