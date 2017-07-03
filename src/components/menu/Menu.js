@@ -61,16 +61,16 @@ export default class Menu extends Component {
             <li className={currentPath === '/booking/step1' ? 'active' : ''}>
               <Link to="/booking/step1"  title={str.booktime}>{str.booktime}</Link>
             </li>
-            <li>
-              {this.renderLanguageSelector()}
-            </li>
+            
           </ul>
           <div role="socil-icons" className="mobile-social">
+            <li className="language-selector">{this.renderLanguageSelector()}</li>
             <li><a href="https://www.facebook.com/Eleven-beauty-bar-116922598898721/" target="_blank" title="facebook" rel="noopener noreferrer"><i className="fa fa-facebook"></i></a></li>
             <li><a href="https://www.instagram.com/eleven.beauty.bar/" target="_blank" title="instagram" rel="noopener noreferrer"><i className="fa fa-instagram"></i></a></li>
           </div>
         </nav>
         <ul role="socil-icons" className="desk-social">
+          <li className="language-selector">{this.renderLanguageSelector()}</li>
           <li><a href="https://www.facebook.com/Eleven-beauty-bar-116922598898721/" target="_blank" title="facebook" rel="noopener noreferrer"><i className="fa fa-facebook"></i></a></li>
           <li><a href="https://www.instagram.com/eleven.beauty.bar/" target="_blank" title="instagram" rel="noopener noreferrer"><i className="fa fa-instagram"></i></a></li>
         </ul>
@@ -89,7 +89,7 @@ export default class Menu extends Component {
   renderLanguageSelector() {
     const {str: {currentLocale}} = this.props;
     if (currentLocale === 'ua') {
-      return <a onClick={this.changeLanguage('en')} title="English">EN</a>
+      return <a onClick={this.changeLanguage('en')} title="English">ENG</a>
     }
 
     if (currentLocale === 'en') {

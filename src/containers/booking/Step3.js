@@ -123,13 +123,15 @@ export class Step3 extends Component {
   }
 
   renderMasters(list) {
+    const {currentLocale} = this.props;
     const items = _.values(list)
     .sort((masterA, masterB) => masterA.sort - masterB.sort)
     .map((master) => {
+      const displayName = currentLocale == 'ua' ? master.name : master[currentLocale];
       const timeList = this.renderAvaliableTime(master);
       return <li key={master.id} className="clearfix">
         <div><img className="masterPhoto" src={`/img/avatars/${master.avatar}`}/></div>
-        <a>{master.name}</a>
+        <a>{displayName}</a>
         <br/>{timeList}
       </li>;
     });

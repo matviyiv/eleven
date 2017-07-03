@@ -41,13 +41,15 @@ export class Step2 extends Component {
   }
 
   renderSubServices(list) {
+    const {currentLocale} = this.props;
     const items = list
     .sort((serviceA, serviceB) => serviceA.order - serviceB.order)
     .map((service) => {
+      const displayName = currentLocale == 'ua' ? service.name : service[currentLocale];
       return <li
         key={service.id}
         onClick={this.selectService(service.id, service.name)}>
-        <div className="step2__service-name">{_.capitalize(service.name)}</div>
+        <div className="step2__service-name">{_.capitalize(displayName)}</div>
         <div className="step2__service-price">від {service.price}грн</div>
       </li>;
     });
@@ -58,7 +60,11 @@ export class Step2 extends Component {
 }
 
 function mapStateToProps(state) {
-  return { app: state.app, str: state.str.currentLocalization.step2 };
+  return {
+    app: state.app,
+    str: state.str.currentLocalization.step2,
+    currentLocale: state.str.currentLocale
+  };
 }
 
 function mapDispatchToProps(dispatch) {
