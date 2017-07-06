@@ -41,7 +41,7 @@ export class Step2 extends Component {
   }
 
   renderSubServices(list) {
-    const {currentLocale} = this.props;
+    const {currentLocale, str} = this.props;
     const items = list
     .sort((serviceA, serviceB) => serviceA.order - serviceB.order)
     .map((service) => {
@@ -50,7 +50,7 @@ export class Step2 extends Component {
         key={service.id}
         onClick={this.selectService(service.id, service.name)}>
         <div className="step2__service-name">{_.capitalize(displayName)}</div>
-        <div className="step2__service-price">від {service.price}грн</div>
+        <div className="step2__service-price">{str.priceTag.replace('{price}', service.price)}</div>
       </li>;
     });
     return (<ul className="step2-list">

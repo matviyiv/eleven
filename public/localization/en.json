@@ -42,7 +42,8 @@
     "title": "Choose service"
   },
   "step2": {
-    "title": "What would you like?"
+    "title": "What would you like?",
+    "priceTag": "from {price}UAH"
   },
   "step3": {
     "title": "Choose time and master",
