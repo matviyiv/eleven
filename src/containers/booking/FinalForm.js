@@ -26,23 +26,24 @@ export class FinalForm extends Component {
 
   componentDidMount() {
     const { name, phone } = this.state;
+    const { str } = this.props;
     if (!name) {
-      this.refs.nameInput.setCustomValidity("Це поле є обов'язковим");
+      this.refs.nameInput.setCustomValidity(str.invalid_required);
     }
 
     if (!phone) {
-      this.refs.phoneInput.setCustomValidity("Будь ласка введіть вірний мобільний номер");
+      this.refs.phoneInput.setCustomValidity(str.invalid_number);
     }
   }
 
   render() {
     const { name, phone, notes, isSubmitted } = this.state;
-    const {app: {booking} } = this.props;
+    const {app: {booking}, str } = this.props;
     const hasServices = Object.keys(booking.selectedServices).length;
     return (<section className="container final-form--container">
       <article className="final-form">
         <header className="page-title">
-          <h2>Обрані послуги</h2>
+          <h2>{str.title}</h2>
         </header>
         <ul className="final-form--booking-list">
           {hasServices && this.renderServices(booking.selectedServices)}
@@ -50,7 +51,7 @@ export class FinalForm extends Component {
         <form onSubmit={this.handleSubmit} className={isSubmitted ? 'final-form--submitted' : ''}>
         <div className="final-form--fields clearfix">
         <div className="form-group row">
-          <label className="col-sm-4 control-label" htmlFor="name-input">{"Ім'я:"}</label>
+          <label className="col-sm-4 control-label" htmlFor="name-input">{str.name_label}</label>
           <div className="col-sm-6">
           <input
             type="text"
@@ -60,14 +61,14 @@ export class FinalForm extends Component {
             ref="nameInput"
             className="form-control"
             value={name}
-            placeholder="як до тебе звертатися"
+            placeholder={str.name_placeholder}
             onChange={this.nameChange}
             required={true}
             />
             </div>
         </div>
         <div className="form-group row">
-          <label className="col-sm-4 control-label" htmlFor="phone-input">Мобільний номер:</label>
+          <label className="col-sm-4 control-label" htmlFor="phone-input">{str.number_label}</label>
           <div className="col-sm-6">
             <input
               type="text"
@@ -83,14 +84,14 @@ export class FinalForm extends Component {
           </div>
         </div>
         <div className="form-group row">
-          <label className="col-sm-4 control-label" htmlFor="phone-input">Додаткова інформація:</label>
+          <label className="col-sm-4 control-label" htmlFor="phone-input">{str.info_label}</label>
           <div className="col-sm-6">
             <textarea
               name="notes"
               cols="40"
               rows="5"
               className="form-control"
-              placeholder="мені потрібно ..."
+              placeholder={str.info_placeholder}
               value={notes}
               onChange={this.notesChange}
               >
@@ -101,11 +102,11 @@ export class FinalForm extends Component {
           <div className="col-sm-6 col-sm-offset-4 col-md-4 col-md-offset-4 clearfix">
           <input
             type="submit"
-            value="Надіслати"
+            value={str.submit}
             className="btn btn-default final-form__submit"
             onClick={this.onClickSubmit}
             />
-          <button className="btn btn-secondary final-form__add" onClick={this.addMore}>Додати послугу</button>
+          <button className="btn btn-secondary final-form__add" onClick={this.addMore}>{str.add_btn}</button>
           </div>
         </div>
         </div>
@@ -166,7 +167,7 @@ export class FinalForm extends Component {
 }
 
 function mapStateToProps(state) {
-  return { app: state.app };
+  return { app: state.app, str: state.str.currentLocalization.final_form };
 }
 
 function mapDispatchToProps(dispatch) {

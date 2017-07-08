@@ -11,12 +11,14 @@ export class Step1 extends Component {
     !services.list && this.props.actions.loadServices();
   }
   render() {
+    const {str} = this.props;
+
     return (<div>
     <FloatingButton showBackButton history={this.props.history}/>
     <section>
       <article role="step" className="step-pan">
         <header className="page-title">
-          <h2>Вибери послугу</h2>
+          <h2>{str.title}</h2>
         </header>
         <ul className="step1-list">
           <li onClick={this.selectService('s1')}> <i className="fa fa-scissors" aria-hidden="true"></i>
@@ -43,7 +45,7 @@ export class Step1 extends Component {
 }
 
 function mapStateToProps(state) {
-  return { app: state.app };
+  return { app: state.app, str: state.str.currentLocalization.step1 };
 }
 
 function mapDispatchToProps(dispatch) {

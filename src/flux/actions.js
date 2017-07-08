@@ -3,6 +3,7 @@ import _ from 'lodash';
 import firebaseApp from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import {fetchGet} from '../utils';
 
 const prodConfig = {
   apiKey: 'AIzaSyB_UMGTtBFm5peIvZr-67dbNBCoUs4tRbg',
@@ -54,6 +55,9 @@ export const constants = {
 
   DB_BOOKING_SUBSCRIBE: 'DB_BOOKING_SUBSCRIBE',
   DB_BOOKING_UPDATE: 'DB_BOOKING_UPDATE',
+
+  SET_LAGUAGE: 'SET_LAGUAGE',
+  LOCALIZATION_LOADED: 'LOCALIZATION_LOADED',
 };
 
 export function loadServices() {
@@ -363,4 +367,23 @@ function getMasterTime(bookings) {
     result[`${booking.masterId}/${date.get('year')}/${date.get('month')}/${date.get('date')}/${date.get('hour')}/${date.get('minute')}`] = {name: booking.name, duration: booking.duration};
     return result;
   }, {});
+}
+
+export function changeLanguage(locale, str) {
+  return dispatch => {
+    if (str[locale]) {
+      return dispatch({
+        type: constants.SET_LAGUAGE,
+        data: {locale}
+      });
+    }
+   
+    fetchGet(`/localization/${locale}.json`)
+      .then((localization) => {
+        dispatch({
+          type: constants.LOCALIZATION_LOADED,
+          data: {localization, locale}
+        });
+      })
+  }
 }

@@ -1,29 +1,37 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './main.css';
 import FloatingButton from '../../components/FloatingButton';
 
-export default class Main extends Component {
+export class Main extends Component {
   static propTypes = {
     history: PropTypes.object.isRequired
   }
   render() {
+    const {str, history} = this.props;
     return (<div>
-      <FloatingButton showBookingButton history={this.props.history}/>
+      <FloatingButton showBookingButton history={history}/>
          <section  className="">
           <article role="main" className="main-pan">
             <header className="page-title">
-              <h2>Головна</h2>
+              <h2>{str.title}</h2>
             </header>
-              <p>Ми команда талановитих молодих людей з креативними ідеями, котрі прагнемо втілювати в життя. <br/> Ми працюємо, щоб ти відчувала себе впевнено
-                і довіряла нам  на 100%.<br/> У студії eleven ти знайдеш широкий спектр перукарських послуг, послуги макіяжу та манікюру за доступними цінами.<br/>Приходь! У нас затишно.
-                <br/>
-              <Link to="/booking/step1" className="app__link">Забронювати час</Link>
+              <p dangerouslySetInnerHTML={{__html: str.bodyText}}></p>
+              <p>
+              <Link to="/booking/step1" className="app__link">{str.booknow}</Link>
               </p>
           </article>
       </section>
     </div>);
+  }
 }
+
+function mapStateToProps(state) {
+  return { str: state.str.currentLocalization.main };
 }
+
+export default connect(mapStateToProps)(Main);
+

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import {addToHomescreen} from './components/add-to-home-screen';
 
+import * as actionCreators from './flux/actions';
 import BackgroundSlider from './components/background-slider/BackgroundSlider';
 import Menu from './components/menu/Menu';
 
-export default class App extends Component {
+export class App extends Component {
   state = {
     minimizeHeader: false
   }
@@ -27,6 +30,7 @@ export default class App extends Component {
     })
   }
   render() {
+    const {str, actions} = this.props;
     return (
       <div className="app noselect">
         <BackgroundSlider/>
@@ -36,8 +40,23 @@ export default class App extends Component {
              {this.props.children}
             </div>
         </div>
-        <Menu currentPath={this.props.location.pathname} isMinimized={this.state.minimizeHeader}/>
+        <Menu
+          currentPath={this.props.location.pathname}
+          isMinimized={this.state.minimizeHeader}
+          changeLanguage={actions.changeLanguage}
+          str={str}
+          />
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return { str: state.str };
+}
+
+function mapDispatchToProps(dispatch) {
+  return { actions: bindActionCreators(actionCreators, dispatch) };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

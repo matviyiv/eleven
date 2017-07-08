@@ -14,7 +14,7 @@ export class Step2 extends Component {
   }
 
   render() {
-    const {app, match: {params}} = this.props;
+    const {app, match: {params}, str} = this.props;
     const id = params.serviceId;
     
     if (app.services.loading) {return (<div>'Loading ...'</div>);}
@@ -26,7 +26,7 @@ export class Step2 extends Component {
       <section>
         <article role="sub-step" className="sub-step-pan">
           <header className="page-title">
-            <h2>Що бажаєш?</h2>
+            <h2>{str.title}</h2>
           </header>
           {content}
         </article>
@@ -41,14 +41,16 @@ export class Step2 extends Component {
   }
 
   renderSubServices(list) {
+    const {currentLocale, str} = this.props;
     const items = list
     .sort((serviceA, serviceB) => serviceA.order - serviceB.order)
     .map((service) => {
+      const displayName = currentLocale == 'ua' ? service.name : service[currentLocale];
       return <li
         key={service.id}
         onClick={this.selectService(service.id, service.name)}>
-        <div className="step2__service-name">{_.capitalize(service.name)}</div>
-        <div className="step2__service-price">від {service.price}грн</div>
+        <div className="step2__service-name">{_.capitalize(displayName)}</div>
+        <div className="step2__service-price">{str.priceTag.replace('{price}', service.price)}</div>
       </li>;
     });
     return (<ul className="step2-list">
@@ -58,7 +60,11 @@ export class Step2 extends Component {
 }
 
 function mapStateToProps(state) {
-  return { app: state.app };
+  return {
+    app: state.app,
+    str: state.str.currentLocalization.step2,
+    currentLocale: state.str.currentLocale
+  };
 }
 
 function mapDispatchToProps(dispatch) {

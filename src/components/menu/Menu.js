@@ -18,7 +18,13 @@ export default class Menu extends Component {
   toggleMobileMenu = () => this.setState({isMobileMenuOpen: !this.state.isMobileMenuOpen});
 
   render() {
-    const {currentPath, isMinimized} = this.props;
+    const {
+      currentPath,
+      isMinimized,
+      currentLocale,
+      str: {currentLocalization}
+    } = this.props;
+    const str = currentLocalization.menu;
     const { isMobileMenuOpen } = this.state;
     const menuItemsClass = classes({
       'nav nav-tabs menu__items': true,
@@ -41,27 +47,30 @@ export default class Menu extends Component {
           </div>
           <ul className={menuItemsClass}>
             <li className={currentPath === '/' ? 'active' : ''}>
-              <Link to="/" title="Головна">Головна</Link>
+              <Link to="/" title={str.main}>{str.main}</Link>
             </li>
             <li className={currentPath === '/whywe' ? 'active' : ''}>
-              <Link to="/whywe"title="Чому ми">Чому ми</Link>
+              <Link to="/whywe"title={str.whywe}>{str.whywe}</Link>
             </li>
             <li className={currentPath === '/services' ? 'active' : ''}>
-              <Link to="/services" title="Послуги">Послуги</Link>
+              <Link to="/services" title={str.services}>{str.services}</Link>
             </li>
             <li className={currentPath === '/contacts' ? 'active' : ''}>
-              <Link to="/contacts"  title="Контакти">Контакти</Link>
+              <Link to="/contacts"  title="{str.contacts}">{str.contacts}</Link>
             </li>
             <li className={currentPath === '/booking/step1' ? 'active' : ''}>
-              <Link to="/booking/step1"  title="Забронювати час">Забронювати</Link>
+              <Link to="/booking/step1"  title={str.booktime}>{str.booktime}</Link>
             </li>
+            
           </ul>
           <div role="socil-icons" className="mobile-social">
+            <li className="language-selector">{this.renderLanguageSelector()}</li>
             <li><a href="https://www.facebook.com/Eleven-beauty-bar-116922598898721/" target="_blank" title="facebook" rel="noopener noreferrer"><i className="fa fa-facebook"></i></a></li>
             <li><a href="https://www.instagram.com/eleven.beauty.bar/" target="_blank" title="instagram" rel="noopener noreferrer"><i className="fa fa-instagram"></i></a></li>
           </div>
         </nav>
         <ul role="socil-icons" className="desk-social">
+          <li className="language-selector">{this.renderLanguageSelector()}</li>
           <li><a href="https://www.facebook.com/Eleven-beauty-bar-116922598898721/" target="_blank" title="facebook" rel="noopener noreferrer"><i className="fa fa-facebook"></i></a></li>
           <li><a href="https://www.instagram.com/eleven.beauty.bar/" target="_blank" title="instagram" rel="noopener noreferrer"><i className="fa fa-instagram"></i></a></li>
         </ul>
@@ -70,5 +79,21 @@ export default class Menu extends Component {
          <p>&copy; All rights reserved. Eleven 2017 Made with <i className="fa fa-heart" aria-hidden="true"></i></p>
       </footer>
     </header>);
+  }
+
+  changeLanguage = (locale) => (event) => {
+    event.preventDefault();
+    this.props.changeLanguage(locale, this.props.str);
+  }
+
+  renderLanguageSelector() {
+    const {str: {currentLocale}} = this.props;
+    if (currentLocale === 'ua') {
+      return <a onClick={this.changeLanguage('en')} title="English">ENG</a>
+    }
+
+    if (currentLocale === 'en') {
+      return <a onClick={this.changeLanguage('ua')} title="Українська">УКР</a>
+    }
   }
 }

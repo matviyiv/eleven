@@ -14,7 +14,8 @@ import {
   Switch
 } from 'react-router-dom';
 
-import {appReducer} from './flux/reducers';
+import { appReducer } from './flux/reducers';
+import { localization } from './flux/localization';
 
 import './index.css';
 import App from './App';
@@ -37,7 +38,7 @@ moment.locale('uk_UA');
 
 const history = createHistory();
 
-const reducer = combineReducers({ app: appReducer });
+const reducer = combineReducers({ app: appReducer, str: localization });
 const createStoreWithMiddleware = applyMiddleware(
     thunkMiddleware // lets us dispatch() functions
   )(createStore);
