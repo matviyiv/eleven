@@ -215,8 +215,9 @@ function loadBookingsRequest(date) {
     .once('value');
 }
 
-export function submitBooking(booking) {
+export function submitBooking(_booking_) {
   return dispatch => {
+    const booking = {..._booking_};
     booking.timestamp = moment().toDate().getTime();
     booking.status = 'new';
     dispatch({
