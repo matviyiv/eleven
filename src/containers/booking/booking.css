@@ -149,13 +149,13 @@ h2:after {
 
 .final-form__submit {
   float: left;
+  background-color: #c9bc17;
+  margin-left: 20px;
+  color: white;
 }
 
 .final-form__add {
   float: left;
-  background-color: #c9bc17;
-  margin-left: 20px;
-  color: white;
 }
 
 .final-form,

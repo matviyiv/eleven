@@ -14,15 +14,15 @@ export class App extends Component {
     minimizeHeader: false
   }
   componentDidMount() {
-    addToHomescreen.language = 'uk_ua';
-    const addtohome = addToHomescreen({
-      autostart: false,
-      skipFirstVisit: true,
-      maxDisplayCount: 1,
-      lifespan: 30,
-    });
+    // addToHomescreen.language = 'uk_ua';
+    // const addtohome = addToHomescreen({
+    //   autostart: false,
+    //   skipFirstVisit: true,
+    //   maxDisplayCount: 1,
+    //   lifespan: 30,
+    // });
 
-    addtohome.show();
+    // addtohome.show();
   }
   handleScroll = (event) => {
     this.setState({

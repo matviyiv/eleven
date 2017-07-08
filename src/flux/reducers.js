@@ -77,6 +77,8 @@ export function appReducer(state = initialState, action) {
         dateStart: date.toString(),
         dateEnd: dateEnd.toString(),
         name: service.name,
+        en: service.en,
+        serviceId: serviceId,
         duration: service.duration,
       };
 
@@ -153,7 +155,9 @@ export function appReducer(state = initialState, action) {
       return {...st};
     },
     [BOOKING_DELETE_SERVICE]: (st, {serviceId}) => {
-      delete st.booking.selectedServices[serviceId];
+      const booking = {...st.booking};
+      delete booking.selectedServices[serviceId];
+      st.booking = booking;
       return {...st};
     },
     [DB_BOOKING_SUBSCRIBE]: (st, data) => {

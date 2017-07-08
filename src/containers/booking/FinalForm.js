@@ -9,15 +9,15 @@ export class FinalForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: props.app.booking.name || '',
-      phone: props.app.booking.phone || '',
-      notes: props.app.booking.notes || '',
+      name: props.booking.name || '',
+      phone: props.booking.phone || '',
+      notes: props.booking.notes || '',
       isSubmitted: false,
     };
   }
 
   componentWillMount() {
-    const { app:{booking}, history} = this.props;
+    const { booking, history} = this.props;
     const hasServices = Object.keys(booking.selectedServices).length;
     if (!hasServices) {
       history.push('/booking/step1');
@@ -38,7 +38,7 @@ export class FinalForm extends Component {
 
   render() {
     const { name, phone, notes, isSubmitted } = this.state;
-    const {app: {booking}, str } = this.props;
+    const { booking, str } = this.props;
     const hasServices = Object.keys(booking.selectedServices).length;
     return (<section className="container final-form--container">
       <article className="final-form">
@@ -100,13 +100,13 @@ export class FinalForm extends Component {
         </div>
         <div className="form-group row">
           <div className="col-sm-6 col-sm-offset-4 col-md-4 col-md-offset-4 clearfix">
+          <button className="btn btn-secondary final-form__add" onClick={this.addMore}>{str.add_btn}</button>
           <input
             type="submit"
             value={str.submit}
             className="btn btn-default final-form__submit"
             onClick={this.onClickSubmit}
             />
-          <button className="btn btn-secondary final-form__add" onClick={this.addMore}>{str.add_btn}</button>
           </div>
         </div>
         </div>
@@ -149,16 +149,19 @@ export class FinalForm extends Component {
 
   submit = () => {
     const { name, phone, notes } = this.state;
-    const { actions, app: {booking} } = this.props;
+    const { actions, booking } = this.props;
     actions.submitBooking({ ...booking, name, phone, notes });
   }
 
   renderServices(services) {
+    const { currentLocale } = this.props;
     const content = [];
+    moment.locale(currentLocale);
     for (let id in services) {
       let service = services[id];
+      const displayName = service[currentLocale] || service.name;
       content.push(<li key={id} className="final-form__selected-service">
-        {service.name} {moment(service.dateStart).format('Do MMMM HH:mm')}
+        {displayName} {moment(service.dateStart).format('Do MMMM HH:mm')}
         <span className="glyphicon glyphicon-remove" onClick={this.deleteSelectedService(id)}></span>
       </li>);
     };
@@ -167,7 +170,11 @@ export class FinalForm extends Component {
 }
 
 function mapStateToProps(state) {
-  return { app: state.app, str: state.str.currentLocalization.final_form };
+  return {
+    booking: state.app.booking,
+    str: state.str.currentLocalization.final_form,
+    currentLocale: state.str.currentLocale
+  };
 }
 
 function mapDispatchToProps(dispatch) {
