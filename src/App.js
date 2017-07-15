@@ -3,7 +3,7 @@ import './App.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import {addToHomescreen} from './components/add-to-home-screen';
+// import {addToHomescreen} from './components/add-to-home-screen';
 
 import * as actionCreators from './flux/actions';
 import BackgroundSlider from './components/background-slider/BackgroundSlider';

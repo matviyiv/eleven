@@ -40,7 +40,7 @@ export class FinalForm extends Component {
       this.refs.phoneInput.setCustomValidity(str.invalid_number);
     }
 
-    this.recaptchaVerifier = new firebaseApp.auth.RecaptchaVerifier('recaptcha-container', {hl : currentLocale == 'ua' ? 'uk' : currentLocale});
+    this.recaptchaVerifier = new firebaseApp.auth.RecaptchaVerifier('recaptcha-container', {width: 60, hl : currentLocale == 'ua' ? 'uk' : currentLocale});
     this.recaptchaVerifier.render().then((widgetId) => {
       window.grecaptcha.reset(widgetId);
     });

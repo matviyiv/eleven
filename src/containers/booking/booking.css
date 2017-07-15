@@ -229,6 +229,13 @@ h2:after {
   color: red;
 }
 
+#recaptcha-container {
+  transform: scale(0.93);
+  -webkit-transform: scale(0.93);
+  transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+}
+
 @media (max-width: 767px) {
   .masters {
     display: block;
@@ -254,5 +261,9 @@ h2:after {
 
   .final-form__submit {
     margin-left: 0;
+  }
+
+  .final-form__back-btn {
+    float: right;
   }
 }
