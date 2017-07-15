@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import * as actionCreators from '../../flux/actions';
+import firebaseApp from 'firebase/app';
+import 'firebase/auth';
 
 export class FinalForm extends Component {
   constructor(props) {
@@ -12,7 +14,11 @@ export class FinalForm extends Component {
       name: props.booking.name || '',
       phone: props.booking.phone || '',
       notes: props.booking.notes || '',
+      confirmationCode: '',
       isSubmitted: false,
+      invalidPhone: false,
+      invalidCode: false,
+      confirmationResult: null,
     };
   }
 
@@ -26,29 +32,37 @@ export class FinalForm extends Component {
 
   componentDidMount() {
     const { name, phone } = this.state;
-    const { str } = this.props;
+    const { str, currentLocale } = this.props;
     if (!name) {
       this.refs.nameInput.setCustomValidity(str.invalid_required);
     }
-
     if (!phone) {
       this.refs.phoneInput.setCustomValidity(str.invalid_number);
     }
+
+    this.recaptchaVerifier = new firebaseApp.auth.RecaptchaVerifier('recaptcha-container', {hl : currentLocale == 'ua' ? 'uk' : currentLocale});
+    this.recaptchaVerifier.render().then((widgetId) => {
+      window.grecaptcha.reset(widgetId);
+    });
   }
 
   render() {
-    const { name, phone, notes, isSubmitted } = this.state;
+    const { name, phone, notes, isSubmitted, confirmationResult, invalidPhone } = this.state;
     const { booking, str } = this.props;
-    const hasServices = Object.keys(booking.selectedServices).length;
+
+    if (confirmationResult) {
+      return this.renderConfirmation();
+    }
+
     return (<section className="container final-form--container">
       <article className="final-form">
         <header className="page-title">
           <h2>{str.title}</h2>
         </header>
         <ul className="final-form--booking-list">
-          {hasServices && this.renderServices(booking.selectedServices)}
+          {this.renderServices(booking.selectedServices)}
         </ul>
-        <form onSubmit={this.handleSubmit} className={isSubmitted ? 'final-form--submitted' : ''}>
+        <form onSubmit={this.formSubmit} className={isSubmitted ? 'final-form--submitted' : ''}>
         <div className="final-form--fields clearfix">
         <div className="form-group row">
           <label className="col-sm-4 control-label" htmlFor="name-input">{str.name_label}</label>
@@ -99,13 +113,19 @@ export class FinalForm extends Component {
           </div>
         </div>
         <div className="form-group row">
+          <div className="col-sm-4"></div>
+          <div className="col-sm-6" id="recaptcha-container"></div>
+        </div>
+        {invalidPhone && this.renderInvalidError()}
+        <div className="form-group row">
           <div className="col-sm-6 col-sm-offset-4 col-md-4 col-md-offset-4 clearfix">
           <button className="btn btn-secondary final-form__add" onClick={this.addMore}>{str.add_btn}</button>
           <input
             type="submit"
             value={str.submit}
             className="btn btn-default final-form__submit"
-            onClick={this.onClickSubmit}
+            onClick={this.sendSMS}
+            disabled={isSubmitted}
             />
           </div>
         </div>
@@ -122,25 +142,46 @@ export class FinalForm extends Component {
 
   phoneChange = (event) => {
     this.refs.phoneInput.setCustomValidity('');
-    this.setState({phone: event.target.value, isSubmitted: false });
+    this.setState({phone: event.target.value, isSubmitted: false, invalidPhone: false });
   }
 
   notesChange = (event) => this.setState({notes: event.target.value});
 
-  onClickSubmit = () => this.setState({isSubmitted: true})
+  confirmationCodeChange = (event) => this.setState({confirmationCode: event.target.value});
+
+  formSubmit = (event) => event.preventDefault();
 
   addMore = (event) => {
-    const { name, phone, notes } = this.state;
     event.preventDefault();
+    const { name, phone, notes } = this.state;
     this.props.actions.saveBookingUser({ name, phone, notes });
     this.props.history.push('/booking/step1');
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.submit();
-    this.props.actions.clearBooking();
-    this.props.history.push('/booking/done');
+  sendSMS = () => {
+    const { phone } = this.state;
+    this.setState({isSubmitted: true});
+    firebaseApp.auth().signInWithPhoneNumber(phone, this.recaptchaVerifier)
+    .then((confirmationResult) => this.setState({ confirmationResult }))
+    .catch(() => {
+      this.setState({ invalidPhone: true });
+      this.recaptchaVerifier.render().then((widgetId) => {
+        window.grecaptcha.reset(widgetId);
+      });
+    });
+  }
+
+  submitCode = () => {
+    const { confirmationResult, confirmationCode } = this.state;
+    confirmationResult.confirm(confirmationCode)
+      .then(() => {
+        this.submit();
+        this.props.actions.clearBooking();
+        this.props.history.push('/booking/done');
+      }).catch((error) => {
+        this.setState({invalidCode: true});
+        console.log('error', error);
+      });
   }
 
   deleteSelectedService = (serviceId) => () => {
@@ -166,6 +207,59 @@ export class FinalForm extends Component {
       </li>);
     };
     return content;
+  }
+
+  back = () => {
+    this.setState({ confirmationResult: null });
+  }
+
+  renderConfirmation() {
+    const { confirmationCode, invalidCode } = this.state;
+    const { str } = this.props;
+
+    return (<section className="container final-form--container">
+      <article className="final-form">
+        <header className="page-title">
+          <h2>{str.title_code}</h2>
+        </header>
+        <div className="final-form--fields clearfix">
+          <div className="form-group row">
+            <label className="col-sm-4 control-label" htmlFor="phone-input">{str.confirm_label}</label>
+            <div className="col-sm-6">
+              <input
+                type="text"
+                name="phone"
+                ref="phoneInput"
+                id="phone-input"
+                className="form-control"
+                value={confirmationCode}
+                placeholder="123456"
+                onChange={this.confirmationCodeChange}
+                required={true}
+                />
+            </div>
+          </div>
+          {invalidCode && 
+            (<div className="form-group row final-form__invalid-phone">
+              {str.invalid_code}
+            </div>)
+          }
+          <div className="form-group row">
+            <div className="col-sm-6 col-sm-offset-4 col-md-4 col-md-offset-4 clearfix">
+            <button className="btn btn-default final-form__confirm" onClick={this.submitCode}>{str.submitCode_btn}</button>
+            <button className="btn btn-secondary final-form__back-btn" onClick={this.back}>{str.submitCode_btn}</button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>);
+  }
+
+  renderInvalidError() {
+    const { str } = this.props;
+    return (<div className="form-group row final-form__invalid-phone">
+      {str.invalid_phone}
+    </div>);
   }
 }
 

@@ -154,6 +154,12 @@ h2:after {
   color: white;
 }
 
+.final-form__confirm {
+  float: left;
+  background-color: #c9bc17;
+  color: white;
+}
+
 .final-form__add {
   float: left;
 }
@@ -219,6 +225,10 @@ h2:after {
   line-height: 10px;
 }
 
+.final-form__invalid-phone {
+  color: red;
+}
+
 @media (max-width: 767px) {
   .masters {
     display: block;
@@ -240,5 +250,9 @@ h2:after {
   .final-form__add {
     float: right;
     margin-left: 0px;
+  }
+
+  .final-form__submit {
+    margin-left: 0;
   }
 }

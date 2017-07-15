@@ -64,7 +64,13 @@
     "submit": "Send",
     "add_btn": "Add service",
     "invalid_required": "This field is mandatory",
-    "invalid_number": "Please enter valid phone number"
+    "invalid_number": "Будь ласка введіть вірний мобільний номер",
+    "title_code": "Перевірка номера",
+    "confirm_label": "код з смс повідомлення",
+    "invalid_code": "смс код невірний, нажміть кнопку назад і спробуйте ввести телефон ще раз",
+    "submitCode_btn": "надіслати",
+    "submitCode_btn": "назад",
+    "invalid_phone": "смс не вдалося відправити, спробуйте ще раз ввести номер і натиснути кнопку Надіслати"
   },
   "finish": {
     "title": "Done",
