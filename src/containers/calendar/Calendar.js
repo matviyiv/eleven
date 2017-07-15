@@ -46,7 +46,7 @@ export class Calendar extends Component {
 
   render() {
     const {app: {allEvents, auth, masters}} = this.props;
-    const {filterMaster, email, password, openEdit, selectedBooking} = this.state;
+    const {filterMaster, openEdit, selectedBooking} = this.state;
     let events = allEvents.list;
 
     if (auth.loading) {
@@ -54,11 +54,7 @@ export class Calendar extends Component {
     }
 
     if (auth.status !== 'success') {
-      return (<form onSubmit={this.login}>
-        <input type="email" onChange={this.onEmailChange} value={email} placeholder="Email"/>
-        <input type="password" onChange={this.onPasswordChange} value={password} placeholder="Password"/>
-        <button onClick={this.login}>Submit</button>
-      </form>);
+      return this.renderLoginForm();
     }
 
     if (allEvents.list.length === 0) {
@@ -165,6 +161,23 @@ export class Calendar extends Component {
       'booking--confirmed': status === 'confirmed'
     });
     return {className: eventClasses, style: {}};
+  }
+
+  renderLoginForm() {
+    const { email, password } = this.state;
+    return (<div className="calendar__login-form">
+      <form onSubmit={this.login}>
+        <div className="form-group">
+          <label>Користувач</label>
+          <input type="email" className="form-control" onChange={this.onEmailChange} value={email} placeholder="Email"/>
+        </div>
+        <div className="form-group">
+          <label>Пароль</label>
+          <input type="password" className="form-control" onChange={this.onPasswordChange} value={password} placeholder="Password"/>
+        </div>
+          <button className="btn btn-default" onClick={this.login}>Увійти</button>
+      </form>
+    </div>);
   }
 }
 

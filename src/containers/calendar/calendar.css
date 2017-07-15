@@ -24,3 +24,10 @@
   color: white;
   background-color: green;
 }
+
+.calendar__login-form {
+  width: 500px;
+  padding: 20px;
+  margin: 20px auto;
+  background: hsla(0,0%,100%,.7);
+}
