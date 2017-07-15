@@ -379,7 +379,7 @@ export function changeLanguage(locale, str) {
       });
     }
    
-    fetchGet(`/localization/${locale}.json`)
+    fetchGet(`/localization/${locale}.1.json`)
       .then((localization) => {
         dispatch({
           type: constants.LOCALIZATION_LOADED,

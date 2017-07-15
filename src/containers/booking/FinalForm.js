@@ -159,10 +159,13 @@ export class FinalForm extends Component {
   }
 
   sendSMS = () => {
-    const { phone } = this.state;
+    let phoneNumber = this.state.phone;
     this.setState({isSubmitted: true});
-    firebaseApp.auth().signInWithPhoneNumber(phone, this.recaptchaVerifier)
-    .then((confirmationResult) => this.setState({ confirmationResult }))
+    if (phoneNumber.indexOf('0') == 0) {
+      phoneNumber = '+38' + phoneNumber;
+    }
+    firebaseApp.auth().signInWithPhoneNumber(phoneNumber, this.recaptchaVerifier)
+    .then((confirmationResult) => this.setState({ confirmationResult, phone: phoneNumber }))
     .catch(() => {
       this.setState({ invalidPhone: true });
       this.recaptchaVerifier.render().then((widgetId) => {
@@ -180,7 +183,6 @@ export class FinalForm extends Component {
         this.props.history.push('/booking/done');
       }).catch((error) => {
         this.setState({invalidCode: true});
-        console.log('error', error);
       });
   }
 
@@ -207,10 +209,6 @@ export class FinalForm extends Component {
       </li>);
     };
     return content;
-  }
-
-  back = () => {
-    this.setState({ confirmationResult: null });
   }
 
   renderConfirmation() {
@@ -247,7 +245,6 @@ export class FinalForm extends Component {
           <div className="form-group row">
             <div className="col-sm-6 col-sm-offset-4 col-md-4 col-md-offset-4 clearfix">
             <button className="btn btn-default final-form__confirm" onClick={this.submitCode}>{str.submitCode_btn}</button>
-            <button className="btn btn-secondary final-form__back-btn" onClick={this.back}>{str.submitCode_btn}</button>
             </div>
           </div>
         </div>
