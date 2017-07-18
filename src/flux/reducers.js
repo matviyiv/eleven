@@ -212,6 +212,6 @@ function prepareCalendarEvent(booking, bookingId, masters) {
 
 function showNotification(booking) {
   new Notification('Нове бронювання', {
-    body: booking.selectedServices[0].dateStart
+    body: JSON.stringify(booking.selectedServices)
   })
 }
