@@ -74,8 +74,8 @@ export function appReducer(state = initialState, action) {
       const dateEnd = moment(date).add(service.duration, 'hours');
       const selectedService = {
         masterId: masterId,
-        dateStart: date.toString(),
-        dateEnd: dateEnd.toString(),
+        dateStart: moment(date).toString(),
+        dateEnd: moment(dateEnd).toString(),
         name: service.name,
         en: service.en,
         serviceId: serviceId,

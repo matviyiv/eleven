@@ -35,20 +35,23 @@ export default class Calendar extends Component {
   componentWillReceiveProps(nextProps) {
     const {selectedBooking:{data, subServiceId, title}} = nextProps;
     if (this.props.selectedBooking.subServiceId !== subServiceId) {
+      let selectedService = data.selectedServices[subServiceId];
       this.setState({
         name: data.name,
         phone: data.phone,
         notes: data.notes,
         title: title,
-        duration: data.selectedServices[subServiceId].duration,
-        bookingStatus: data.status
+        duration: selectedService.duration,
+        bookingStatus: data.status,
+        dateStart: selectedService.dateStart,
+        dateEnd: selectedService.dateEnd
       });
     }
   }
 
   render() {
     const {isOpen, onCloseModal} = this.props;
-    const {name, phone, notes, duration, title, bookingStatus} = this.state;
+    const {name, phone, notes, duration, title, bookingStatus, dateStart, dateEnd} = this.state;
 
     return (<div>
       <Modal
@@ -62,6 +65,8 @@ export default class Calendar extends Component {
           <span className="close" onClick={onCloseModal}>x</span>
         </h1>
         <form onSubmit={this.onSubmit} className="edit__form">
+          <div>Start: {dateStart}</div>
+          <div>End: {dateEnd}</div>
           <div>{title}</div>
           <div className="form-group row">
             <label className="col-sm-4 control-label" htmlFor="name-input">{"Ім'я:"}</label>

@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import './App.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-import {addToHomescreen} from './components/add-to-home-screen';
+import moment from 'moment';
+import './moment/moment-timezone-with-data-2012-2022';
+// import {addToHomescreen} from './components/add-to-home-screen';
 
 import * as actionCreators from './flux/actions';
 import BackgroundSlider from './components/background-slider/BackgroundSlider';
 import Menu from './components/menu/Menu';
+
+moment.tz.setDefault('Europe/Kiev');
 
 export class App extends Component {
   state = {
