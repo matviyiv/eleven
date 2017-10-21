@@ -50,7 +50,7 @@ export class Step2 extends Component {
         key={service.id}
         onClick={this.selectService(service.id, service.name)}>
         <div className="step2__service-name">{_.capitalize(displayName)}</div>
-        <div className="step2__service-price">{str.priceTag.replace('{price}', service.price)}</div>
+        <div className="step2__service-price">{str.priceTag && str.priceTag.replace('{price}', service.price)}</div>
       </li>;
     });
     return (<ul className="step2-list">

@@ -83,6 +83,7 @@ export default class Menu extends Component {
 
   changeLanguage = (locale) => (event) => {
     event.preventDefault();
+    document.cookie = 'lang=' + locale; 
     this.props.changeLanguage(locale, this.props.str);
   }
 
