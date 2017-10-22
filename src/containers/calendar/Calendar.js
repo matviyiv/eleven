@@ -54,10 +54,20 @@ export class Calendar extends Component {
     }
 
     if (auth.status !== 'success') {
-      return (<form onSubmit={this.login}>
-        <input type="email" onChange={this.onEmailChange} value={email} placeholder="Email"/>
-        <input type="password" onChange={this.onPasswordChange} value={password} placeholder="Password"/>
-        <button onClick={this.login}>Submit</button>
+      return (<form onSubmit={this.login} className="container">
+        <div className="form-group row">
+        <label className="col-sm-4 control-label" htmlFor="name-input">Email</label>
+          <div className="col-sm-6">
+          <input className="form-control" type="email" onChange={this.onEmailChange} value={email} placeholder="Email"/>
+          </div>
+        </div>
+        <div className="form-group row">
+          <label className="col-sm-4 control-label" htmlFor="name-input">Password</label>
+          <div className="col-sm-6">
+          <input className="form-control" type="password" onChange={this.onPasswordChange} value={password} placeholder="Password"/>
+          </div>
+        </div>
+        <button className="btn btn-default" onClick={this.login}>Submit</button>
       </form>);
     }
 
@@ -113,7 +123,7 @@ export class Calendar extends Component {
   }
 
   renderMasters() {
-    const {app:{masters}} = this.props;
+    const {app:{masters = {}}} = this.props;
     return _.map(masters.list, (master) => (<option value={master.id} key={master.id}>
       {master.name}
     </option>));
