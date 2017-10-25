@@ -109,7 +109,7 @@ export class Calendar extends Component {
   }
 
   renderMasters() {
-    const {app:{masters}} = this.props;
+    const {app:{masters = {}}} = this.props;
     return _.map(masters.list, (master) => (<option value={master.id} key={master.id}>
       {master.name}
     </option>));
