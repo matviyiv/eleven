@@ -9,11 +9,12 @@ export function getAvaliableTime({master, selectedDate, duration}) {
   const dateType = isEven(date) ? 'even' : 'odd';
   const isWorking = master.work.indexOf(dateType) > -1;
   const startWorkHours = selectedDate.hours(startingWorkHours).minutes(0).seconds(0);
+  const endWorkHours = selectedDate.day() === 0 ? 16 : 20;// if sunday make shorter day
 
   if (!isWorking) {return timeList;}
 
   let bookedTime;
-  for (let time = startWorkHours; time < moment(startWorkHours).hours(20); time.add(30, 'minutes')) {
+  for (let time = startWorkHours; time < moment(startWorkHours).hours(endWorkHours); time.add(30, 'minutes')) {
     //filter booked time
     bookedTime = _.get(master.booked, `${moment(time).format('YYYY/M/D')}.${time.get('hour')}.${time.get('minute')}`, bookedTime);
     if (bookedTime) {
@@ -30,7 +31,7 @@ export function getAvaliableTime({master, selectedDate, duration}) {
       && (timeList[index + (duration / 0.5)] ?
         timeList[index + (duration / 0.5)].get('hours') === moment(time).add(duration, 'hours').get('hours')
         :
-        moment(time).add(duration, 'hours').format('HH:mm') === '20:00');
+        ['20:00', '16:00'].indexOf(moment(time).add(duration, 'hours').format('HH:mm')) > -1);
   });
 }
 
