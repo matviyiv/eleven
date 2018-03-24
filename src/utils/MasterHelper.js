@@ -1,17 +1,16 @@
 import moment from 'moment';
 import _ from 'lodash';
 
+const weekdays = moment.weekdays();
+
 export function getAvaliableTime({master, selectedDate, duration}) {
   const timeList = [];
-  const date = selectedDate.date();
   const isToday = moment().get('date') === selectedDate.get('date');
   const startingWorkHours = (isToday && moment().get('hours') > 10) ? moment().get('hours') + 1 : 10;
-  const dateType = isEven(date) ? 'even' : 'odd';
-  const isWorking = master.work.indexOf(dateType) > -1;
   const startWorkHours = selectedDate.hours(startingWorkHours).minutes(0).seconds(0);
   const endWorkHours = selectedDate.day() === 0 ? 16 : 20;// if sunday make shorter day
 
-  if (!isWorking) {return timeList;}
+  if (!isWorking(selectedDate, master.work)) {return timeList;}
 
   let bookedTime;
   for (let time = startWorkHours; time < moment(startWorkHours).hours(endWorkHours); time.add(30, 'minutes')) {
@@ -37,4 +36,11 @@ export function getAvaliableTime({master, selectedDate, duration}) {
 
 export function isEven(n) {
   return n === parseFloat(n)? !(n%2) : void 0;
+}
+
+export function isWorking(selectedDate, workList) {
+  const date = selectedDate.date();
+  const dayOfTheWeek = weekdays[selectedDate.day()];
+  const dateType = isEven(date) ? 'even' : 'odd';
+  return workList.indexOf(dateType) > -1 || workList.indexOf(dayOfTheWeek) > -1;
 }
