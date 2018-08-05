@@ -99,7 +99,7 @@ export class Step3 extends Component {
         selected={this.state.selectedDate}
         onChange={this.handleDateChange}
         minDate={moment()}
-        maxDate={moment().add(30, 'days')}
+        maxDate={moment().date(17)}
         ref="datepicker"
         placeholderText={str.placeholderText} />
       {content}
